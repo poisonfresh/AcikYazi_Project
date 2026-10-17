@@ -1,0 +1,13 @@
+Görev: Aşağıdaki JSON'daki sade Türkçe açıklamayı {{DIL}} diline çevir.
+
+Hedef okuyucu: Türkçe resmî dili bilmeyen, Türkiye'de yaşayan bir yetişkin.
+
+Kurallar:
+- JSON anahtarlarını DEĞİŞTİRME; yalnızca değerleri çevir. Aynı yapıda, yalnızca JSON döndür.
+- Bütün tarihleri, saatleri, tutarları ve numaraları karakteri karakterine aynen koru (ör. "30.11.2026" olduğu gibi kalır, "1.250,00 TL" olduğu gibi kalır). Arapça dahil her dilde rakamları 0–9 Batı rakamlarıyla yaz, çünkü okuyucu bunları Türkçe belgedeki rakamlarla karşılaştıracak.
+- Kurum adlarını çevir, ardından parantez içinde Türkçe aslını bırak. Örnek: "Municipality of Kadıköy (Kadıköy Belediyesi)". Kişi bunu gişede gösterebilmeli.
+- Metne yeni bilgi, yorum veya tavsiye ekleme; hiçbir şeyi çıkarma.
+- Sade ve kısa cümleler kullan.
+
+Çevrilecek JSON:
+{{JSON}}

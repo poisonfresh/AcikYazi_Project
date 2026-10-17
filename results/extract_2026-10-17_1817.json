@@ -1,0 +1,350 @@
+[
+  {
+    "mektup": "d1_emlak_vergisi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "30.11.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "1.486,40 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d1_emlak_vergisi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "30.11.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "1.486,40 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d2_trafik_cezasi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": false,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "2/2",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "03.10.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "2.167,00 TL",
+          "aciklama": ""
+        },
+        {
+          "deger": "1.625,25 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d2_trafik_cezasi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": false,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "2/2",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "03.10.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "2.167,00 TL",
+          "aciklama": ""
+        },
+        {
+          "deger": "1.625,25 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d3_bilgilendirme",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": false,
+    "uydurma_son_tarih": true,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "09.10.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d3_bilgilendirme",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": false,
+    "uydurma_son_tarih": true,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "09.10.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d4_ikamet_randevu",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "05.11.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d4_ikamet_randevu",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "05.11.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d5_enjeksiyon",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": false,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "15.10.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "3.940,75 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  },
+  {
+    "mektup": "d5_enjeksiyon",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": false,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 1,
+    "cikti": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "15.10.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "3.940,75 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    }
+  }
+]

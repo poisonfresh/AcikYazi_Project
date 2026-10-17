@@ -1,0 +1,98 @@
+[
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "extract_v2_cot",
+    "json_ok": false,
+    "hata": "No module named 'google'"
+  }
+]

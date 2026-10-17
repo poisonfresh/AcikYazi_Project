@@ -1,0 +1,18 @@
+Görev: Aşağıda bir resmî yazıdan çıkarılmış bilgiler (JSON) var. Bunları, resmî dili okumakta zorlanan bir yetişkine (ilkokul düzeyinde okuyan biri gibi düşün) sade Türkçeyle açıkla.
+
+Yazım kuralları:
+- Kısa cümleler kur: her cümle en fazla 15 kelime.
+- Hukuk ve bürokrasi terimi kullanma. Kaçınılmazsa (ör. "tebligat") hemen yanında parantez içinde açıkla.
+- "ne_yapmalisiniz": sıralı, emir kipinde, her biri tek iş anlatan maddeler. Yazı bir şey istemiyorsa tek madde: "Bu yazı için bir şey yapmanız gerekmiyor."
+- Tarih, saat ve tutarları JSON'daki hâliyle AYNEN yaz.
+- JSON'da boş olan bir bilgi için tahmin yürütme; gerekirse "Yazıda belirtilmemiş. Emin olmak için kuruma sorun." yaz.
+- "dikkat": "emin_olunmayanlar" listesindeki konuları sade dille yaz. Liste boşsa [] bırak.
+- "son_tarih_ve_yardim" alanını her zaman şu cümleyle bitir: "Emin olmadığınızda yazıyı gönderen kuruma sorun."
+- Toplam en fazla 120 kelime. Yalnızca JSON döndür.
+
+{{ORNEKLER}}
+
+ŞİMDİ SIRA SENDE
+Girdi:
+{{JSON}}
+Çıktı:

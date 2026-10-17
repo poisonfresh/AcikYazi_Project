@@ -1,0 +1,518 @@
+[
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "A fine was issued to you for not obeying traffic rules. The fine amount is 3.135,00 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the fine within 15 days.",
+        "If you pay within 15 days, you will pay 2.351,25 TL.",
+        "Go to the Criminal Judgeship of Peace to object to the fine."
+      ],
+      "son_tarih_ve_yardim": "The deadline is 15 days. If you do not pay on time, a 5% monthly late fee will be added. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was sent is not specified.",
+        "Contact information for the institution is not in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "You were given a fine because you did not follow the traffic rules. The fine amount is 3.135,00 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the fine within 15 days.",
+        "If you pay within 15 days, you will pay 2.351,25 TL.",
+        "Go to the Criminal Judgeship of Peace (Sulh Ceza Hakimliği) to object to the fine."
+      ],
+      "son_tarih_ve_yardim": "The deadline is 15 days. If you do not pay on time, a 5% monthly late fee will be added. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was sent is not specified.",
+        "Contact information for the institution is not in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "A fine was issued to you because you did not follow the traffic rules. The fine amount is 3.135,00 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the fine within 15 days.",
+        "If you pay within 15 days, you will pay 2.351,25 TL.",
+        "Go to the Criminal Judgeship of Peace (Sulh Ceza Hakimliği) to object to the fine."
+      ],
+      "son_tarih_ve_yardim": "The deadline is 15 days. If you do not pay on time, a 5% monthly late payment interest will be added. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was sent is not specified.",
+        "Contact information for the institution is not in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": false,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "Çankaya Municipality states that there is a tax debt. Your total debt is 935.44 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the 935.44 TL debt by November 30, 2026.",
+        "Make the payment to the municipal cash desk or to the IBAN number TR99 0000 0000 0000 0000 0000 00."
+      ],
+      "son_tarih_ve_yardim": "The deadline for payment is November 30, 2026. Legal action may be taken if you do not pay on time. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation date of the letter and the method of appeal are not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "Çankaya Municipality (Çankaya Belediyesi) states that you have a tax debt. Your total debt is 935,44 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 935,44 TL until 30 Kasım 2026.",
+        "Make the payment to the municipality cash desk or to the IBAN number TR99 0000 0000 0000 0000 0000 00."
+      ],
+      "son_tarih_ve_yardim": "The final payment date is 30 Kasım 2026. If you do not pay on time, legal action may be taken. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation date of the letter and the way to object are not stated in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "Municipality of Çankaya (Çankaya Belediyesi) states that you have a tax debt. Your total debt is 935,44 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 935,44 TL until the date of 30 November (Kasım) 2026.",
+        "Make the payment to the municipal cash desk or to the IBAN number TR99 0000 0000 0000 0000 0000 00."
+      ],
+      "son_tarih_ve_yardim": "The last payment day is 30 November (Kasım) 2026. If you do not pay on time, legal action may be taken. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation date of the letter and the method of appeal are not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "The Immigration Administration has reported missing documents for your residence application dated 05.10.2026.",
+      "ne_yapmalisiniz": [
+        "Obtain the original current health insurance policy.",
+        "Deliver the policy in person to the additional document submission counters."
+      ],
+      "son_tarih_ve_yardim": "The deadline is at the latest 10 (ten) days from the date you received this letter. If you do not submit it on time, your application will be cancelled and deportation procedures will begin. When you are unsure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The exact date the letter reached you is not written in the letter.",
+        "The contact information of the institution is not specified in the letter.",
+        "The method of appeal is not written in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "Presidency of Migration Management (Göç İdaresi) requested missing documents for your residence permit application dated 05.10.2026.",
+      "ne_yapmalisiniz": [
+        "Get the original current health insurance policy.",
+        "Take the policy to the additional document delivery counters in person and submit it."
+      ],
+      "son_tarih_ve_yardim": "The deadline is at the latest 10 (ten) days from the date you received this letter. If you do not submit it on time, your application will be cancelled and deportation procedures will begin. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The exact date the letter reached you is not in the letter.",
+        "The contact information of the institution is not specified in the letter.",
+        "The way to appeal is not written in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "Presidency of Migration Management (Göç İdaresi) requested missing documents for your residence permit application dated 05.10.2026.",
+      "ne_yapmalisiniz": [
+        "Get the original current health insurance policy.",
+        "Take the policy to the additional document delivery counters in person and give it."
+      ],
+      "son_tarih_ve_yardim": "The deadline is at the latest 10 (on) days from the date you received this letter. If you do not submit it on time, your application will be cancelled and deportation procedures will begin. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The exact date the letter reached you is not in the letter.",
+        "The institution's contact information is not specified in the letter.",
+        "The way to appeal is not written in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": false,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "The Social Security Institution sent a debt warning. Your total debt is 9,681.15 TL. This amount includes the principal and late payment interest.",
+      "ne_yapmalisiniz": [
+        "Pay the 9,681.15 TL debt in one go to contracted banks within 7 (seven) days.",
+        "If you wish, file an objection in court within this period."
+      ],
+      "son_tarih_ve_yardim": "Period: 7 (seven) days. If you do not pay or object within this period, an electronic seizure (e-haciz) may be applied. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was issued, the notification date, and contact information are not specified. Ask the institution to be certain."
+      ]
+    }
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "Social Security Institution (Sosyal Güvenlik Kurumu) sent a debt warning. Your total debt is 9.681,15 TL. This amount includes the principal and late payment interest.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 9.681,15 TL to contracted banks in a single payment within 7 (seven) days.",
+        "If you want, object to the court within this period."
+      ],
+      "son_tarih_ve_yardim": "Period: 7 (seven) days. If you do not pay or object within this period, e-seizure may be applied. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was issued, the notification date, and contact information are not specified. Ask the institution to be sure."
+      ]
+    }
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "Social Security Institution (Sosyal Güvenlik Kurumu) sent a debt warning. Your total debt is 9.681,15 TL. This amount includes the principal debt and late payment interest.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 9.681,15 TL to contracted banks in a single payment within 7 (seven) days.",
+        "If you wish, file an objection in court within this period."
+      ],
+      "son_tarih_ve_yardim": "Period: 7 (seven) days. If you do not pay or object within this period, e-seizure (e-haciz) may be applied. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was issued, the notification date, and contact information are not specified. Ask the institution to be sure."
+      ]
+    }
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": false,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "This letter from Yenimahalle Cumhuriyet Primary School is about the 2026-2027 academic year material contribution fee. The amount you need to pay is 1,250.00 TL.",
+      "ne_yapmalisiniz": [
+        "Deposit the amount of 1,250.00 TL into the Ziraat Bank account TR12 3456 7890 1234 5678 9012 34.",
+        "Write the student's Turkish ID number in the description section."
+      ],
+      "son_tarih_ve_yardim": "Deadline: End of working hours on Friday, November 06, 2026. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "What will happen if you do not make the payment is not specified in the letter.",
+        "The method of appeal is not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "This letter from Yenimahalle Cumhuriyet Primary School (Yenimahalle Cumhuriyet İlkokulu) is about the 2026-2027 academic year material contribution fee. The amount you need to pay is 1.250,00 TL.",
+      "ne_yapmalisiniz": [
+        "Deposit the amount of 1.250,00 TL into the Ziraat Bank account with the number TR12 3456 7890 1234 5678 9012 34.",
+        "Write the student's Turkish ID number in the description section."
+      ],
+      "son_tarih_ve_yardim": "Deadline: End of working hours on Friday, 06 November 2026. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "What will happen if you do not make the payment is not stated in the letter.",
+        "The method of appeal is not stated in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "This letter from Yenimahalle Cumhuriyet Primary School (Yenimahalle Cumhuriyet İlkokulu) is about the material contribution fee for the 2026-2027 academic year. The amount you need to pay is 1.250,00 TL.",
+      "ne_yapmalisiniz": [
+        "Deposit the amount of 1.250,00 TL into the Ziraat Bank account numbered TR12 3456 7890 1234 5678 9012 34.",
+        "Write the student's Turkish ID number in the description section."
+      ],
+      "son_tarih_ve_yardim": "Deadline: End of the working day on Friday, 06 November (Kasım) 2026. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "What will happen if you do not make the payment is not stated in the letter.",
+        "The way to object is not stated in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "A tax debt and penalty notice has been received from the Doğanbey Tax Office Directorate. Your total debt is 30.800,00 TL. This amount consists of 15.400,00 TL principal tax and 15.400,00 TL single-rate tax loss penalty.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 30.800,00 TL.",
+        "Use the Interactive Tax Office (ivd.gib.gov.tr) address.",
+        "Make payments through contracted banks.",
+        "You may request a settlement.",
+        "You can file a lawsuit in the Tax Court."
+      ],
+      "son_tarih_ve_yardim": "Deadline: 30 (thirty) days following the date of notification. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation/dispatch date of the letter is not specified in the letter.",
+        "Contact information is not specified in the letter.",
+        "The exact date the letter was notified is not specified in the letter.",
+        "The exact calendar date when the period ends is not specified in the letter.",
+        "The sanction to be applied in case of non-payment is not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "A tax debt and penalty notification was received from the Directorate of Doğanbey Tax Office (Doğanbey Vergi Dairesi Müdürlüğü). Your total debt is 30.800,00 TL. This amount consists of 15.400,00 TL main tax and 15.400,00 TL onefold tax loss penalty.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 30.800,00 TL.",
+        "Use the Interactive Tax Office (İnteraktif Vergi Dairesi) address (ivd.gib.gov.tr).",
+        "Make payments through contracted banks.",
+        "You can request reconciliation.",
+        "You can file a lawsuit in the Tax Court (Vergi Mahkemesi)."
+      ],
+      "son_tarih_ve_yardim": "Deadline: 30 (thirty) days following the notification date. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation/dispatch date of the letter is not specified in the letter.",
+        "Contact information is not specified in the letter.",
+        "The exact date the letter was notified is not specified in the letter.",
+        "The exact calendar date when the period ends is not specified in the letter.",
+        "The sanction to be applied in case of non-payment is not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "A tax debt and penalty notice has arrived from the Directorate of Doğanbey Tax Office (Doğanbey Vergi Dairesi Müdürlüğü). Your total debt is 30.800,00 TL. This amount consists of 15.400,00 TL principal tax and 15.400,00 TL one-fold tax loss penalty.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 30.800,00 TL.",
+        "Use the Interactive Tax Office (İnteraktif Vergi Dairesi - ivd.gib.gov.tr) address.",
+        "Make the payment through contracted banks.",
+        "You may request a settlement.",
+        "You can file a lawsuit at the Tax Court (Vergi Mahkemesi)."
+      ],
+      "son_tarih_ve_yardim": "Deadline: 30 (thirty) days following the date of notification. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation/dispatch date of the letter is not specified in the letter.",
+        "Contact information is not specified in the letter.",
+        "The exact date the letter was notified is not specified in the letter.",
+        "The exact calendar date when the period ends is not specified in the letter.",
+        "The sanction to be applied in case of non-payment is not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "This warning letter from the notary is about a house rent debt. You have a past debt of a total of 9.000,00 TL. The new rent has become 16.500,00 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the 9.000,00 TL debt.",
+        "Deposit the new rent into the bank by the 5th of each month at the latest."
+      ],
+      "son_tarih_ve_yardim": "The period starts after the letter reaches you (30 (thirty) days legal period from notification). If you do not pay, a lawsuit may be filed. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The appeal method, necessary documents, and account information are not in the letter.",
+        "The exact deadline is not specified in the letter, it depends on the date it reaches you."
+      ]
+    }
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "This warning letter from the Notary Public (Noterlik) is about unpaid house rent debt. You have a total past debt of 9.000,00 TL. The new rent is 16.500,00 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the 9.000,00 TL debt.",
+        "Deposit the new rent to the bank by the 5th of each month at the latest."
+      ],
+      "son_tarih_ve_yardim": "The period starts after the letter reaches you (30 (thirty) days legal period from the date of service). If you do not pay, a lawsuit may be filed. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The method of objection, required documents, and account information are not in the letter.",
+        "The exact final day is not stated in the letter, it depends on the date it reaches you."
+      ]
+    }
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "This warning letter from the Notary Public (Noterlik) is about unpaid house rent debt. You have a total past debt of 9.000,00 TL. The new rent is 16.500,00 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the debt of 9.000,00 TL.",
+        "Deposit the new rent to the bank by the 5th of each month at the latest."
+      ],
+      "son_tarih_ve_yardim": "The period starts after the letter reaches you (30 (thirty) days legal period from the notification). If you do not pay, a lawsuit may be filed. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The way to object, necessary documents, and account information are not in the letter.",
+        "The exact final day is not stated in the letter, it depends on the date it reaches you."
+      ]
+    }
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "translate_v0_naive",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": false,
+    "cikti": {
+      "bu_yazi_ne": "This letter is for informational purposes from the Ankara Metropolitan Municipality. Ground and excavation work will begin on October 15, 2026.",
+      "ne_yapmalisiniz": [
+        "You do not need to do anything for this letter."
+      ],
+      "son_tarih_ve_yardim": "There is no deadline mentioned in the letter. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The sending date of the letter and contact information are not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "translate_v1_rules",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "This letter is for information purposes from Ankara Metropolitan Municipality (Ankara Büyükşehir Belediyesi). Ground and excavation work will begin on 15 Ekim 2026.",
+      "ne_yapmalisiniz": [
+        "You do not need to do anything for this letter."
+      ],
+      "son_tarih_ve_yardim": "There is no deadline in the letter. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The sending date of the letter and contact information are not specified in the letter."
+      ]
+    }
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "translate_v3_ay_adi",
+    "dil": "en",
+    "json_ok": true,
+    "anahtarlar_ayni": true,
+    "rakam_korundu": true,
+    "kurum_turkcesi_var": true,
+    "cikti": {
+      "bu_yazi_ne": "This letter is for informational purposes from Ankara Metropolitan Municipality (Ankara Büyükşehir Belediyesi). Ground and excavation work will begin on 15 October (Ekim) 2026.",
+      "ne_yapmalisiniz": [
+        "You do not need to do anything for this letter."
+      ],
+      "son_tarih_ve_yardim": "There is no deadline in the letter. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The sending date and contact information of the letter are not specified in the letter."
+      ]
+    }
+  }
+]

@@ -1,0 +1,199 @@
+[
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": true,
+    "format_tam": true,
+    "kelime": 168,
+    "120_alti": false,
+    "uzun_cumle": 5,
+    "jargon": 0,
+    "yeni_rakam": 0,
+    "kapanis_cumlesi": false,
+    "cikti": {
+      "bu_yazi_ne": "Bu yazı, Ankara İl Emniyet Müdürlüğü Trafik Denetleme Şube Müdürlüğü'nden size gönderilmiş bir trafik cezası bildirimidir. 14.09.2026 tarihinde işlenen bir trafik kuralı ihlali nedeniyle size 3.135,00 TL ceza kesilmiştir.",
+      "ne_yapmalisiniz": [
+        "Bu cezayı ödeyebilirsiniz.",
+        "Bu cezaya itiraz edebilirsiniz.",
+        "Eğer bu yazıyı aldığınız tarihten itibaren 15 gün içinde cezayı öderseniz, %25 indirim uygulanır ve 2.351,25 TL ödersiniz.",
+        "Eğer cezaya itiraz etmek isterseniz, bu yazıyı aldığınız tarihten itibaren en geç 15 gün içinde Sulh Ceza Hakimliği'ne başvurmanız gerekir."
+      ],
+      "son_tarih_ve_yardim": "İndirimli ödeme yapmak veya cezaya itiraz etmek için son tarih, bu yazıyı elinize aldığınız günden itibaren 15 gündür. Yazıda bu tarihi ne zaman aldığınız yazmıyor. Eğer cezayı zamanında ödemezseniz, ödenmeyen tutara her ay %5 gecikme zammı eklenecektir.",
+      "dikkat": [
+        "Bu yazıda, yazıyı ne zaman aldığınıza dair bir tarih belirtilmemiştir. Bu tarih, indirimli ödeme ve itiraz için önemli olan 15 günlük sürenin başlangıcıdır.",
+        "Yazıda, Ankara İl Emniyet Müdürlüğü'nün telefon numarası veya adresi gibi iletişim bilgileri bulunmamaktadır.",
+        "Cezayı ödemek veya itiraz etmek için hangi belgelerin gerekli olduğu yazıda belirtilmemiştir."
+      ]
+    }
+  },
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": true,
+    "format_tam": true,
+    "kelime": 97,
+    "120_alti": true,
+    "uzun_cumle": 0,
+    "jargon": 0,
+    "yeni_rakam": 0,
+    "kapanis_cumlesi": true,
+    "cikti": {
+      "bu_yazi_ne": "Emniyet Genel Müdürlüğü size bir trafik cezası gönderdi. Cezanın ana tutarı 3.135,00 TL. Bu ceza 14.09.2026 tarihindeki bir ihlal için.",
+      "ne_yapmalisiniz": [
+        "Cezayı ödeyebilirsiniz.",
+        "Ya da cezaya itiraz edebilirsiniz.",
+        "İndirimli ödeme için 2.351,25 TL ödeyin.",
+        "İtiraz etmek için Sulh Ceza Hakimliğine başvurun."
+      ],
+      "son_tarih_ve_yardim": "Cezayı indirimli ödemek veya itiraz etmek için 15 gün süreniz var. Bu süre, yazının size ulaştığı günden başlar. Geç öderseniz, her ay %5 gecikme zammı uygulanır. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazıda belgenin size ne zaman ulaştığı yazmıyor.",
+        "Kurumun iletişim bilgileri (telefon, adres) belirtilmemiş.",
+        "İtiraz için gerekli belgeler yazıda belirtilmemiş."
+      ]
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": true,
+    "format_tam": true,
+    "kelime": 124,
+    "120_alti": false,
+    "uzun_cumle": 2,
+    "jargon": 2,
+    "yeni_rakam": 0,
+    "kapanis_cumlesi": false,
+    "cikti": {
+      "bu_yazi_ne": "Bu yazı, Çankaya Belediyesi'nden size gönderilmiş bir vergi bildirisidir. Bu bildiriye göre, 1319 sayılı kanun kapsamında ödemeniz gereken toplam 935,44 TL borcunuz bulunmaktadır. Bu borç, 2026 yılına ait 850,40 TL Çevre Temizlik Vergisi'nin ikinci taksiti ve 85,04 TL Taşınmaz Kültür Varlıklarını Koruma Katkı Payı'ndan oluşmaktadır.",
+      "ne_yapmalisiniz": [
+        "Bu yazıda belirtilen 935,44 TL borcu ödemeniz gerekmektedir.",
+        "Ödemeyi Çankaya Belediyesi'nin veznelerine (gişelerine) yapabilir veya TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabına gönderebilirsiniz."
+      ],
+      "son_tarih_ve_yardim": "Borcunuzu ödemeniz için son gün 30 Kasım 2026 tarihidir. Bu tarihe kadar ödeme yapmanız gerekmektedir.",
+      "dikkat": [
+        "Borcunuzu 30 Kasım 2026 tarihine kadar ödemezseniz, 6183 sayılı kanun uyarınca borcunuz zorla tahsil edilecektir.",
+        "Bu yazıda yazının tarihi, itiraz yolu, gerekli belgeler ve iletişim bilgileri hakkında bilgi bulunmamaktadır."
+      ]
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": true,
+    "format_tam": true,
+    "kelime": 94,
+    "120_alti": true,
+    "uzun_cumle": 0,
+    "jargon": 1,
+    "yeni_rakam": 0,
+    "kapanis_cumlesi": true,
+    "cikti": {
+      "bu_yazi_ne": "Çankaya Belediyesi size bir vergi ihbarnamesi gönderdi. Bu yazı, ödemeniz gereken vergileri bildiriyor. Toplam borcunuz 935,44 TL'dir. Bu borç, 850,40 TL Çevre Temizlik Vergisi ve 85,04 TL katkı payıdır.",
+      "ne_yapmalisiniz": [
+        "935,44 TL borcu ödeyin.",
+        "Ödemeyi belediye veznelerine yapın.",
+        "Ya da TR99 0000 0000 0000 0000 0000 00 IBAN numarasına gönderin."
+      ],
+      "son_tarih_ve_yardim": "Son ödeme günü: 30 Kasım 2026. Bu tarihe kadar ödemezseniz, borç zorla tahsil edilebilir. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazının tarihi belirtilmemiş.",
+        "Borca nasıl itiraz edeceğiniz yazmıyor.",
+        "Gerekli belgeler ve iletişim bilgileri de yok.",
+        "Emin olmak için kuruma sorun."
+      ]
+    }
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": true,
+    "format_tam": true,
+    "kelime": 96,
+    "120_alti": true,
+    "uzun_cumle": 0,
+    "jargon": 0,
+    "yeni_rakam": 0,
+    "kapanis_cumlesi": true,
+    "cikti": {
+      "bu_yazi_ne": "Göç İdaresi'nden bir yazı aldınız. Bu yazı, eksik bir belgeniz olduğunu söylüyor. Kısa Dönem İkamet İzni başvurunuzla ilgili. Başvuru tarihiniz 05.10.2026. Sağlık sigortası belgeniz eksik.",
+      "ne_yapmalisiniz": [
+        "Güncel sağlık sigortası poliçenizin aslını hazırlayın.",
+        "Poliçe, kalmak istediğiniz süreyi tam kapsamalı.",
+        "Belgeyi Göç İdaresi ek evrak teslim gişelerine götürün.",
+        "Belgeyi kendiniz teslim etmelisiniz."
+      ],
+      "son_tarih_ve_yardim": "Belgeyi, bu yazıyı aldığınız günden itibaren 10 gün içinde teslim edin. Teslim etmezseniz başvurunuz iptal olur. Hakkınızda V-137 kodu işlenebilir. Sınır dışı (deport) işlemleri başlayabilir. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Bu yazıda itiraz etme yolu belirtilmemiş.",
+        "Kurumun iletişim bilgileri (telefon, adres) yazmıyor."
+      ]
+    }
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "simplify_v1_zeroshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "simplify_v2_fewshot",
+    "json_ok": false,
+    "hata": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+  }
+]

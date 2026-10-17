@@ -1,0 +1,34 @@
+{
+  "_aciklama": "B ile sabitlenen veri sözleşmesi. Alan adlarını değiştirmeden önce B'ye haber ver.",
+  "cikarim": {
+    "analiz_adimlari": "list[str]  - CoT adımları (arayüzde gösterilmez, LOG/rapor için)",
+    "belge_turu": "str",
+    "kurum": "str",
+    "konu": "str",
+    "istenen_islem": "str  - boş ise yazı bir şey istemiyor",
+    "son_tarih": {
+      "deger": "str  - yazıdaki biçimiyle aynen, ör. 30.11.2026 veya 'tebliğden itibaren 15 gün'",
+      "aciklama": "str",
+      "kaynak_alinti": "str  - son tarihin geçtiği cümle, kelimesi kelimesine"
+    },
+    "tutarlar": "list[{deger: str, aciklama: str}]",
+    "diger_tarihler": "list[{deger: str, aciklama: str}]",
+    "gerekli_belgeler": "list[str]",
+    "itiraz_yolu": "str",
+    "yaptirim": "str  - yapılmazsa ne olur",
+    "iletisim": "str",
+    "emin_olunmayanlar": "list[str]"
+  },
+  "sade": {
+    "bu_yazi_ne": "str",
+    "ne_yapmalisiniz": "list[str]",
+    "son_tarih_ve_yardim": "str",
+    "dikkat": "list[str]"
+  },
+  "ceviri": "sade ile aynı anahtarlar, değerler hedef dilde",
+  "dogrulama": {
+    "kontroller": "list[{alan, deger, bulundu: bool}]  - tarih/tutar asıl metinde var mı",
+    "ceviri_rakam_korundu": "bool",
+    "uyarilar": "list[str]  - arayüzde kırmızı gösterilecek"
+  }
+}

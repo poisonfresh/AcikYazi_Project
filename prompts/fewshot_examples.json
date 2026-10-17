@@ -1,0 +1,48 @@
+[
+  {
+    "not": "Uydurma örnek. Test setinde kullanılmaz.",
+    "girdi": {
+      "belge_turu": "Borç ihtarı",
+      "kurum": "Örnekşehir Su ve Kanalizasyon İdaresi",
+      "konu": "Ödenmemiş su faturası",
+      "istenen_islem": "Gecikmiş fatura borcunun ödenmesi",
+      "son_tarih": {"deger": "14.11.2026", "aciklama": "Borcun en son ödenebileceği gün", "kaynak_alinti": "Borcunuzun en geç 14.11.2026 tarihine kadar ödenmesi gerekmektedir."},
+      "tutarlar": [{"deger": "842,60 TL", "aciklama": "Gecikme bedeli dahil toplam borç"}],
+      "diger_tarihler": [{"deger": "28.10.2026", "aciklama": "Yazının tarihi"}],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Ödeme yapılmazsa su kesilecek",
+      "iletisim": "Abone hizmetleri veznesi",
+      "emin_olunmayanlar": ["İtiraz yolu yazıda belirtilmemiş"]
+    },
+    "cikti": {
+      "bu_yazi_ne": "Su idaresi, ödenmemiş su faturanız için uyarı gönderdi. Toplam borcunuz 842,60 TL. Bu tutara gecikme bedeli de dahil.",
+      "ne_yapmalisiniz": ["842,60 TL borcu ödeyin.", "Ödemeyi abone hizmetleri veznesinde yapabilirsiniz."],
+      "son_tarih_ve_yardim": "Son ödeme günü: 14.11.2026. Bu tarihe kadar ödemezseniz suyunuz kesilebilir. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": ["Bu yazı itiraz etmenin bir yolunu söylemiyor. Borcun yanlış olduğunu düşünüyorsanız kuruma sorun."]
+    }
+  },
+  {
+    "not": "Uydurma örnek. Test setinde kullanılmaz. Son tarih ve tutar olmayan durumu öğretir.",
+    "girdi": {
+      "belge_turu": "Bilgilendirme ve davet",
+      "kurum": "Örnekköy Halk Eğitimi Merkezi",
+      "konu": "Ücretsiz Türkçe okuma-yazma kursu",
+      "istenen_islem": "",
+      "son_tarih": {"deger": "", "aciklama": "", "kaynak_alinti": ""},
+      "tutarlar": [],
+      "diger_tarihler": [{"deger": "02.11.2026", "aciklama": "Kursun başlama tarihi"}],
+      "gerekli_belgeler": ["Kimlik belgesinin fotokopisi"],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "Halk Eğitimi Merkezi kayıt bürosu",
+      "emin_olunmayanlar": ["Kayıt için son tarih yazıda belirtilmemiş"]
+    },
+    "cikti": {
+      "bu_yazi_ne": "Bu bir davet yazısı. Halk Eğitimi Merkezi ücretsiz Türkçe okuma-yazma kursu açıyor. Kurs 02.11.2026 tarihinde başlıyor.",
+      "ne_yapmalisiniz": ["Bu yazı için bir şey yapmanız gerekmiyor.", "Kursa katılmak isterseniz kimlik belgenizin fotokopisiyle kayıt bürosuna gidin."],
+      "son_tarih_ve_yardim": "Kayıt için son gün yazıda belirtilmemiş. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": ["Kayıt için son günü kuruma sorun."]
+    }
+  }
+]

@@ -1,0 +1,759 @@
+[
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "2/2",
+    "dogrulama_temiz": false,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Trafik İdari Para Cezası Karar Tutanağı Tebliği",
+      "kurum": "T.C. İçişleri Bakanlığı Emniyet Genel Müdürlüğü - Ankara İl Emniyet Müdürlüğü Trafik Denetleme Şube Müdürlüğü",
+      "konu": "Trafik İdari Para Cezası Karar Tutanağı Tebliği",
+      "istenen_islem": "Trafik idari para cezası tutanağında belirtilen tutarın ödenmesi.",
+      "son_tarih": {
+        "deger": "Tebliğ tarihinden itibaren 15 gün",
+        "aciklama": "Cezanın indirimli ödenebilmesi veya itiraz edilebilmesi için gereken süre.",
+        "kaynak_alinti": "İşbu kararın tarafınıza tebliğ edildiği tarihten itibaren 15 (on beş) gün zarfında ödenmesi halinde... Karara karşı, tebliğ tarihinden itibaren en geç 15 gün içerisinde yetkili Sulh Ceza Hakimliğine müracaatla itiraz hakkınız mahfuzdur."
+      },
+      "tutarlar": [
+        {
+          "deger": "3.135,00 TL",
+          "aciklama": "Tatbik edilen idari para cezası"
+        },
+        {
+          "deger": "2.351,25 TL",
+          "aciklama": "Tebliğ tarihinden itibaren 15 gün içinde ödenmesi durumunda dörtte bir (%25) indirimli uygulanacak tutar"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "14.09.2026",
+          "aciklama": "Kural ihlalinin gerçekleştiği tarih"
+        },
+        {
+          "deger": "08:45",
+          "aciklama": "Kural ihlalinin gerçekleştiği saat"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Karara karşı, tebliğ tarihinden itibaren en geç 15 gün içerisinde yetkili Sulh Ceza Hakimliğine müracaatla itiraz edilebilir.",
+      "yaptirim": "Vadesinde ödenmeyen tutarlara aylık %5 oranında gecikme zammı uygulanacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t1_trafik_cezasi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "2/2",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı Ankara İl Emniyet Müdürlüğü Trafik Denetleme Şube Müdürlüğü göndermektedir ve yazı bir trafik idari para cezası tebliğidir.",
+        "Okuyucudan, tebliğ tarihinden itibaren 15 gün zarfında 3.135,00 TL idari para cezasını ödemesi istenmektedir. Ayrıca, ödeme yapılmazsa karara karşı tebliğ tarihinden itibaren 15 gün içinde yetkili Sulh Ceza Hakimliğine itiraz etme hakkı bulunmaktadır.",
+        "Yazıdaki tarihleri listeledik: 14.09.2026 (olay tarihi). Yazının kendi tarihi veya randevu tarihi bulunmamaktadır. Son gün belirli bir takvim tarihi olarak verilmemiş, 'tebliğ edildiği tarihten itibaren 15 (on beş) gün zarfında' şeklinde ifade edilmiştir.",
+        "Yazıdaki tutarları listeledik: 3.135,00 TL (idari para cezası) ve 2.351,25 TL (dörtte bir oranında indirimli ödenecek tutar).",
+        "İstenen belgeler yazıda geçmemektedir. İtiraz yolu: tebliğ tarihinden itibaren en geç 15 gün içerisinde yetkili Sulh Ceza Hakimliğine müracaat. Yaptırım: Vadesinde ödenmeyen tutarlara aylık %5 oranında gecikme zammı uygulanacaktır.",
+        "Yazıda belgenin düzenlendiği tam tarih (yazı tarihi) ve iletişim bilgileri bulunmamaktadır."
+      ],
+      "belge_turu": "Trafik İdari Para Cezası Karar Tutanağı Tebliği",
+      "kurum": "T.C. İÇİŞLERİ BAKANLIĞI EMNİYET GENEL MÜDÜRLÜĞÜ Ankara İl Emniyet Müdürlüğü Trafik Denetleme Şube Müdürlüğü",
+      "konu": "Trafik İdari Para Cezası Karar Tutanağı Tebliği",
+      "istenen_islem": "Trafik idari para cezasının ödenmesi",
+      "son_tarih": {
+        "deger": "15 gün",
+        "aciklama": "Tebliğ tarihinden itibaren 15 gün içinde ödenirse %25 indirim uygulanır ve aynı sürede itiraz edilebilir.",
+        "kaynak_alinti": "İşbu kararın tarafınıza tebliğ edildiği tarihten itibaren 15 (on beş) gün zarfında ödenmesi halinde, 5326 sayılı Kabahatler Kanunu'nun 17. maddesinin 6. fıkrası gereğince dörtte bir (%25) oranında indirim tatbik edilerek 2.351,25 TL olarak tahsil edilecektir."
+      },
+      "tutarlar": [
+        {
+          "deger": "3.135,00 TL",
+          "deger_aciklamasi": "",
+          "aciklama": "İdari para cezası tutarı"
+        },
+        {
+          "deger": "2.351,25 TL",
+          "deger_aciklamasi": "",
+          "aciklama": "15 gün içinde ödenmesi durumunda indirimli ödenecek tutar"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "14.09.2026",
+          "aciklama": "Aracın kural ihlali yaptığı olay tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Karara karşı, tebliğ tarihinden itibaren en geç 15 gün içerisinde yetkili Sulh Ceza Hakimliğine müracaatla itiraz hakkınız mahfuzdur.",
+      "yaptirim": "Vadesinde ödenmeyen tutarlara aylık %5 oranında gecikme zammı uygulanacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının düzenlenme/gönderilme tarihi",
+        "İletişim bilgileri"
+      ]
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Vergi İhbarnamesi",
+      "kurum": "T.C. Çankaya Belediye Başkanlığı Mali Hizmetler Dairesi Başkanlığı - Gelirler Şube Müdürlüğü",
+      "konu": "1319 Sayılı Kanun Kapsamında Vergi İhbarnamesi",
+      "istenen_islem": "2026 yılına ait 2. taksit Çevre Temizlik Vergisi (ÇTV) ve Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı borcunun belediye veznelerine veya belirtilen IBAN numarasına defaten ödenmesi.",
+      "son_tarih": {
+        "deger": "30 Kasım 2026",
+        "aciklama": "Borcun ödenmesi gereken son tarih",
+        "kaynak_alinti": "en geç 30 Kasım 2026 tarihi mesai bitimine dek"
+      },
+      "tutarlar": [
+        {
+          "deger": "850,40 TL",
+          "aciklama": "2026 yılına ait 2. taksit Çevre Temizlik Vergisi (ÇTV) borcu"
+        },
+        {
+          "deger": "85,04 TL",
+          "aciklama": "Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı"
+        },
+        {
+          "deger": "935,44 TL",
+          "aciklama": "Cem'an asli borç tutarı"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Aksi takdirde 6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun hükümleri uyarınca cebri tahsilat yoluna gidilecektir.",
+      "iletisim": "TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabı veya Belediyemiz vezneleri",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t2_ctv_borcu",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Çankaya Belediye Başkanlığı Mali Hizmetler Dairesi Başkanlığı - Gelirler Şube Müdürlüğü gönderiyor ve yazı bir vergi ihbarnamesidir.",
+        "Okuyucudan 935,44 TL toplam asli borcun en geç 30 Kasım 2026 tarihi mesai bitimine dek belediye veznelerine veya belirtilen IBAN numarasına ödenmesi isteniyor.",
+        "Yazıdaki tek tarih 30 Kasım 2026'dır ve bu tarih borcun son ödeme günüdür.",
+        "Yazıdaki tutarlar 850,40 TL Çevre Temizlik Vergisi, 85,04 TL Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı ve cem'an 935,44 TL asli borçtur.",
+        "Yazıda gerekli belgeler belirtilmemiştir, itiraz yolu belirtilmemiştir, ödenmezse 6183 sayılı Kanun hükümleri uyarınca cebri tahsilat yoluna gidileceği belirtilmiştir.",
+        "Yazının başlığı veya düzenlenme tarihi metinde yer almamaktadır."
+      ],
+      "belge_turu": "Vergi İhbarnamesi",
+      "kurum": "T.C. Çankaya Belediye Başkanlığı Mali Hizmetler Dairesi Başkanlığı - Gelirler Şube Müdürlüğü",
+      "konu": "1319 Sayılı Kanun Kapsamında Vergi İhbarnamesi",
+      "istenen_islem": "850,40 TL Çevre Temizlik Vergisi ile 85,04 TL Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı olmak üzere toplam 935,44 TL borcun Belediyemiz veznelerine veya TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabına defaten yatırılması.",
+      "son_tarih": {
+        "deger": "30 Kasım 2026",
+        "aciklama": "Borcun son ödeme günü",
+        "kaynak_alinti": "Söz konusu meblağın, gecikme zamları hariç olmak üzere, en geç 30 Kasım 2026 tarihi mesai bitimine dek Belediyemiz veznelerine veya TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabına defaten tevdi edilmesi zorunludur."
+      },
+      "tutarlar": [
+        {
+          "deger": "850,40 TL",
+          "aciklama": "2026 yılına ait 2. taksit Çevre Temizlik Vergisi (ÇTV) borcu"
+        },
+        {
+          "deger": "85,04 TL",
+          "aciklama": "Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı"
+        },
+        {
+          "deger": "935,44 TL",
+          "aciklama": "Cem'an asli borç tutarı"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Aksi takdirde 6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun hükümleri uyarınca cebri tahsilat yoluna gidilecektir.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının düzenlenme tarihi",
+        "İtiraz yolu bilgisi"
+      ]
+    }
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Tebligat / Eksik Evrak Bildirimi",
+      "kurum": "T.C. İçişleri Bakanlığı Göç İdaresi Başkanlığı Ankara İl Göç İdaresi Müdürlüğü",
+      "konu": "6458 Sayılı Kanun Uyarınca Eksik Evrak Bildirimi (V-91)",
+      "istenen_islem": "İkamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçenizin aslını kurumumuz ek evrak teslim gişelerine bizzat ibraz etmeniz gerekmektedir.",
+      "son_tarih": {
+        "deger": "10 (on) gün",
+        "aciklama": "Tebligatın tarafınıza tebellüğ edildiği tarihten itibaren en geç 10 gün içerisinde",
+        "kaynak_alinti": "işbu tebligatın tarafınıza tebellüğ edildiği tarihten itibaren en geç 10 (on) gün içerisinde"
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "05.10.2026",
+          "aciklama": "Kısa Dönem İkamet İzni (Turistik) Başvurunuzun tarihi"
+        }
+      ],
+      "gerekli_belgeler": [
+        "İkamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçesinin aslı"
+      ],
+      "itiraz_yolu": "",
+      "yaptirim": "Mezkur mühlet zarfında eksik evrakın tekemmül ettirilmemesi durumunda başvurunuz işlemden kaldırılarak hakkınızda V-137 tahdit kodu işlenecek ve yasal süreniz sonunda sınır dışı (deport) işlemleri başlatılacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t3_goc_eksik_evrak",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı Ankara İl Göç İdaresi Müdürlüğü gönderiyor, yazının türü eksik evrak bildirimi.",
+        "Okuyucudan ikamet talep süresini tam kapsayacak şekilde güncel sağlık sigortası poliçesinin aslını kurumun ek evrak teslim gişelerine bizzat ibraz etmesi isteniyor.",
+        "Yazıdaki tek tarih 05.10.2026'dır ve ilgi tutulan kısa dönem ikamet izni başvurusu tarihidir. Son gün belirli bir tarih olarak verilmemiş, tebliğden itibaren en geç 10 (on) gün olarak belirtilmiştir.",
+        "Yazıda herhangi bir para tutarı geçmemektedir.",
+        "İstenen belge güncel sağlık sigortası poliçesinin aslıdır. İtiraz yolu yazıda geçmemektedir. Yapılmasa ne olacağı ise başvurunun işlemden kaldırılması, V-137 tahdit kodu işlenmesi ve yasal sürenin sonunda sınır dışı işlemleri başlatılmasıdır.",
+        "Yazıda tebligatın yapıldığı kesin tarih ve iletişim bilgileri bulunmamaktadır."
+      ],
+      "belge_turu": "Eksik Evrak Bildirimi",
+      "kurum": "T.C. İçişleri Bakanlığı Göç İdaresi Başkanlığı Ankara İl Göç İdaresi Müdürlüğü",
+      "konu": "6458 Sayılı Kanun Uyarınca Eksik Evrak Bildirimi (V-91)",
+      "istened_islem": "İkamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçenizin aslını kurumumuz ek evrak teslim gişelerine bizzat ibraz etmeniz gerekmektedir.",
+      "son_tarih": {
+        "deger": "10 (on) gün",
+        "aciklama": "İşbu tebligatın tarafınıza tebellüğ edildiği tarihten itibaren en geç 10 (on) gün",
+        "kaynak_alinti": "İlgili kanunun 32. maddesi gereğince, işbu tebligatın tarafınıza tebellüğ edildiği tarihten itibaren en geç 10 (on) gün içerisinde, ikamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçenizin aslını kurumumuz ek evrak teslim gişelerine bizzat ibraz etmeniz gerekmektedir."
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "05.10.2026",
+          "aciklama": "Kısa Dönem İkamet İzni (Turistik) Başvurunuzun tarihi"
+        }
+      ],
+      "gerekli_belgeler": [
+        "İkamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçesinin aslı"
+      ],
+      "itiraz_yolu": "",
+      "yaptirim": "Mezkur mühlet zarfında eksik evrakın tekemmül ettirilmemesi durumunda başvurunuz işlemden kaldırılarak hakkınızda V-137 tahdit kodu işlenecek ve yasal süreniz sonunda sınır dışı (deport) işlemleri başlatılacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Tebligatın kişiye ulaştığı (tebellüğ) kesin tarih yazıda yer almamaktadır.",
+        "Kurumun iletişim bilgileri yazıda yer almamaktadır.",
+        "İtiraz yolu yazıda belirtilmemiştir."
+      ]
+    }
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Ödeme Emri / İhtar",
+      "kurum": "T.C. Sosyal Güvenlik Kurumu Başkanlığı - Ankara Sosyal Güvenlik İl Müdürlüğü - Rüzgarlı Sosyal Güvenlik Merkezi",
+      "konu": "5510 Sayılı Kanunun 89. Maddesi Kapsamında İhtar",
+      "istenen_islem": "Toplam 9.681,15 TL borcun Kurumun anlaşmalı bankaları aracılığıyla defaten ödenmesi yahut yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması.",
+      "son_tarih": {
+        "deger": "7 (yedi) gün",
+        "aciklama": "Ödeme emrinin tarafınıza tebliğ edildiği tarihten itibaren 7 gün içinde ödeme yapılması veya itiraz edilmesi gerekmektedir.",
+        "kaynak_alinti": "işbu ödeme emrinin tarafınıza tebliğ edildiği tarihten itibaren 7 (yedi) gün zarfında mezkur toplam 9.681,15 TL borcun Kurumumuz anlaşmalı bankaları aracılığıyla defaten ödenmesi yahut aynı süre içinde yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "8.450,75 TL",
+          "aciklama": "2025/08 ila 2026/02 dönemlerine ait anapara borcu"
+        },
+        {
+          "deger": "1.230,40 TL",
+          "aciklama": "Gecikme zammı borcu"
+        },
+        {
+          "deger": "9.681,15 TL",
+          "aciklama": "Anapara ve gecikme zammı toplam borç tutarı"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "2025/08 ila 2026/02",
+          "aciklama": "Borcun ait olduğu dönemler"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması",
+      "yaptirim": "Belirtilen mühlet içerisinde ödeme veya itiraz yoluna gidilmemesi halinde, hakkınızda e-haciz işlemlerine tevessül edileceği ihtar olunur.",
+      "iletisim": "",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t4_sgk_odeme_emri",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Sosyal Güvenlik Kurumu Başkanlığı Ankara Sosyal Güvenlik İl Müdürlüğü Rüzgarlı Sosyal Güvenlik Merkezi gönderiyor; türü ödeme emri / ihtar.",
+        "Okuyucudan toplam 9.681,15 TL borcu anlaşmalı bankalar aracılığıyla defaten ödemesi veya yetkili idare mahkemesi nezdinde itiraz yoluna başvurması isteniyor.",
+        "Yazıda açık takvim tarihi bulunmuyor; son gün için \"tebliğ edildiği tarihten itibaren 7 (yedi) gün zarfında\" süresi belirtilmiştir.",
+        "Yazıdaki tutarlar: 8.450,75 TL anapara, 1.230,40 TL gecikme zammı, toplam 9.681,15 TL borç.",
+        "Gerekli belgeler yazıda geçmiyor. İtiraz yolu: yetkili idare mahkemesi nezdinde itiraz. Yapılmasa ne olacağı: e-haciz işlemlerine tevessül edileceği.",
+        "Yazıda belirli bir takvim tarihi (yazı tarihi, olay tarihi, son ödeme takvim günü) bulunmamaktadır."
+      ],
+      "belge_turu": "Ödeme Emri / İhtar",
+      "kurum": "T.C. Sosyal Güvenlik Kurumu Başkanlığı Ankara Sosyal Güvenlik İl Müdürlüğü - Rüzgarlı Sosyal Güvenlik Merkezi",
+      "konu": "5510 Sayılı Kanunun 89. Maddesi Kapsamında İhtar",
+      "istenen_islem": "Borcun Kurumun anlaşmalı bankaları aracılığıyla defaten ödenmesi ya da yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması",
+      "son_tarih": {
+        "deger": "7 (yedi) gün",
+        "aciklama": "Ödeme emrinin tebliğ edildiği tarihten itibaren 7 günlük süre",
+        "kaynak_alinti": "işbu ödeme emrinin tarafınıza tebliğ edildiği tarihten itibaren 7 (yedi) gün zarfında mezkur toplam 9.681,15 TL borcun Kurumumuz anlaşmalı bankaları aracılığıyla defaten ödenmesi yahut aynı süre içinde yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "8.450,75 TL",
+          "aciklama": "2025/08 ila 2026/02 dönemlerine ait muaccel hale gelmiş anapara"
+        },
+        {
+          "deger": "1.230,40 TL",
+          "aciklama": "Gecikme zammı borcu"
+        },
+        {
+          "deger": "9.681,15 TL",
+          "aciklama": "Toplam borç"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması",
+      "yaptirim": "Belirtilen mühlet içerisinde ödeme veya itiraz yoluna gidilmemesi halinde, hakkınızda e-haciz işlemlerine tevessül edileceği ihtar olunur.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının düzenlendiği tarih",
+        "Tebligat tarihi",
+        "İletişim bilgileri"
+      ]
+    }
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Resmî Yazı",
+      "kurum": "T.C. Millî Eğitim Bakanlığı Yenimahalle Cumhuriyet İlkokulu Müdürlüğü",
+      "konu": "2026-2027 Eğitim Öğretim Yılı Ek Materyal ve Katkı Payı",
+      "istenen_islem": "1.250,00 TL tutarındaki materyal katkı payının Okul Aile Birliğinin TR12 3456 7890 1234 5678 9012 34 numaralı Ziraat Bankası IBAN hesabına, açıklama kısmına öğrenci TC kimlik numarası yazılarak yatırılması",
+      "son_tarih": {
+        "deger": "06 Kasım 2026 Cuma",
+        "aciklama": "Mesai bitimine değin ödemenin yapılması gereken son tarih",
+        "kaynak_alinti": "en geç 06 Kasım 2026 Cuma günü mesai bitimine değin"
+      },
+      "tutarlar": [
+        {
+          "deger": "1.250,00 TL",
+          "aciklama": "Materyal katkı payı"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "01.09.2026",
+          "aciklama": "Yönetim Kurulu karar tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t5_okul_katki_payi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Millî Eğitim Bakanlığı Yenimahalle Cumhuriyet İlkokulu Müdürlüğü göndermektedir; yazının türü bilgilendirme ve ödeme bildirimidir.",
+        "Okuyucudan, 1.250,00 TL tutarındaki materyal katkı payını belirtilen Ziraat Bankası IBAN hesabına öğrenci TC kimlik numarasını açıklama kısmına yazarak yatırması istenmektedir.",
+        "Yazıdaki tarihler: 01.09.2026 (Yönetim Kurulu karar tarihi), 06 Kasım 2026 Cuma (mesai bitimine değin ödeme için son gün). Son gün, ödemenin yapılması gereken son süredir.",
+        "Yazıdaki tutar: 1.250,00 TL (materyal katkı payı).",
+        "Yazıda gerekli belgeler ve itiraz yolu geçmemektedir. Ödeme yapılmazsa ne olacağı ile ilgili yaptırım kısmı yazıda geçmemektedir.",
+        "Yazıda ödemenin yapılmaması durumunda uygulanacak yaptırım ve itiraz yolu belirtilmemiştir."
+      ],
+      "belge_turu": "bilgilendirme ve ödeme bildirimi",
+      "kurum": "T.C. Millî Eğitim Bakanlığı Yenimahalle Cumhuriyet İlkokulu Müdürlüğü",
+      "konu": "2026-2027 Eğitim Öğretim Yılı Ek Materyal ve Katkı Payı",
+      "istenen_islem": "1.250,00 TL tutarındaki materyal katkı payının Okul Aile Birliğinin TR12 3456 7890 1234 5678 9012 34 numaralı Ziraat Bankası IBAN hesabına, açıklama kısmına öğrenci TC kimlik numarası yazırılarak yatırılması.",
+      "son_tarih": {
+        "deger": "06 Kasım 2026 Cuma",
+        "aciklama": "Materyal katkı payı ödemesinin mesai bitimine değin yapılacağı son gün",
+        "kaynak_alinti": "Eğitim faaliyetlerinde aksaklık yaşanmaması ve tedarik süreçlerinin zamanında tamamlanabilmesi adına, mezkur meblağın en geç 06 Kasım 2026 Cuma günü mesai bitimine değin Okul Aile Birliğinin TR12 3456 7890 1234 5678 9012 34 numaralı Ziraat Bankası IBAN hesabına, açıklama kısmına öğrenci TC kimlik numarası derç edilerek yatırılması hususunda gereğini rica ederim."
+      },
+      "tutarlar": [
+        {
+          "deger": "1.250,00 TL",
+          "aciklama": "materyal katkı payı"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "01.09.2026",
+          "aciklama": "Yönetim Kurulunun karar tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "Ziraat Bankası TR12 3456 7890 1234 5678 9012 34 (Okul Aile Birliği IBAN)",
+      "emin_olunmayanlar": [
+        "Ödemenin yapılmaması durumunda ne olacağı yazıda belirtilmemiştir.",
+        "İtiraz yolu yazıda belirtilmemiştir."
+      ]
+    }
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Vergi / Ceza İhbarnamesi",
+      "kurum": "Doğanbey Vergi Dairesi Müdürlüğü",
+      "konu": "Vergi / Ceza İhbarnamesi",
+      "istenen_islem": "İhbarnamenin tebliğ tarihini takip eden 30 (otuz) gün içerisinde söz konusu amme alacağının İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar aracılığıyla ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi gerekmektedir.",
+      "son_tarih": {
+        "deger": "tebliğ tarihini takip eden 30 (otuz) gün",
+        "aciklama": "Amme alacağının ödenmesi, uzlaşma talep edilmesi veya dava açılması için gereken süre",
+        "kaynak_alinti": "işbu ihbarnamenin tarafınıza tebliğ tarihini takip eden 30 (otuz) gün içerisinde söz konusu amme alacağının İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar aracılığıyla ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "15.400,00 TL",
+          "aciklama": "Vergi aslı"
+        },
+        {
+          "deger": "15.400,00 TL",
+          "aciklama": "Vergi ziyaı cezası (bir kat)"
+        },
+        {
+          "deger": "30.800,00 TL",
+          "aciklama": "Yekûn borç tutarı"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi veya uzlaşma talep edilmesi",
+      "yaptirim": "",
+      "iletisim": "İnteraktif Vergi Dairesi (ivd.gib.gov.tr) ve anlaşmalı bankalar",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t6_vergi_ihbarnamesi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "1/1",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Hazine ve Maliye Bakanlığı Doğanbey Vergi Dairesi Müdürlüğü göndermiştir; türü Vergi / Ceza İhbarnamesi'dir.",
+        "Okuyucudan tebliğ tarihini takip eden 30 (otuz) gün içerisinde borcun ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava açılması istenmektedir.",
+        "Yazıda açık bir takvim tarihi geçmemektedir. Son gün, 'işbu ihbarnamenin tarafınıza tebliğ tarihini takip eden 30 (otuz) gün içerisinde' olarak belirtilen süredir.",
+        "Yazıdaki tutarlar: 15.400,00 TL (vergi aslı), 15.400,00 TL (vergi ziyaı cezası), 30.800,00 TL (yekûn borç).",
+        "Yazıda gerekli belgeler belirtilmemiştir. İtiraz yolu olarak uzlaşma talep etmek veya yetkili Vergi Mahkemesi nezdinde dava ikame etmek belirtilmiştir. Yapılacak işlem yapılmazsa ne olacağı yazıda geçmemektedir.",
+        "Yazının tarihi, belgenin sayısı (Sayı: VUK-213/2026-887766 kısmındaki 2026 yılı hariç tam tarih), iletişim bilgileri ve kesin son takvim tarihi yazıda bulunmamaktadır."
+      ],
+      "belge_turu": "Vergi / Ceza İhbarnamesi",
+      "kurum": "T.C. Hazine ve Maliye Bakanlığı Doğanbey Vergi Dairesi Müdürlüğü",
+      "konu": "Vergi / Ceza İhbarnamesi",
+      "istenen_islem": "İhbarnamenin tebliğ tarihini takip eden 30 (otuz) gün içerisinde söz konusu amme alacağının İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar aracılığıyla ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi gerekmektedir.",
+      "son_tarih": {
+        "deger": "tebliğ tarihini takip eden 30 (otuz) gün",
+        "aciklama": "Ödeme, uzlaşma veya dava açma için verilen süre.",
+        "kaynak_alinti": "işbu ihbarnamenin tarafınıza tebliğ tarihini takip eden 30 (otuz) gün içerisinde söz konusu amme alacağının İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar aracılığıyla ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "15.400,00 TL",
+          "aciklama": "vergi aslı"
+        },
+        {
+          "deger": "15.400,00 TL",
+          "aciklama": "bir kat vergi ziyaı cezası"
+        },
+        {
+          "deger": "30.800,00 TL",
+          "aciklama": "yekûn borç"
+        }
+      ],
+      "diger_tarih": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının düzenlenme/gönderilme tarihi",
+        "İletişim bilgileri",
+        "Yazının tebliğ edildiği kesin tarih",
+        "Sürenin bittiği kesin takvim tarihi",
+        "Ödenmemesi durumunda uygulanacak yaptırım"
+      ],
+      "diger_tarihler": []
+    }
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "2/2",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "İhtarname",
+      "kurum": "ANKARA 14. NOTERLİĞİ",
+      "konu": "Türk Borçlar Kanunu Madde 315 Uyarınca Temerrüt ve Kira Bedelinin Artırılması İhtarı",
+      "istenen_islem": "Geçmiş dönem bakiye borcu olan 9.000,00 TL'nin ödenmesi ve yeni kira dönemi itibarıyla güncellenen 16.500,00 TL'lik aylık kira bedelinin her ayın en geç 5'ine kadar banka hesabına eksiksiz yatırılması",
+      "son_tarih": {
+        "deger": "30 (otuz) günlük yasal süre",
+        "aciklama": "İhtarnamenin tarafınıza tebliğinden itibaren",
+        "kaynak_alinti": "İşbu ihtarnamenin tarafınıza tebliğinden itibaren 30 (otuz) günlük yasal süre (temerrüt süresi) içerisinde"
+      },
+      "tutarlar": [
+        {
+          "deger": "16.500,00 TL",
+          "aciklama": "01.11.2026 tarihinde başlayacak olan yeni kira dönemi için aylık kira bedeli"
+        },
+        {
+          "deger": "9.000,00 TL",
+          "aciklama": "Ekim 2026 dönemine ait ödenmeyen kira bedeli / geçmiş dönem bakiye borcu"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "01.11.2023",
+          "aciklama": "Kira sözleşmesi başlangıç tarihi"
+        },
+        {
+          "deger": "01.11.2026",
+          "aciklama": "Yeni kira dönemi başlangıç tarihi"
+        },
+        {
+          "deger": "Ekim 2026",
+          "aciklama": "Ödenmeyen kira bedeline ait dönem"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Türk Borçlar Kanunu'nun 315. maddesi gereğince temerrüt nedeniyle tahliye ve alacak davası ikame edilmesi",
+      "iletisim": "",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t7_kira_ihtarnamesi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "2/2",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı Ankara 14. Noterliği gönderiyor, türü ihtarname.",
+        "Okuyucudan geçmiş dönem bakiye kira borcu olan 9.000,00 TL'yi ödemesi ve yeni kira döneminde aylık kira bedelini her ayın en geç 5'ine kadar banka hesabına yatırması isteniyor.",
+        "Yazıdaki tarihler: 01.11.2023 (kira sözleşmesi başlangıç tarihi), 01.11.2026 (yeni kira dönemi başlangıç tarihi), Ekim 2026 (borcun ait olduğu dönem). Son gün belirli bir takvim tarihi değil, 'tebliğinden itibaren 30 (otuz) günlük yasal süre'.",
+        "Yazıdaki tutarlar: 16.500,00 TL (yeni kira dönemi aylık kira bedeli), 9.000,00 TL (Ekim 2026 dönemine ait ödenmeyen kira bedeli).",
+        "Yazıda gerekli belge belirtilmemiş. İtiraz yolu yazıda geçmiyor. Yapılmamışsa tahliye ve alacak davası açılacağı belirtiliyor.",
+        "Yazıda iletişim bilgisi ve net bir takvim son günü yer almıyor."
+      ],
+      "belge_turu": "İhtarname",
+      "kurum": "ANKARA 14. NOTERLİĞİ",
+      "konu": "Türk Borçlar Kanunu Madde 315 Uyarınca Temerrüt ve Kira Bedelinin Artırılması İhtarı",
+      "istenen_islem": "Geçmiş dönem bakiye borcu olan 9.000,00 TL'nin ödenmesi; yeni kira dönemi itibarıyla güncellenen 16.500,00 TL'lik aylık kira bedelinin her ayın en geç 5'ine kadar banka hesabına eksiksiz yatırılması.",
+      "son_tarih": {
+        "deger": "tebliğinden itibaren 30 (otuz) günlük yasal süre",
+        "aciklama": "Geçmiş dönem bakiye borcunun ödenmesi için tanınan süre.",
+        "kaynak_alinti": "İşbu ihtarnamenin tarafınıza tebliğinden itibaren 30 (otuz) günlük yasal süre (temerrüt süresi) içerisinde, geçmiş dönem bakiye borcu olan 9.000,00 TL'nin ödenmesini; ayrıca yeni kira dönemi itibarıyla güncellenen 16.500,00 TL'lik aylık kira bedelinin her ayın en geç 5'ine kadar mutad banka hesabıma eksiksiz tevdi edilmesini, aksi takdirde Türk Borçlar Kanunu'nun 315. maddesi gereğince temerrüt nedeniyle tahliye ve alacak davası ikame edileceğini ihtaren bildiririm."
+      },
+      "tutarlar": [
+        {
+          "deger": "16.500,00 TL",
+          "aciklama": "01.11.2026 tarihinde başlayacak olan yeni kira dönemi için aylık kira bedeli"
+        },
+        {
+          "deger": "9.000,00 TL",
+          "aciklama": "Ekim 2026 dönemine ait bakiye borç tutarı"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "01.11.2023",
+          "aciklama": "Kira sözleşmesinin başlangıç tarihi"
+        },
+        {
+          "deger": "01.11.2026",
+          "aciklama": "Yeni kira döneminin başlangıç tarihi"
+        },
+        {
+          "deger": "Ekim 2026",
+          "aciklama": "Ödenmeyen kira bedelinin ait olduğu dönem"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Türk Borçlar Kanunu'nun 315. maddesi gereğince temerrüt nedeniyle tahliye ve alacak davası ikame edilecektir.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "İtiraz yolu yazıda belirtilmemiştir.",
+        "Gerekli belgeler yazıda belirtilmemiştir.",
+        "İletişim bilgisi (banka hesap bilgisi vb.) yazıda açıkça verilmemiştir.",
+        "Kesin bir takvim son günü verilmemiş olup süre tebliğ tarihine bağlanmıştır."
+      ]
+    }
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "extract_v1_zeroshot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 0,
+    "cikti": {
+      "belge_turu": "Resmî Yazı",
+      "kurum": "Ankara Büyükşehir Belediyesi Fen İşleri Dairesi Başkanlığı - Altyapı Koordinasyon Şube Müdürlüğü (AYKOME)",
+      "konu": "Altyapı Yatırımları ve Güzergah Bilgilendirmesi",
+      "istenen_islem": "Bölge sakini olarak çalışmalar süresince trafik akışındaki kısmi daralmalar, geçici gürültü ve kısa süreli su/elektrik kesintilerine karşı bilgilenilmesi ve sükunet gösterilmesi.",
+      "son_tarih": {
+        "deger": "",
+        "aciklama": "Yazıda son işlem tarihi belirtilmemiştir.",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "15 Ekim 2026",
+          "aciklama": "Sokağınızda zemin etüt ve kazı faaliyetlerine başlanacağı tarih"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": [],
+      "analiz_adimlari": []
+    }
+  },
+  {
+    "mektup": "t8_altyapi_bilgi",
+    "surum": "extract_v2_cot",
+    "json_ok": true,
+    "son_tarih_dogru": true,
+    "uydurma_son_tarih": false,
+    "tutar_bulma": "0/0",
+    "dogrulama_temiz": true,
+    "cot_adim_sayisi": 6,
+    "cikti": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Ankara Büyükşehir Belediyesi Fen İşleri Dairesi Başkanlığı - Altyapı Koordinasyon Şube Müdürlüğü (AYKOME) göndermiştir. Yazının türü bilgilendirmedir.",
+        "Okuyucudan somut olarak yapılması istenen herhangi bir işlem bulunmamaktadır.",
+        "Yazıdaki tarih 15 Ekim 2026'dır ve bu tarih sokaktaki zemin etüt ve kazı faaliyetlerinin başlangıç tarihidir. Yazıda herhangi bir son gün veya son başvuru tarihi yer almamaktadır.",
+        "Yazıda herhangi bir para tutarı geçmemektedir.",
+        "İstenen belgeler, itiraz yolu ve yapılmazsa ne olacağı yazıda geçmemektedir.",
+        "Yazının tarihi (yazı yayın tarihi) ve dosya/belge numarası (Sayı dışında resmî tarih alanı) yazıdan bulamadığım ve belirsiz olan unsurlardır."
+      ],
+      "belge_turu": "bilgilendirme",
+      "kurum": "T.C. ANKARA BÜYÜKŞEHİR BELEDİYESİ Fen İşleri Dairesi Başkanlığı - Altyapı Koordinasyon Şube Müdürlüğü (AYKOME)",
+      "konu": "Altyapı Yatırımları ve Güzergah Bilgilendirmesi",
+      "istenen_islem": "",
+      "son_tarih": {
+        "deger": "",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "15 Ekim 2026",
+          "aciklama": "Zemin etüt ve kazı faaliyetlerine başlanacağı tarih"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının düzenlenme/gönderilme tarihi",
+        "İletişim bilgileri"
+      ]
+    }
+  }
+]
