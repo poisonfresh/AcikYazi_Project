@@ -1,6 +1,7 @@
-"""Doğrulama katmanı: modelin çıkardığı tarih ve tutarları asıl metinde arar.
+"""Validation layer: looks up the dates and amounts extracted by the model in the original letter.
 
-Modelden bağımsız çalışır; yalnızca regex ve basit normalizasyon kullanır.
+Independent of the model; uses only regexes and simple normalization. The letters
+are Turkish, so Turkish date/amount formats are matched alongside English ones.
 """
 
 from __future__ import annotations
@@ -9,80 +10,84 @@ import re
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 
-AYLAR = {
+MONTHS = {
+    # Turkish (with and without diacritics)
     "ocak": 1, "şubat": 2, "subat": 2, "mart": 3, "nisan": 4, "mayıs": 5, "mayis": 5,
     "haziran": 6, "temmuz": 7, "ağustos": 8, "agustos": 8, "eylül": 9, "eylul": 9,
     "ekim": 10, "kasım": 11, "kasim": 11, "aralık": 12, "aralik": 12,
+    # English
+    "january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6,
+    "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12,
 }
 
-_AY_DESENI = "|".join(sorted(AYLAR, key=len, reverse=True))
+_MONTH_PATTERN = "|".join(sorted(MONTHS, key=len, reverse=True))
 
-# 15.11.2026, 15/11/2026, 15-11-26, 2026-11-15, 15 Kasım 2026
-TARIH_REGEX = re.compile(
+# 15.11.2026, 15/11/2026, 15-11-26, 2026-11-15, 15 Kasım 2026, 15 November 2026
+DATE_REGEX = re.compile(
     r"(?<!\d)(?:"
-    r"(?P<g1>\d{1,2})\s*[./-]\s*(?P<a1>\d{1,2})\s*[./-]\s*(?P<y1>\d{4}|\d{2})"
-    r"|(?P<y2>\d{4})-(?P<a2>\d{1,2})-(?P<g2>\d{1,2})"
-    rf"|(?P<g3>\d{{1,2}})\s+(?P<a3>{_AY_DESENI})\s+(?P<y3>\d{{4}})"
+    r"(?P<d1>\d{1,2})\s*[./-]\s*(?P<m1>\d{1,2})\s*[./-]\s*(?P<y1>\d{4}|\d{2})"
+    r"|(?P<y2>\d{4})-(?P<m2>\d{1,2})-(?P<d2>\d{1,2})"
+    rf"|(?P<d3>\d{{1,2}})\s+(?P<m3>{_MONTH_PATTERN})\s+(?P<y3>\d{{4}})"
     r")(?!\d)",
     re.IGNORECASE,
 )
 
-_PARA_BIRIMI = r"(?:TL|TRY|₺|Türk\s+Lirası|Turk\s+Lirasi|lira|EUR|€|USD|\$)"
-_SAYI = r"\d{1,3}(?:[.\s]\d{3})+(?:,\d{1,2})?|\d+(?:[.,]\d{1,2})?"
+_CURRENCY = r"(?:TL|TRY|₺|Türk\s+Lirası|Turk\s+Lirasi|Turkish\s+Lira|lira|EUR|€|USD|\$)"
+_NUMBER = r"\d{1,3}(?:[.\s]\d{3})+(?:,\d{1,2})?|\d+(?:[.,]\d{1,2})?"
 
 # 1.250,00 TL, ₺350, 2.500 TL, 1250 TRY
-TUTAR_REGEX = re.compile(
-    rf"(?:(?P<b1>{_PARA_BIRIMI})\s*(?P<s1>{_SAYI}))"
-    rf"|(?:(?P<s2>{_SAYI})\s*(?P<b2>{_PARA_BIRIMI}))",
+AMOUNT_REGEX = re.compile(
+    rf"(?:(?P<c1>{_CURRENCY})\s*(?P<n1>{_NUMBER}))"
+    rf"|(?:(?P<n2>{_NUMBER})\s*(?P<c2>{_CURRENCY}))",
     re.IGNORECASE,
 )
 
-_SADECE_SAYI = re.compile(rf"(?<![\d.,])(?:{_SAYI})(?![\d])")
+_BARE_NUMBER = re.compile(rf"(?<![\d.,])(?:{_NUMBER})(?![\d])")
 
 
 @dataclass
-class KontrolSonucu:
-    alan: str
-    deger: str
-    durum: str  # "dogrulandi" | "bulunamadi" | "bos"
-    aciklama: str
+class CheckResult:
+    field: str
+    value: str
+    status: str  # "verified" | "not_found" | "empty"
+    message: str
 
     @property
-    def uyari(self) -> bool:
-        return self.durum == "bulunamadi"
+    def is_warning(self) -> bool:
+        return self.status == "not_found"
 
 
-def _yil(y: str) -> int:
+def _year(y: str) -> int:
     n = int(y)
     return 2000 + n if len(y) == 2 else n
 
 
-def _tarih_eslesmesi_normalize(m: re.Match) -> tuple[int, int, int] | None:
+def _normalize_date_match(m: re.Match) -> tuple[int, int, int] | None:
     try:
-        if m.group("g1"):
-            g, a, y = int(m.group("g1")), int(m.group("a1")), _yil(m.group("y1"))
+        if m.group("d1"):
+            d, mo, y = int(m.group("d1")), int(m.group("m1")), _year(m.group("y1"))
         elif m.group("y2"):
-            g, a, y = int(m.group("g2")), int(m.group("a2")), int(m.group("y2"))
+            d, mo, y = int(m.group("d2")), int(m.group("m2")), int(m.group("y2"))
         else:
-            g, a, y = int(m.group("g3")), AYLAR[m.group("a3").lower()], int(m.group("y3"))
+            d, mo, y = int(m.group("d3")), MONTHS[m.group("m3").lower()], int(m.group("y3"))
     except (TypeError, ValueError, KeyError):
         return None
-    if not (1 <= g <= 31 and 1 <= a <= 12):
+    if not (1 <= d <= 31 and 1 <= mo <= 12):
         return None
-    return (g, a, y)
+    return (d, mo, y)
 
 
-def tarihleri_bul(metin: str) -> set[tuple[int, int, int]]:
-    """Metindeki tüm tarihleri (gün, ay, yıl) olarak döndürür."""
-    sonuc = set()
-    for m in TARIH_REGEX.finditer(metin or ""):
-        t = _tarih_eslesmesi_normalize(m)
-        if t:
-            sonuc.add(t)
-    return sonuc
+def find_dates(text: str) -> set[tuple[int, int, int]]:
+    """Returns every date in the text as (day, month, year)."""
+    result = set()
+    for m in DATE_REGEX.finditer(text or ""):
+        date = _normalize_date_match(m)
+        if date:
+            result.add(date)
+    return result
 
 
-def _sayi_normalize(s: str) -> Decimal | None:
+def _normalize_number(s: str) -> Decimal | None:
     s = re.sub(r"\s", "", s)
     if "," in s:
         s = s.replace(".", "").replace(",", ".")
@@ -94,87 +99,87 @@ def _sayi_normalize(s: str) -> Decimal | None:
         return None
 
 
-def tutarlari_bul(metin: str) -> set[Decimal]:
-    """Metindeki para birimi ile yazılmış tüm tutarları sayı olarak döndürür."""
-    sonuc = set()
-    for m in TUTAR_REGEX.finditer(metin or ""):
-        d = _sayi_normalize(m.group("s1") or m.group("s2"))
+def find_amounts(text: str) -> set[Decimal]:
+    """Returns every amount written with a currency in the text, as a number."""
+    result = set()
+    for m in AMOUNT_REGEX.finditer(text or ""):
+        d = _normalize_number(m.group("n1") or m.group("n2"))
         if d is not None:
-            sonuc.add(d)
-    return sonuc
+            result.add(d)
+    return result
 
 
-def _deger_tutarlari(deger: str) -> set[Decimal]:
-    bulunan = tutarlari_bul(deger)
-    if bulunan:
-        return bulunan
-    return {d for d in (_sayi_normalize(m.group()) for m in _SADECE_SAYI.finditer(deger)) if d is not None}
+def _amounts_in_value(value: str) -> set[Decimal]:
+    found = find_amounts(value)
+    if found:
+        return found
+    return {d for d in (_normalize_number(m.group()) for m in _BARE_NUMBER.finditer(value)) if d is not None}
 
 
-def _metni_sadelestir(s: str) -> str:
+def _squash(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip().casefold()
 
 
-def tarih_kontrol(deger: str, asil_metin: str, alan: str = "son_tarih") -> KontrolSonucu:
-    deger = (deger or "").strip()
-    if not deger:
-        return KontrolSonucu(alan, deger, "bos", "Yazıda belirtilmemiş.")
-    model_tarihleri = tarihleri_bul(deger)
-    if model_tarihleri:
-        eksik = model_tarihleri - tarihleri_bul(asil_metin)
-        if not eksik:
-            return KontrolSonucu(alan, deger, "dogrulandi", "Tarih asıl metinde bulundu.")
-        return KontrolSonucu(alan, deger, "bulunamadi", "Bu tarih asıl metinde bulunamadı.")
-    if _metni_sadelestir(deger) in _metni_sadelestir(asil_metin):
-        return KontrolSonucu(alan, deger, "dogrulandi", "İfade asıl metinde aynen geçiyor.")
-    return KontrolSonucu(alan, deger, "bulunamadi", "Tarih biçimi tanınmadı ve metinde aynen geçmiyor.")
+def check_date(value: str, original_text: str, field: str = "deadline") -> CheckResult:
+    value = (value or "").strip()
+    if not value:
+        return CheckResult(field, value, "empty", "Not specified in the letter.")
+    model_dates = find_dates(value)
+    if model_dates:
+        missing = model_dates - find_dates(original_text)
+        if not missing:
+            return CheckResult(field, value, "verified", "Date found in the original letter.")
+        return CheckResult(field, value, "not_found", "This date was not found in the original letter.")
+    if _squash(value) in _squash(original_text):
+        return CheckResult(field, value, "verified", "The exact wording appears in the original letter.")
+    return CheckResult(field, value, "not_found", "Date format not recognized and the text does not appear in the letter.")
 
 
-def tutar_kontrol(deger: str, asil_metin: str, alan: str = "tutar") -> KontrolSonucu:
-    deger = (deger or "").strip()
-    if not deger:
-        return KontrolSonucu(alan, deger, "bos", "Yazıda belirtilmemiş.")
-    model_tutarlari = _deger_tutarlari(deger)
-    if model_tutarlari:
-        eksik = model_tutarlari - tutarlari_bul(asil_metin)
-        if not eksik:
-            return KontrolSonucu(alan, deger, "dogrulandi", "Tutar asıl metinde bulundu.")
-        return KontrolSonucu(alan, deger, "bulunamadi", "Bu tutar asıl metinde bulunamadı.")
-    if _metni_sadelestir(deger) in _metni_sadelestir(asil_metin):
-        return KontrolSonucu(alan, deger, "dogrulandi", "İfade asıl metinde aynen geçiyor.")
-    return KontrolSonucu(alan, deger, "bulunamadi", "Tutar biçimi tanınmadı ve metinde aynen geçmiyor.")
+def check_amount(value: str, original_text: str, field: str = "amount") -> CheckResult:
+    value = (value or "").strip()
+    if not value:
+        return CheckResult(field, value, "empty", "Not specified in the letter.")
+    model_amounts = _amounts_in_value(value)
+    if model_amounts:
+        missing = model_amounts - find_amounts(original_text)
+        if not missing:
+            return CheckResult(field, value, "verified", "Amount found in the original letter.")
+        return CheckResult(field, value, "not_found", "This amount was not found in the original letter.")
+    if _squash(value) in _squash(original_text):
+        return CheckResult(field, value, "verified", "The exact wording appears in the original letter.")
+    return CheckResult(field, value, "not_found", "Amount format not recognized and the text does not appear in the letter.")
 
 
-def cikarimi_dogrula(veri: dict, asil_metin: str) -> list[KontrolSonucu]:
-    """Çıkarım JSON'undaki son_tarih ve tutar alanlarını asıl metinle karşılaştırır."""
+def validate_extraction(data: dict, original_text: str) -> list[CheckResult]:
+    """Compares the deadline and amount fields of the extraction JSON with the original letter."""
     return [
-        tarih_kontrol(str(veri.get("son_tarih") or ""), asil_metin),
-        tutar_kontrol(str(veri.get("tutar") or ""), asil_metin),
+        check_date(str(data.get("deadline") or ""), original_text),
+        check_amount(str(data.get("amount") or ""), original_text),
     ]
 
 
-_ARAP_RAKAMLARI = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890123456789")
+_ARABIC_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890123456789")
 
 
-def ceviride_rakam_kontrol(kaynak: str, ceviri: str) -> list[str]:
-    """Çeviride kaybolan tarih/tutarları döndürür (boş liste = sorun yok).
+def find_missing_in_translation(source: str, translation: str) -> list[str]:
+    """Returns the dates/amounts lost in translation (empty list = no problem).
 
-    Çeviride ay adı başka dile geçebileceği için tarihlerde gün ve yılın
-    sayı olarak korunması yeterli sayılır.
+    Month names may change language in translation, so for dates it is enough
+    that the day and the year survive as numbers.
     """
-    ceviri = (ceviri or "").translate(_ARAP_RAKAMLARI).replace("٫", ",").replace("٬", ".")
-    ceviri_tarihleri = tarihleri_bul(ceviri)
-    ceviri_sayilari = _deger_tutarlari(ceviri) | {
-        Decimal(m.group()) for m in re.finditer(r"\d+", ceviri)
+    translation = (translation or "").translate(_ARABIC_DIGITS).replace("٫", ",").replace("٬", ".")
+    translation_dates = find_dates(translation)
+    translation_numbers = _amounts_in_value(translation) | {
+        Decimal(m.group()) for m in re.finditer(r"\d+", translation)
     }
-    kayip = []
-    for g, a, y in sorted(tarihleri_bul(kaynak)):
-        if (g, a, y) in ceviri_tarihleri:
+    missing = []
+    for d, mo, y in sorted(find_dates(source)):
+        if (d, mo, y) in translation_dates:
             continue
-        if Decimal(g) in ceviri_sayilari and Decimal(y) in ceviri_sayilari:
+        if Decimal(d) in translation_numbers and Decimal(y) in translation_numbers:
             continue
-        kayip.append(f"{g:02d}.{a:02d}.{y}")
-    for t in sorted(tutarlari_bul(kaynak)):
-        if t not in ceviri_sayilari:
-            kayip.append(str(t))
-    return kayip
+        missing.append(f"{d:02d}.{mo:02d}.{y}")
+    for amount in sorted(find_amounts(source)):
+        if amount not in translation_numbers:
+            missing.append(str(amount))
+    return missing

@@ -1,4 +1,4 @@
-# AçıkYazı takım paleti
+# AçıkYazı team palette
 [theme]
 base = "light"
 primaryColor = "#1D2433"
@@ -7,7 +7,7 @@ secondaryBackgroundColor = "#F6F8FA"
 textColor = "#1D2433"
 borderColor = "#E3E7EC"
 
-# Streamlit'in yerleşik rozet ve uyarı kutuları (st.error, :red-badge[] vb.) da aynı paleti kullansın
+# Makes Streamlit's built-in badges and alerts (st.error, :red-badge[] etc.) use the same palette
 redColor = "#B42318"
 redTextColor = "#B42318"
 redBackgroundColor = "#FDECEA"

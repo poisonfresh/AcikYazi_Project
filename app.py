@@ -1,4 +1,4 @@
-"""AçıkYazı: resmî yazıları sade dille anlatan ve rakamları kendi kendine kontrol eden asistan."""
+"""AçıkYazı: an assistant that explains official letters in plain language and cross-checks their dates and amounts."""
 
 from __future__ import annotations
 
@@ -11,58 +11,58 @@ from pathlib import Path
 import streamlit as st
 from dotenv import load_dotenv
 
-from validation import ceviride_rakam_kontrol, cikarimi_dogrula
+from validation import find_missing_in_translation, validate_extraction
 
 load_dotenv()
 
 PROMPTS_DIR = Path(__file__).parent / "prompts"
-PROMPT_DOSYALARI = {
-    "cikarim": "cikarim.txt",
-    "sadelestirme": "sadelestirme.txt",
-    "ceviri": "ceviri.txt",
+PROMPT_FILES = {
+    "extraction": "extraction.txt",
+    "simplification": "simplification.txt",
+    "translation": "translation.txt",
 }
-SAGLAYICILAR = {
+PROVIDERS = {
     "gemini": {
-        "ad": "Google Gemini",
-        "anahtar_env": ("GEMINI_API_KEY", "GOOGLE_API_KEY"),
+        "name": "Google Gemini",
+        "key_env": ("GEMINI_API_KEY", "GOOGLE_API_KEY"),
         "model_env": "GEMINI_MODEL",
-        "varsayilan_model": "gemini-2.5-flash",
+        "default_model": "gemini-2.5-flash",
     },
     "anthropic": {
-        "ad": "Anthropic Claude",
-        "anahtar_env": ("ANTHROPIC_API_KEY",),
+        "name": "Anthropic Claude",
+        "key_env": ("ANTHROPIC_API_KEY",),
         "model_env": "ANTHROPIC_MODEL",
-        "varsayilan_model": "claude-opus-5-5",
+        "default_model": "claude-opus-5-5",
     },
 }
-VARSAYILAN_SAGLAYICI = "gemini"
+DEFAULT_PROVIDER = "gemini"
 ANTHROPIC_MAX_TOKENS = 4096
-DILLER = {"Türkçe": None, "English": "İngilizce", "العربية (Arapça)": "Arapça"}
-HUKUKI_UYARI = (
-    "Bu bir hukuki tavsiye değildir; emin olmadığınızda kuruma veya "
-    "baro adli yardım bürosuna başvurun."
+LANGUAGES = {"Turkish": None, "English": "English", "العربية (Arabic)": "Arabic"}
+LEGAL_DISCLAIMER = (
+    "This is not legal advice. If you are unsure, contact the issuing institution "
+    "or the legal aid office of your local bar association."
 )
-JSON_ALANLARI = [
-    ("kurum", "Kurum"),
-    ("konu", "Konu"),
-    ("istenen_islem", "İstenen işlem"),
-    ("son_tarih", "Son tarih"),
-    ("tutar", "Tutar"),
-    ("gerekli_belgeler", "Gerekli belgeler"),
-    ("itiraz_yolu", "İtiraz yolu"),
+JSON_FIELDS = [
+    ("institution", "Institution"),
+    ("subject", "Subject"),
+    ("required_action", "Required action"),
+    ("deadline", "Deadline"),
+    ("amount", "Amount"),
+    ("required_documents", "Required documents"),
+    ("appeal_process", "How to appeal"),
 ]
-# Takım paleti; tema renkleri .streamlit/config.toml içinde.
-STIL = """
+# Team palette; theme colors live in .streamlit/config.toml.
+STYLE = """
 <style>
 h1, h2, h3 { color: #1D2433; }
-[data-testid="stCaptionContainer"], .acik-aciklama { color: #5B6675; }
-[class*="st-key-kart-"] {
+[data-testid="stCaptionContainer"], .badge-note { color: #5B6675; opacity: 1; }
+[class*="st-key-card-"] {
     background-color: #F6F8FA;
     border: 1px solid #E3E7EC;
     border-radius: 0.75rem;
     padding: 1rem 1.25rem;
 }
-.rozet {
+.badge {
     display: inline-block;
     padding: 0.1rem 0.55rem;
     border-radius: 999px;
@@ -70,341 +70,343 @@ h1, h2, h3 { color: #1D2433; }
     font-weight: 600;
     margin-right: 0.4rem;
 }
-.rozet-uyari { color: #B42318; background-color: #FDECEA; border: 1px solid #B42318; }
-.rozet-dogru { color: #067647; background-color: #E7F6EC; border: 1px solid #067647; }
-.rozet-bos { color: #5B6675; background-color: #FFFFFF; border: 1px solid #5B6675; }
+.badge-warning { color: #B42318; background-color: #FDECEA; border: 1px solid #B42318; }
+.badge-verified { color: #067647; background-color: #E7F6EC; border: 1px solid #067647; }
+.badge-empty { color: #5B6675; background-color: #FFFFFF; border: 1px solid #5B6675; }
 </style>
 """
 
 
-class AcikYaziHatasi(Exception):
-    """Kullanıcıya gösterilecek, anlaşılır mesajlı hata."""
+class AcikYaziError(Exception):
+    """Error with a user-facing, actionable message."""
 
 
-def prompt_yukle(ad: str) -> str | None:
-    yol = PROMPTS_DIR / PROMPT_DOSYALARI[ad]
+def load_prompt(name: str) -> str | None:
+    path = PROMPTS_DIR / PROMPT_FILES[name]
     try:
-        icerik = yol.read_text(encoding="utf-8").strip()
+        content = path.read_text(encoding="utf-8").strip()
     except (FileNotFoundError, IsADirectoryError):
         return None
-    return icerik or None
+    return content or None
 
 
-def prompt_doldur(sablon: str, **degerler: str) -> str:
-    # str.format kullanılmaz: prompt içindeki JSON süslü parantezleri bozulur.
-    for anahtar, deger in degerler.items():
-        sablon = sablon.replace("{" + anahtar + "}", deger)
-    return sablon
+def fill_prompt(template: str, **values: str) -> str:
+    # Not str.format: it would break the literal JSON braces inside the prompts.
+    for key, value in values.items():
+        template = template.replace("{" + key + "}", value)
+    return template
 
 
-def env_saglayici() -> str:
-    deger = (os.getenv("LLM_PROVIDER") or VARSAYILAN_SAGLAYICI).strip().lower()
-    return deger if deger in SAGLAYICILAR else VARSAYILAN_SAGLAYICI
+def provider_from_env() -> str:
+    value = (os.getenv("LLM_PROVIDER") or DEFAULT_PROVIDER).strip().lower()
+    return value if value in PROVIDERS else DEFAULT_PROVIDER
 
 
-def api_anahtari(saglayici: str) -> str | None:
-    for ad in SAGLAYICILAR[saglayici]["anahtar_env"]:
-        anahtar = os.getenv(ad)
-        if not anahtar:
+def get_api_key(provider: str) -> str | None:
+    for env_name in PROVIDERS[provider]["key_env"]:
+        key = os.getenv(env_name)
+        if not key:
             try:
-                anahtar = st.secrets.get(ad)
+                key = st.secrets.get(env_name)
             except Exception:
-                anahtar = None
-        if anahtar and anahtar.strip():
-            return anahtar.strip()
+                key = None
+        if key and key.strip():
+            return key.strip()
     return None
 
 
-def model_adi(saglayici: str) -> str:
-    bilgi = SAGLAYICILAR[saglayici]
-    return (os.getenv(bilgi["model_env"]) or bilgi["varsayilan_model"]).strip()
+def get_model_name(provider: str) -> str:
+    info = PROVIDERS[provider]
+    return (os.getenv(info["model_env"]) or info["default_model"]).strip()
 
 
-def model_cagir(prompt: str, saglayici: str) -> str:
-    anahtar = api_anahtari(saglayici)
-    if not anahtar:
-        env_adi = SAGLAYICILAR[saglayici]["anahtar_env"][0]
-        raise AcikYaziHatasi(
-            f"{SAGLAYICILAR[saglayici]['ad']} için API anahtarı bulunamadı. Proje klasöründe `.env` "
-            f"dosyası oluşturup `{env_adi}=...` satırını ekleyin (bkz. `.env.example` ve README)."
+def call_model(prompt: str, provider: str) -> str:
+    key = get_api_key(provider)
+    if not key:
+        env_name = PROVIDERS[provider]["key_env"][0]
+        raise AcikYaziError(
+            f"No API key found for {PROVIDERS[provider]['name']}. Create a `.env` file in the project folder "
+            f"and add a `{env_name}=...` line (see `.env.example` and the README)."
         )
-    model = model_adi(saglayici)
-    if saglayici == "anthropic":
-        metin = _anthropic_cagir(prompt, anahtar, model)
+    model = get_model_name(provider)
+    if provider == "anthropic":
+        text = _call_anthropic(prompt, key, model)
     else:
-        metin = _gemini_cagir(prompt, anahtar, model)
-    if not metin:
-        raise AcikYaziHatasi("Model boş yanıt döndürdü (içerik filtresine takılmış olabilir).")
-    return metin
+        text = _call_gemini(prompt, key, model)
+    if not text:
+        raise AcikYaziError("The model returned an empty response (it may have been blocked by a content filter).")
+    return text
 
 
-def _anthropic_cagir(prompt: str, anahtar: str, model: str) -> str:
+def _call_anthropic(prompt: str, key: str, model: str) -> str:
     import anthropic
 
     try:
-        client = anthropic.Anthropic(api_key=anahtar)
-        yanit = client.messages.create(
+        client = anthropic.Anthropic(api_key=key)
+        response = client.messages.create(
             model=model,
             max_tokens=ANTHROPIC_MAX_TOKENS,
             messages=[{"role": "user", "content": prompt}],
         )
     except (anthropic.AuthenticationError, anthropic.PermissionDeniedError) as e:
-        raise AcikYaziHatasi(
-            "Anthropic API anahtarı geçersiz veya yetkisiz. `.env` içindeki `ANTHROPIC_API_KEY` değerini kontrol edin."
+        raise AcikYaziError(
+            "The Anthropic API key is invalid or unauthorized. Check `ANTHROPIC_API_KEY` in your `.env` file."
         ) from e
     except anthropic.RateLimitError as e:
-        raise AcikYaziHatasi("Anthropic API kotası/hız sınırı doldu (429). Biraz bekleyip tekrar deneyin.") from e
+        raise AcikYaziError("Anthropic API quota or rate limit reached (429). Wait a moment and try again.") from e
     except anthropic.NotFoundError as e:
-        raise AcikYaziHatasi(f"Model bulunamadı: `{model}`. `ANTHROPIC_MODEL` değerini kontrol edin.") from e
+        raise AcikYaziError(f"Model not found: `{model}`. Check the `ANTHROPIC_MODEL` value.") from e
     except anthropic.APIConnectionError as e:
-        raise AcikYaziHatasi(
-            f"Anthropic servisine bağlanılamadı. İnternet bağlantınızı kontrol edin. ({type(e).__name__})"
+        raise AcikYaziError(
+            f"Could not connect to the Anthropic service. Check your internet connection. ({type(e).__name__})"
         ) from e
     except anthropic.InternalServerError as e:
-        raise AcikYaziHatasi(f"Model sunucusu hata verdi ({e.status_code}). Biraz sonra tekrar deneyin.") from e
+        raise AcikYaziError(f"The model server returned an error ({e.status_code}). Try again later.") from e
     except anthropic.APIStatusError as e:
-        raise AcikYaziHatasi(f"Anthropic API isteği reddedildi ({e.status_code}): {e.message}") from e
+        raise AcikYaziError(f"The Anthropic API rejected the request ({e.status_code}): {e.message}") from e
     except anthropic.APIError as e:
-        raise AcikYaziHatasi(f"Anthropic API hatası: {e.message}") from e
+        raise AcikYaziError(f"Anthropic API error: {e.message}") from e
 
-    return "".join(blok.text for blok in yanit.content if getattr(blok, "type", "") == "text").strip()
+    return "".join(block.text for block in response.content if getattr(block, "type", "") == "text").strip()
 
 
-def _gemini_cagir(prompt: str, anahtar: str, model: str) -> str:
+def _call_gemini(prompt: str, key: str, model: str) -> str:
     from google import genai
     from google.genai import errors as genai_errors
 
     try:
-        client = genai.Client(api_key=anahtar)
-        yanit = client.models.generate_content(model=model, contents=prompt)
+        client = genai.Client(api_key=key)
+        response = client.models.generate_content(model=model, contents=prompt)
     except genai_errors.ClientError as e:
         if e.code in (401, 403) or "API_KEY" in str(e).upper():
-            raise AcikYaziHatasi("API anahtarı geçersiz veya yetkisiz. `.env` içindeki `GEMINI_API_KEY` değerini kontrol edin.") from e
+            raise AcikYaziError("The API key is invalid or unauthorized. Check `GEMINI_API_KEY` in your `.env` file.") from e
         if e.code == 429:
-            raise AcikYaziHatasi("API kotası doldu (429). Biraz bekleyip tekrar deneyin.") from e
+            raise AcikYaziError("API quota reached (429). Wait a moment and try again.") from e
         if e.code == 404:
-            raise AcikYaziHatasi(f"Model bulunamadı: `{model}`. `GEMINI_MODEL` değerini kontrol edin.") from e
-        raise AcikYaziHatasi(f"API isteği reddedildi ({e.code}): {e.message}") from e
+            raise AcikYaziError(f"Model not found: `{model}`. Check the `GEMINI_MODEL` value.") from e
+        raise AcikYaziError(f"The API rejected the request ({e.code}): {e.message}") from e
     except genai_errors.ServerError as e:
-        raise AcikYaziHatasi(f"Model sunucusu hata verdi ({e.code}). Biraz sonra tekrar deneyin.") from e
+        raise AcikYaziError(f"The model server returned an error ({e.code}). Try again later.") from e
     except genai_errors.APIError as e:
-        raise AcikYaziHatasi(f"API hatası ({e.code}): {e.message}") from e
+        raise AcikYaziError(f"API error ({e.code}): {e.message}") from e
     except Exception as e:
-        raise AcikYaziHatasi(
-            f"Model servisine bağlanılamadı. İnternet bağlantınızı kontrol edin. ({type(e).__name__}: {e})"
+        raise AcikYaziError(
+            f"Could not connect to the model service. Check your internet connection. ({type(e).__name__}: {e})"
         ) from e
 
-    return (getattr(yanit, "text", None) or "").strip()
+    return (getattr(response, "text", None) or "").strip()
 
 
-def json_ayikla(yanit: str) -> dict:
-    """Model çıktısından JSON nesnesini çıkarır; <dusunce> bölümünü ve ``` çitlerini atlar."""
-    temiz = re.sub(r"<dusunce>.*?</dusunce>", "", yanit, flags=re.DOTALL | re.IGNORECASE)
-    adaylar = re.findall(r"```(?:json)?\s*(.*?)```", temiz, flags=re.DOTALL)
-    adaylar.append(temiz)
+def extract_json(response: str) -> dict:
+    """Pulls the JSON object out of the model output, skipping the <thinking> block and ``` fences."""
+    cleaned = re.sub(r"<thinking>.*?</thinking>", "", response, flags=re.DOTALL | re.IGNORECASE)
+    candidates = re.findall(r"```(?:json)?\s*(.*?)```", cleaned, flags=re.DOTALL)
+    candidates.append(cleaned)
 
-    cozucu = json.JSONDecoder()
-    for aday in adaylar:
-        for i in [m.start() for m in re.finditer(r"\{", aday)]:
+    decoder = json.JSONDecoder()
+    for candidate in candidates:
+        for i in [m.start() for m in re.finditer(r"\{", candidate)]:
             try:
-                nesne, _ = cozucu.raw_decode(aday[i:])
+                obj, _ = decoder.raw_decode(candidate[i:])
             except json.JSONDecodeError:
                 continue
-            if isinstance(nesne, dict):
-                return nesne
-    raise AcikYaziHatasi("Model çıktısı geçerli bir JSON içermiyor.")
+            if isinstance(obj, dict):
+                return obj
+    raise AcikYaziError("The model output does not contain valid JSON.")
 
 
-def dusunceyi_ayikla(yanit: str) -> str | None:
-    m = re.search(r"<dusunce>(.*?)</dusunce>", yanit, flags=re.DOTALL | re.IGNORECASE)
+def extract_thinking(response: str) -> str | None:
+    m = re.search(r"<thinking>(.*?)</thinking>", response, flags=re.DOTALL | re.IGNORECASE)
     return m.group(1).strip() if m else None
 
 
-def liste_metni(deger) -> str:
-    if isinstance(deger, list):
-        return ", ".join(str(x) for x in deger if str(x).strip())
-    return str(deger or "").strip()
+def as_text(value) -> str:
+    if isinstance(value, list):
+        return ", ".join(str(x) for x in value if str(x).strip())
+    return str(value or "").strip()
 
 
-def eksik_prompt_uyarisi(ad: str) -> None:
+def missing_prompt_warning(name: str) -> None:
     st.warning(
-        f"`prompts/{PROMPT_DOSYALARI[ad]}` bulunamadı veya boş. "
-        "Bu adım atlandı; prompt dosyası eklendiğinde otomatik kullanılacak."
+        f"`prompts/{PROMPT_FILES[name]}` is missing or empty. "
+        "This step was skipped; it will run automatically once the prompt file is added."
     )
 
 
-def analiz_et(metin: str, hedef_dil: str | None, saglayici: str) -> dict:
-    sonuc: dict = {"hatalar": [], "atlananlar": []}
+def analyze(letter_text: str, target_language: str | None, provider: str) -> dict:
+    result: dict = {"errors": [], "skipped": []}
 
-    cikarim_sablonu = prompt_yukle("cikarim")
-    if not cikarim_sablonu:
-        sonuc["atlananlar"].append("cikarim")
-        return sonuc
+    extraction_template = load_prompt("extraction")
+    if not extraction_template:
+        result["skipped"].append("extraction")
+        return result
 
-    ham = model_cagir(prompt_doldur(cikarim_sablonu, metin=metin), saglayici)
-    sonuc["ham_cikarim"] = ham
-    sonuc["dusunce"] = dusunceyi_ayikla(ham)
+    raw = call_model(fill_prompt(extraction_template, letter_text=letter_text), provider)
+    result["raw_extraction"] = raw
+    result["thinking"] = extract_thinking(raw)
     try:
-        veri = json_ayikla(ham)
-    except AcikYaziHatasi as e:
-        sonuc["hatalar"].append(str(e))
-        return sonuc
-    sonuc["veri"] = veri
-    sonuc["kontroller"] = cikarimi_dogrula(veri, metin)
+        data = extract_json(raw)
+    except AcikYaziError as e:
+        result["errors"].append(str(e))
+        return result
+    result["data"] = data
+    result["checks"] = validate_extraction(data, letter_text)
 
-    sade_sablonu = prompt_yukle("sadelestirme")
-    if not sade_sablonu:
-        sonuc["atlananlar"].append("sadelestirme")
-        return sonuc
-    sade = model_cagir(prompt_doldur(sade_sablonu, json=json.dumps(veri, ensure_ascii=False)), saglayici)
-    sonuc["sade"] = sade
+    simplification_template = load_prompt("simplification")
+    if not simplification_template:
+        result["skipped"].append("simplification")
+        return result
+    plain = call_model(fill_prompt(simplification_template, json=json.dumps(data, ensure_ascii=False)), provider)
+    result["plain_text"] = plain
 
-    if hedef_dil:
-        ceviri_sablonu = prompt_yukle("ceviri")
-        if not ceviri_sablonu:
-            sonuc["atlananlar"].append("ceviri")
-            return sonuc
-        ceviri = model_cagir(prompt_doldur(ceviri_sablonu, dil=hedef_dil, sade_metin=sade), saglayici)
-        sonuc["ceviri"] = ceviri
-        sonuc["ceviri_kayip"] = ceviride_rakam_kontrol(sade, ceviri)
+    if target_language:
+        translation_template = load_prompt("translation")
+        if not translation_template:
+            result["skipped"].append("translation")
+            return result
+        translation = call_model(
+            fill_prompt(translation_template, language=target_language, plain_text=plain), provider
+        )
+        result["translation"] = translation
+        result["translation_missing"] = find_missing_in_translation(plain, translation)
 
-    return sonuc
+    return result
 
 
-def rozet(tur: str, etiket: str, aciklama: str = "") -> None:
-    """tur: "uyari" (kırmızı), "dogru" (yeşil) veya "bos" (gri)."""
-    html = f'<span class="rozet rozet-{tur}">{escape(etiket)}</span>'
-    if aciklama:
-        html += f'<span class="acik-aciklama">{escape(aciklama)}</span>'
+def badge(kind: str, label: str, note: str = "") -> None:
+    """kind: "warning" (red), "verified" (green) or "empty" (gray)."""
+    html = f'<span class="badge badge-{kind}">{escape(label)}</span>'
+    if note:
+        html += f'<span class="badge-note">{escape(note)}</span>'
     st.markdown(html, unsafe_allow_html=True)
 
 
-def kontrol_etiketi(k) -> None:
-    if k.durum == "dogrulandi":
-        rozet("dogru", "✓ Doğrulandı", k.aciklama)
-    elif k.durum == "bulunamadi":
-        rozet("uyari", "⚠ Kontrol edin", k.aciklama)
+def check_badge(check) -> None:
+    if check.status == "verified":
+        badge("verified", "✓ Verified", check.message)
+    elif check.status == "not_found":
+        badge("warning", "⚠ Check this", check.message)
     else:
-        rozet("bos", "Belirtilmemiş", k.aciklama)
+        badge("empty", "Not specified", check.message)
 
 
-def sonuclari_goster(sonuc: dict, dil_etiketi: str) -> None:
-    for ad in sonuc["atlananlar"]:
-        eksik_prompt_uyarisi(ad)
-    for hata in sonuc["hatalar"]:
-        st.error(hata)
-        if sonuc.get("ham_cikarim"):
-            with st.expander("Modelin ham çıktısı"):
-                st.code(sonuc["ham_cikarim"])
+def show_results(result: dict, language_label: str) -> None:
+    for name in result["skipped"]:
+        missing_prompt_warning(name)
+    for error in result["errors"]:
+        st.error(error)
+        if result.get("raw_extraction"):
+            with st.expander("Raw model output"):
+                st.code(result["raw_extraction"])
 
-    veri = sonuc.get("veri")
-    if veri is None:
+    data = result.get("data")
+    if data is None:
         return
 
-    kontroller = {k.alan: k for k in sonuc["kontroller"]}
-    if any(k.uyari for k in kontroller.values()):
+    checks = {c.field: c for c in result["checks"]}
+    if any(c.is_warning for c in checks.values()):
         st.error(
-            "Bazı tarih veya tutarlar asıl metinde bulunamadı. "
-            "Lütfen kırmızı etiketli alanları yazının aslından kontrol edin."
+            "Some dates or amounts were not found in the original letter. "
+            "Please check the fields marked in red against the original."
         )
 
-    with st.container(border=True, key="kart-cikarim"):
-        st.subheader("Yazıdan çıkarılan bilgiler")
-        for alan, baslik in JSON_ALANLARI:
-            deger = liste_metni(veri.get(alan))
-            st.markdown(f"**{baslik}:** {deger or '_Yazıda belirtilmemiş_'}")
-            if alan in kontroller:
-                kontrol_etiketi(kontroller[alan])
+    with st.container(border=True, key="card-extraction"):
+        st.subheader("Extracted from the letter")
+        for field, title in JSON_FIELDS:
+            value = as_text(data.get(field))
+            st.markdown(f"**{title}:** {value or '_Not specified in the letter_'}")
+            if field in checks:
+                check_badge(checks[field])
 
-        emin_olunmayanlar = veri.get("emin_olunmayanlar") or []
-        if emin_olunmayanlar:
-            st.markdown("**Emin olunmayanlar:**")
-            for madde in emin_olunmayanlar if isinstance(emin_olunmayanlar, list) else [emin_olunmayanlar]:
-                st.markdown(f"- {madde}")
+        uncertain = data.get("uncertain_fields") or []
+        if uncertain:
+            st.markdown("**Uncertain:**")
+            for item in uncertain if isinstance(uncertain, list) else [uncertain]:
+                st.markdown(f"- {item}")
 
-    if sonuc.get("sade"):
-        with st.container(border=True, key="kart-sade"):
-            st.subheader("Sade açıklama")
-            st.markdown(sonuc["sade"])
+    if result.get("plain_text"):
+        with st.container(border=True, key="card-plain"):
+            st.subheader("Plain-language explanation")
+            st.markdown(result["plain_text"])
 
-    if sonuc.get("ceviri"):
-        with st.container(border=True, key="kart-ceviri"):
-            st.subheader(f"Çeviri: {dil_etiketi}")
-            if "Arapça" in dil_etiketi:
-                st.caption(":orange-badge[Deneysel] Arapça çeviri henüz anadili Arapça biri tarafından doğrulanmadı.")
-            st.markdown(sonuc["ceviri"])
-            if sonuc.get("ceviri_kayip"):
-                rozet(
-                    "uyari",
-                    "⚠ Kontrol edin",
-                    "Çeviride şu tarih/tutarlar bulunamadı: " + ", ".join(sonuc["ceviri_kayip"]),
+    if result.get("translation"):
+        with st.container(border=True, key="card-translation"):
+            st.subheader(f"Translation: {language_label}")
+            if "Arabic" in language_label:
+                st.caption(":orange-badge[Experimental] The Arabic translation has not yet been reviewed by a native speaker.")
+            st.markdown(result["translation"])
+            if result.get("translation_missing"):
+                badge(
+                    "warning",
+                    "⚠ Check this",
+                    "These dates/amounts are missing from the translation: " + ", ".join(result["translation_missing"]),
                 )
             else:
-                rozet("dogru", "✓ Rakamlar korundu")
+                badge("verified", "✓ Numbers preserved")
 
-    with st.expander("Ham JSON ve modelin düşünce adımları"):
-        st.json(veri)
-        if sonuc.get("dusunce"):
-            st.text(sonuc["dusunce"])
+    with st.expander("Raw JSON and the model's reasoning steps"):
+        st.json(data)
+        if result.get("thinking"):
+            st.text(result["thinking"])
 
 
 def main() -> None:
     st.set_page_config(page_title="AçıkYazı", page_icon="📄", layout="centered")
-    st.markdown(STIL, unsafe_allow_html=True)
+    st.markdown(STYLE, unsafe_allow_html=True)
     st.title("AçıkYazı")
     st.caption(
-        "Resmî yazıyı yapıştırın; ne dediğini, ne yapmanız gerektiğini ve son tarihi sade dille anlatalım. "
-        "Tarih ve tutarlar asıl metinle otomatik karşılaştırılır."
+        "Paste an official letter; we explain in plain language what it says, what you need to do and the deadline. "
+        "Dates and amounts are automatically cross-checked against the original text."
     )
-    st.warning(HUKUKI_UYARI, icon="⚖️")
+    st.warning(LEGAL_DISCLAIMER, icon="⚖️")
 
     with st.sidebar:
         st.header("Model")
-        secenekler = list(SAGLAYICILAR)
-        saglayici = st.radio(
-            "Sağlayıcı",
-            secenekler,
-            index=secenekler.index(env_saglayici()),
-            format_func=lambda k: SAGLAYICILAR[k]["ad"],
-            help="Varsayılan `.env` içindeki `LLM_PROVIDER` değerinden gelir.",
+        options = list(PROVIDERS)
+        provider = st.radio(
+            "Provider",
+            options,
+            index=options.index(provider_from_env()),
+            format_func=lambda k: PROVIDERS[k]["name"],
+            help="Defaults to the `LLM_PROVIDER` value in `.env`.",
         )
-        st.markdown(f"**Model:** `{model_adi(saglayici)}`")
-        st.markdown("**API anahtarı:** " + ("✅ tanımlı" if api_anahtari(saglayici) else "❌ eksik"))
+        st.markdown(f"**Model:** `{get_model_name(provider)}`")
+        st.markdown("**API key:** " + ("✅ set" if get_api_key(provider) else "❌ missing"))
         st.divider()
-        st.header("Durum")
-        st.markdown("**Promptlar:**")
-        for ad, dosya in PROMPT_DOSYALARI.items():
-            st.markdown(f"- `{dosya}`: " + ("✅" if prompt_yukle(ad) else "❌ eksik"))
+        st.header("Status")
+        st.markdown("**Prompts:**")
+        for name, filename in PROMPT_FILES.items():
+            st.markdown(f"- `{filename}`: " + ("✅" if load_prompt(name) else "❌ missing"))
         st.divider()
         st.caption(
-            "Uygulama hiçbir metni saklamaz. Yapıştırmadan önce TC kimlik no, adres, plaka "
-            "gibi kişisel bilgileri silmenizi öneririz."
+            "The app does not store any text. Before pasting, we recommend removing personal data "
+            "such as national ID numbers, addresses and license plates."
         )
 
-    with st.form("girdi"):
-        metin = st.text_area(
-            "Resmî yazının metni",
+    with st.form("input"):
+        letter_text = st.text_area(
+            "Text of the official letter",
             height=260,
-            placeholder="Örn. tebligat, ödeme bildirimi veya kurum yazısının metnini buraya yapıştırın…",
+            placeholder="e.g. paste the text of a notification, payment notice or institutional letter here…",
         )
-        dil_etiketi = st.radio("Açıklama dili", list(DILLER), horizontal=True)
-        gonder = st.form_submit_button("Yazıyı açıkla", type="primary", width="stretch")
+        language_label = st.radio("Explanation language", list(LANGUAGES), horizontal=True)
+        submitted = st.form_submit_button("Explain the letter", type="primary", width="stretch")
 
-    if gonder:
-        if not metin.strip():
-            st.info("Lütfen önce yazının metnini yapıştırın.")
+    if submitted:
+        if not letter_text.strip():
+            st.info("Please paste the text of the letter first.")
             return
-        with st.spinner("Yazı inceleniyor…"):
+        with st.spinner("Reading the letter…"):
             try:
-                st.session_state["sonuc"] = analiz_et(metin, DILLER[dil_etiketi], saglayici)
-                st.session_state["dil_etiketi"] = dil_etiketi
-            except AcikYaziHatasi as e:
-                st.session_state.pop("sonuc", None)
+                st.session_state["result"] = analyze(letter_text, LANGUAGES[language_label], provider)
+                st.session_state["language_label"] = language_label
+            except AcikYaziError as e:
+                st.session_state.pop("result", None)
                 st.error(str(e))
                 return
 
-    if "sonuc" in st.session_state:
-        sonuclari_goster(st.session_state["sonuc"], st.session_state.get("dil_etiketi", ""))
+    if "result" in st.session_state:
+        show_results(st.session_state["result"], st.session_state.get("language_label", ""))
 
 
 if __name__ == "__main__":
