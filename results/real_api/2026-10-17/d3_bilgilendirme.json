@@ -1,0 +1,132 @@
+{
+  "saved_at": "2026-10-17T23:00:19+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "dev_letters/d3_bilgilendirme",
+    "length_chars": 598,
+    "first_200_chars_sha256": "4ee6fa6fbeb26fea6e44c03e99ffe2d268440e14b66c5e491e4a617456ae9e88"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "",
+        "status": "empty",
+        "message": "Yazıda belirtilmemiş.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "",
+        "status": "empty",
+        "message": "Yazıda belirtilmemiş.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "09.10.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı ÖRNEKİLÇE KAYMAKAMLIĞI İlçe Sosyal Yardımlaşma ve Dayanışma Vakfı gönderiyor. Yazının türü bilgilendirme.",
+        "Okuyucudan haneye yapılacak ziyaret esnasında hanede bulunan kişilere ait kimlik belgelerinin hazır bulundurulması isteniyor.",
+        "Yazıdaki tarih: 09.10.2026 (Yazının tarihi). Yazıda belirli bir son gün veya son tarih bulunmuyor.",
+        "Yazıda herhangi bir para tutarı geçmiyor.",
+        "İstenen belgeler hanede bulunan kişilere ait kimlik belgeleridir. İtiraz yolu, yapılmazsa ne olacağı ve iletişim bilgileri yazıdan geçmiyor.",
+        "Yazıda ziyaretin yapılacağı kesin gün ve saat, değerlendirme sonucunun ne zaman bildirileceği ve iletişim bilgileri yer almamaktadır."
+      ],
+      "belge_turu": "Bilgilendirme",
+      "kurum": "ÖRNEKİLÇE KAYMAKAMLIĞI İlçe Sosyal Yardımlaşma ve Dayanışma Vakfı",
+      "konu": "Hane Ziyareti Hakkında Bilgilendirme",
+      "istenen_islem": "Ziyaret esnasında hanede bulunan kişilere ait kimlik belgelerinin hazır bulundurulması",
+      "son_tarih": {
+        "deger": "",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "09.10.2026",
+          "aciklama": "Yazının tarihi"
+        }
+      ],
+      "gerekli_belgeler": [
+        "Hanede bulunan kişilere ait kimlik belgeleri"
+      ],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Ziyaretin yapılacağı kesin gün ve saat",
+        "Değerlendirme sonucunun bildirileceği tarih",
+        "İletişim bilgileri",
+        "İtiraz yolu",
+        "Yaptırım bilgisi"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Kaymakamlık Vakfı evinizi ziyaret edecek. Ziyaretin amacı bilgilendirme.",
+      "ne_yapmalisiniz": [
+        "Evde bulunan herkesin kimlik belgesini hazır tutun."
+      ],
+      "son_tarih_ve_yardim": "Ziyaret günü yazıda belirtilmemiş. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Ziyaretin kesin gün ve saati belli değil.",
+        "İletişim bilgileri ve itiraz yolu yazıda yok."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "The District Governorate Foundation (Kaymakamlık Vakfı) will visit your home. The purpose of the visit is to provide information.",
+      "ne_yapmalisiniz": [
+        "Have the identity document of everyone at home ready."
+      ],
+      "son_tarih_ve_yardim": "The date of the visit is not specified in the letter. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The exact day and time of the visit are not clear.",
+        "Contact information and the method of appeal are not in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "tarih",
+          "deger": "09.10.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 0,
+    "amounts_expected": 0,
+    "institution_ok": null
+  }
+}

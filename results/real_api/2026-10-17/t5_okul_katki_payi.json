@@ -1,0 +1,146 @@
+{
+  "saved_at": "2026-10-17T23:01:45+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t5_okul_katki_payi",
+    "length_chars": 1006,
+    "first_200_chars_sha256": "9d12265e1e7e876535b4e5777fc282757532c8557df823396386db2e2ebef11e"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "06 Kasım 2026 Cuma",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "1.250,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "01.09.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı Millî Eğitim Bakanlığı Yenimahalle Cumhuriyet İlkokulu Müdürlüğü göndermektedir; türü bilgilendirme ve ödeme bildirimidir.",
+        "Okuyucudan 1.250,00 TL tutarındaki materyal katkı payını belirtilen IBAN adresine yatırması istenmektedir.",
+        "Yazıdaki tarihler: 01.09.2026 (Yönetim Kurulu karar tarihi), 06 Kasım 2026 Cuma (mesai bitimine değin ödeme için son gün). Son gün: 06 Kasım 2026 Cuma.",
+        "Yazıdaki tutarlar: 1.250,00 TL (materyal katkı payı tutarı).",
+        "İstenen belgeler yazıda geçmemektedir. İtiraz yolu yazıda geçmemektedir. Yapılmaması durumunda ne olacağı yazıda açıkça belirtilmemiştir.",
+        "Yazıda bulamadığımız veya belirsiz olan konular: itiraz yolu, ödenmediğinde uygulanacak yaptırım, gerekli belgeler ve iletişim bilgileri."
+      ],
+      "belge_turu": "Bilgilendirme ve Ödeme Bildirimi",
+      "kurum": "T.C. Millî Eğitim Bakanlığı Yenimahalle Cumhuriyet İlkokulu Müdürlüğü",
+      "konu": "2026-2027 Eğitim Öğretim Yılı Ek Materyal ve Katkı Payı",
+      "istenen_islem": "1.250,00 TL tutarındaki materyal katkı payının Okul Aile Birliğinin TR12 3456 7890 1234 5678 9012 34 numaralı Ziraat Bankası IBAN hesabına, açıklama kısmına öğrenci TC kimlik numarası yazılarak yatırılması",
+      "son_tarih": {
+        "deger": "06 Kasım 2026 Cuma",
+        "aciklama": "Materyal katkı payının yatırılması gereken son gün",
+        "kaynak_alinti": "Eğitim faaliyetlerinde aksaklık yaşanmaması ve tedarik süreçlerinin zamanında tamamlanabilmesi adına, mezkur meblağın en geç 06 Kasım 2026 Cuma günü mesai bitimine değin Okul Aile Birliğinin TR12 3456 7890 1234 5678 9012 34 numaralı Ziraat Bankası IBAN hesabına, açıklama kısmına öğrenci TC kimlik numarası derç edilerek yatırılması hususunda gereğini rica ederim."
+      },
+      "tutarlar": [
+        {
+          "deger": "1.250,00 TL",
+          "aciklama": "Materyal katkı payı"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "01.09.2026",
+          "aciklama": "Yönetim Kurulunun karar tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "Ziraat Bankası IBAN: TR12 3456 7890 1234 5678 9012 34 (Okul Aile Birliği)",
+      "emin_olunmayanlar": [
+        "İtiraz yolu yazıda yer almamaktadır.",
+        "Ödemenin yapılmaması durumunda yaşanacak yaptırımlar veya sonuçlar yazıda belirtilmemiştir.",
+        "Gerekli belgeler belirtilmemiştir.",
+        "Kurumun telefon, e-posta veya adres gibi doğrudan iletişim bilgileri yazıda yer almamaktadır."
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Yenimahalle Cumhuriyet İlkokulu Müdürlüğü ödeme bildirimi gönderdi. 2026-2027 eğitim yılı için 1.250,00 TL materyal katkı payı isteniyor.",
+      "ne_yapmalisiniz": [
+        "1.250,00 TL tutarı Ziraat Bankası TR12 3456 7890 1234 5678 9012 34 numaralı hesaba yatırın.",
+        "Açıklama kısmına öğrenci TC kimlik numarasını yazın."
+      ],
+      "son_tarih_ve_yardim": "Son ödeme günü: 06 Kasım 2026 Cuma günü mesai bitimi. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Ödeme yapılmazsa ne olacağı yazıda yok.",
+        "İtiraz yolu yazıda yok."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "The Directorate of Yenimahalle Cumhuriyet Primary School (Yenimahalle Cumhuriyet İlkokulu Müdürlüğü) sent a payment notice. A material contribution fee of 1.250,00 TL is requested for the 2026-2027 academic year.",
+      "ne_yapmalisiniz": [
+        "Deposit the amount of 1.250,00 TL into the Ziraat Bank account numbered TR12 3456 7890 1234 5678 9012 34.",
+        "Write the student's Turkish ID number in the description section."
+      ],
+      "son_tarih_ve_yardim": "Deadline: End of working hours on Friday, 06 November (Kasım) 2026. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "What will happen if payment is not made is not in the text.",
+        "The way to appeal is not in the text."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "06 Kasım 2026 Cuma",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "1.250,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tarih",
+          "deger": "01.09.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 1,
+    "amounts_expected": 1,
+    "institution_ok": null
+  }
+}

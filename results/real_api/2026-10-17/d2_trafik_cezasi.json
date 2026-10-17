@@ -1,0 +1,166 @@
+{
+  "saved_at": "2026-10-17T23:00:09+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "dev_letters/d2_trafik_cezasi",
+    "length_chars": 851,
+    "first_200_chars_sha256": "afb5779ad415e9b46067fa4fc28c9d72e6a469b645109dee671b7fe6cb15440e"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "tebliğ tarihinden itibaren bir ay",
+        "status": "relative",
+        "message": "Göreli süre (1 ay) asıl yazıda bulundu; kesin tarih yazının size teslim (tebliğ) edildiği güne göre hesaplanır.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "2.167,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "1.625,25 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "03.10.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı Trafik İdare Para Cezası Karar Tutanağı Tebligatını gönderen kurumdan dolayı trafik idaresi gönderiyor ve yazının türü trafik idari para cezası tebliğ yazısıdır.",
+        "Okuyucudan cezayı tebliğ tarihinden itibaren bir ay içinde ödemesi istenmektedir. Ayrıca ödeme vergi dairelerine, anlaşmalı bankalara veya e-Devlet üzerinden yapılabilir.",
+        "Yazıdaki tarihler: 03.10.2026 (Tespit Tarihi). Son gün belirli bir tarih değil, \"tebliğ tarihinden itibaren 15 gün\" (indirim için) ve \"tebliğ tarihinden itibaren bir ay\" (ödeme için) şeklindedir.",
+        "Yazıdaki para tutarları: 2.167,00 TL (Ceza Tutarı), 1.625,25 TL (İndirimli ödenecek tutar).",
+        "İstenen belgeler yazıda geçmiyor. İtiraz yolu olarak tebliğ tarihinden itibaren 15 gün içinde Sulh Ceza Hakimliğine başvurulabileceği belirtilmiştir. Yapılacak işlem yapılmazsa ne olacağı yazıda geçmemektedir.",
+        "Yazıda belgesiz veya eksik olan hususlar: Belirli bir yazılış tarihi veya belge numarası (tutanak seri/no hariç tebliğ tarihi) yer almamaktadır."
+      ],
+      "belge_turu": "Trafik İdari Para Cezası Karar Tutanağı Tebliğ Yazısı",
+      "kurum": "",
+      "konu": "Trafik İdari Para Cezası",
+      "istenen_islem": "Cezanın tebliğ tarihinden itibaren bir ay içinde ödenmesi gerekmektedir. Ödeme vergi dairelerine, anlaşmalı bankalara veya e-Devlet üzerinden yapılabilir.",
+      "son_tarih": {
+        "deger": "tebliğ tarihinden itibaren bir ay",
+        "aciklama": "Cezanın ödenmesi gereken son süre",
+        "kaynak_alinti": "Cezanın tebliğ tarihinden itibaren bir ay içinde ödenmesi gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "2.167,00 TL",
+          "aciklama": "Ceza Tutarı"
+        },
+        {
+          "deger": "1.625,25 TL",
+          "aciklama": "İndirimli ödenecek tutar"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "03.10.2026",
+          "aciklama": "Tespit Tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Karara karşı tebliğ tarihinden itibaren 15 gün içinde Sulh Ceza Hakimliğine başvurulabilir. Başvuru, cezanın ödenmesini durdurmaz.",
+      "yaptirim": "",
+      "iletisim": "Ödeme vergi dairelerine, anlaşmalı bankalara veya e-Devlet üzerinden yapılabilir.",
+      "emin_olunmayanlar": [
+        "Yazının resmi olarak düzenlendiği/gönderildiği tarih",
+        "Cezanın ödenmemesi durumunda uygulanacak yaptırım veya faiz bilgisi"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Bu yazı bir trafik cezasıdır. Tespit tarihi 03.10.2026. Ceza tutarı 2.167,00 TL. İndirimli tutar 1.625,25 TL.",
+      "ne_yapmalisiniz": [
+        "Cezayı ödeyin.",
+        "Ödemeyi vergi dairelerine, anlaşmalı bankalara veya e-Devlet üzerinden yapın."
+      ],
+      "son_tarih_ve_yardim": "Son ödeme süresi yazının size resmî olarak teslim edildiği günden (tebliğ tarihi) sonra 1 ay içinde. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazının resmî olarak gönderildiği tarih belirtilmemiş.",
+        "Cezanın ödenmemesi durumunda uygulanacak yaptırım veya faiz yazıda yok.",
+        "İtiraz yolu için yazının size resmî olarak teslim edildiği günden sonra 15 gün içinde Sulh Ceza Hakimliğine başvurabilirsiniz."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "This letter is a traffic fine. Detection date 03.10.2026. Fine amount 2.167,00 TL. Discounted amount 1.625,25 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the fine.",
+        "Make the payment to tax offices, contracted banks, or via e-Government (e-Devlet)."
+      ],
+      "son_tarih_ve_yardim": "The payment deadline is within 1 month after the day the letter is officially delivered to you (notification date). When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was officially sent is not stated.",
+        "The sanction or interest to be applied in case of non-payment of the fine is not in the letter.",
+        "For the appeal route, you can apply to the Criminal Judgeship of Peace (Sulh Ceza Hakimliği) within 15 days after the day the letter is officially delivered to you."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "tebliğ tarihinden itibaren bir ay",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "2.167,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "1.625,25 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tarih",
+          "deger": "03.10.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [
+        "Sade metinde asıl yazıda olmayan sayılar var: 1"
+      ],
+      "sade_yeni_rakam": [
+        "1"
+      ],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": false,
+    "amounts_found": 2,
+    "amounts_expected": 2,
+    "institution_ok": null
+  }
+}

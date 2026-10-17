@@ -1,0 +1,160 @@
+{
+  "saved_at": "2026-10-17T23:01:34+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t4_sgk_odeme_emri",
+    "length_chars": 1112,
+    "first_200_chars_sha256": "ffae27f094ff296aea26dd5d62a253bb45368ac4c554b73b397b1a610fc05b25"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "7 (yedi) gün",
+        "status": "relative",
+        "message": "Göreli süre (7 gün) asıl yazıda bulundu; kesin tarih yazının size teslim (tebliğ) edildiği güne göre hesaplanır.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "8.450,75 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "1.230,40 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "9.681,15 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Sosyal Güvenlik Kurumu Başkanlığı Ankara Sosyal Güvenlik İl Müdürlüğü Rüzgarlı Sosyal Güvenlik Merkezi gönderiyor; belgenin türü ihtar / ödeme emridir.",
+        "Okuyucudan tebliğ tarihinden itibaren 7 gün içinde toplam borcu ödemesi ya da idare mahkemesine itiraz etmesi isteniyor.",
+        "Yazıda açık takvim tarihi geçmiyor; son gün olarak 'tebliğ edildiği tarihten itibaren 7 (yedi) gün zarfında' süresi belirtilmiştir.",
+        "Yazıdaki tutarlar: 8.450,75 TL anapara, 1.230,40 TL gecikme zammı, toplam 9.681,15 TL borç.",
+        "Gerekli belgeler yazıda geçmiyor. İtiraz yolu: yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması. Yapılmamışsa yaptırım: haklarında e-haciz işlemlerine tevessül edileceği.",
+        "Yazıda kesin bir takvim tarihi, iletişim bilgisi ve belge listesi bulunmamaktadır."
+      ],
+      "belge_turu": "Ödeme Emri / İhtar",
+      "kurum": "T.C. SOSYAL GÜVENLİK KURUMU BAŞKANLIĞI Ankara Sosyal Güvenlik İl Müdürlüğü - Rüzgarlı Sosyal Güvenlik Merkezi",
+      "konu": "5510 Sayılı Kanunun 89. Maddesi Kapsamında İhtar",
+      "istenen_islem": "Toplam 9.681,15 TL borcun Kurumumuz anlaşmalı bankaları aracılığıyla defaten ödenmesi yahut aynı süre içinde yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması",
+      "son_tarih": {
+        "deger": "7 (yedi) gün",
+        "aciklama": "Ödeme emrinin tebliğ edildiği tarihten itibaren 7 günlük süre",
+        "kaynak_alinti": "işbu ödeme emrinin tarafınıza tebliğ edildiği tarihten itibaren 7 (yedi) gün zarfında mezkur toplam 9.681,15 TL borcun Kurumumuz anlaşmalı bankaları aracılığıyla defaten ödenmesi yahut aynı süre içinde yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "8.450,75 TL",
+          "aciklama": "2025/08 ila 2026/02 dönemlerine ait muaccel hale gelmiş anapara"
+        },
+        {
+          "deger": "1.230,40 TL",
+          "aciklama": "Gecikme zammı"
+        },
+        {
+          "deger": "9.681,15 TL",
+          "aciklama": "Toplam borç"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Yetkili idare mahkemesi nezdinde itiraz yoluna başvurulması",
+      "yaptirim": "Hakkınızda e-haciz işlemlerine tevessül edileceği",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Belirli bir takvim tarihi (Yazıda sadece '7 gün' süresi verilmiştir)",
+        "İletişim bilgileri",
+        "Gerekli belgeler"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Sosyal Güvenlik Kurumu, borcunuz olduğunu bildiren bir ödeme emri gönderdi. Toplam borcunuz 9.681,15 TL.",
+      "ne_yapmalisiniz": [
+        "Borcu kurumun anlaşmalı bankalarından bir defada ödeyin.",
+        "İtiraz etmek isterseniz idare mahkemesine başvurun."
+      ],
+      "son_tarih_ve_yardim": "Yazının size resmî olarak teslim edildiği günden (tebliğ tarihi) sonra 7 (yedi) gün içinde işlem yapmalısınız. Süresinde ödeme yapmazsanız borcunuz için haciz işlemleri yapılabilir. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Belirli bir takvim tarihi verilmemiştir.",
+        "İletişim bilgileri ve gerekli belgeler yazıda belirtilmemiş."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "Social Security Institution (Sosyal Güvenlik Kurumu) sent a payment order stating that you have a debt. Your total debt is 9.681,15 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the debt at one of the institution's contracted banks in one single payment.",
+        "If you want to object, apply to the administrative court."
+      ],
+      "son_tarih_ve_yardim": "You must take action within 7 (seven) days after the day the letter is officially delivered to you (notification date). If you do not pay on time, enforcement proceedings may be carried out for your debt. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "No specific calendar date is given.",
+        "Contact information and required documents are not specified in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "7 (yedi) gün",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "8.450,75 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "1.230,40 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "9.681,15 TL",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 1,
+    "amounts_expected": 1,
+    "institution_ok": null
+  }
+}

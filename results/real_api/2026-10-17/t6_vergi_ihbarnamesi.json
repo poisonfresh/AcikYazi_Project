@@ -1,0 +1,166 @@
+{
+  "saved_at": "2026-10-17T23:01:57+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t6_vergi_ihbarnamesi",
+    "length_chars": 970,
+    "first_200_chars_sha256": "2f456a96ac4740d6b166451d5f2f0799c51f6f50cdf3c8b68994c8747c0b4741"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "tebliğ tarihini takip eden 30 (otuz) gün",
+        "status": "relative",
+        "message": "Göreli süre (30 gün) asıl yazıda bulundu; kesin tarih yazının size teslim (tebliğ) edildiği güne göre hesaplanır.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "15.400,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "15.400,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "30.800,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Hazine ve Maliye Bakanlığı Doğanbey Vergi Dairesi Müdürlüğü göndermektedir; yazının türü Vergi / Ceza İhbarnamesidir.",
+        "Okuyucudan tebliğ tarihini takip eden 30 (otuz) gün içerisinde borcun ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava açılması istenmektedir.",
+        "Yazıda açık bir takvim tarihi geçmemektedir. Son gün, 'işbu ihbarnamenin tarafınıza tebliğ tarihini takip eden 30 (otuz) gün içerisinde' olarak ifade edilen süredir.",
+        "Yazıdaki tutarlar: 15.400,00 TL vergi aslı, 15.400,00 TL bir kat vergi ziyaı cezası ve yekûn 30.800,00 TL borçtur.",
+        "İstenen belgeler yazıda belirtilmemiştir. İtiraz yolu olarak uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi belirtilmiştir. Yapılacak işlem yapılmazsa ne olacağı yazıda açıkça yer almamaktadır.",
+        "Yazıda belgenin düzenlendiği tarih (yazının tarihi) ve mükellefin tebliğ tarihi yer almamaktadır."
+      ],
+      "belge_turu": "Vergi / Ceza İhbarnamesi",
+      "kurum": "T.C. Hazine ve Maliye Bakanlığı Doğanbey Vergi Dairesi Müdürlüğü",
+      "konu": "Vergi / Ceza İhbarnamesi",
+      "istenen_islem": "Amme alacağının İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar aracılığıyla ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi",
+      "son_tarih": {
+        "deger": "tebliğ tarihini takip eden 30 (otuz) gün",
+        "aciklama": "İhbarnamenin tebliğ tarihini takip eden ödeme, uzlaşma veya dava açma süresi",
+        "kaynak_alinti": "işbu ihbarnamenin tarafınıza tebliğ tarihini takip eden 30 (otuz) gün içerisinde söz konusu amme alacağının İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar aracılığıyla ödenmesi, uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "15.400,00 TL",
+          "aciklama": "vergi aslı"
+        },
+        {
+          "deger": "15.400,00 TL",
+          "aciklama": "bir kat vergi ziyaı cezası"
+        },
+        {
+          "deger": "30.800,00 TL",
+          "aciklama": "yekûn borç"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Uzlaşma talep edilmesi veya yetkili Vergi Mahkemesi nezdinde dava ikame edilmesi",
+      "yaptirim": "",
+      "iletisim": "İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankalar",
+      "emin_olunmayanlar": [
+        "Yazının tarihi",
+        "Tebliğ tarihi",
+        "İşlemlerin yapılmaması durumunda uygulanacak yaptırım"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Bu yazı Doğanbey Vergi Dairesi Müdürlüğü'nden gelen bir borç yazısıdır. Toplam borcunuz 30.800,00 TL'dir. Bu tutar 15.400,00 TL vergi aslı ve 15.400,00 TL cezadan oluşur.",
+      "ne_yapmalisiniz": [
+        "Borcu ödeyin.",
+        "İnteraktif Vergi Dairesi (ivd.gib.gov.tr) veya anlaşmalı bankaları kullanın.",
+        "Uzlaşma isteyebilirsiniz.",
+        "Vergi Mahkemesi'nde dava açabilirsiniz."
+      ],
+      "son_tarih_ve_yardim": "Yazının size resmî olarak teslim edildiği günden (tebliğ tarihi) sonra 30 (otuz) gün içinde işlem yapmalısınız. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazının tarihi yazıda belirtilmemiş.",
+        "Tebliğ tarihi yazıda belirtilmemiş.",
+        "İşlemler yapılmazsa ne olacağı yazıda belirtilmemiş."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "This letter is a debt notice from the Directorate of Doğanbey Tax Office (Doğanbey Vergi Dairesi Müdürlüğü). Your total debt is 30.800,00 TL. This amount consists of 15.400,00 TL principal tax and 15.400,00 TL penalty.",
+      "ne_yapmalisiniz": [
+        "Pay the debt.",
+        "Use the Interactive Tax Office (İnteraktif Vergi Dairesi) (ivd.gib.gov.tr) or contracted banks.",
+        "You may request a settlement.",
+        "You can file a lawsuit in the Tax Court (Vergi Mahkemesi)."
+      ],
+      "son_tarih_ve_yardim": "You must take action within 30 (thirty) days after the day the letter is officially delivered to you (notification date). When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date of the letter is not specified in the letter.",
+        "The notification date is not specified in the letter.",
+        "What will happen if the procedures are not carried out is not specified in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "tebliğ tarihini takip eden 30 (otuz) gün",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "15.400,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "15.400,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "30.800,00 TL",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 1,
+    "amounts_expected": 1,
+    "institution_ok": null
+  }
+}

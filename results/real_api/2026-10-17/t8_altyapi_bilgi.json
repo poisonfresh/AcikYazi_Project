@@ -1,0 +1,127 @@
+{
+  "saved_at": "2026-10-17T23:02:18+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t8_altyapi_bilgi",
+    "length_chars": 1194,
+    "first_200_chars_sha256": "08e82c1aaac2abb09501038d74091027afba20e5c6a5834762dbb570b3858cb6"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "",
+        "status": "empty",
+        "message": "Yazıda belirtilmemiş.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "",
+        "status": "empty",
+        "message": "Yazıda belirtilmemiş.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "15 Ekim 2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı Ankara Büyükşehir Belediyesi Fen İşleri Dairesi Başkanlığı Altyapı Koordinasyon Şube Müdürlüğü (AYKOME) gönderiyor, yazının türü bilgilendirme.",
+        "Okuyucudan somut olarak yapılması istenen herhangi bir iş yok.",
+        "Yazıdaki tarih: 15 Ekim 2026 (zemin etüt ve kazı faaliyetlerine başlanacağı tarih). Yazıda açık bir son gün veya son tarih belirtilmemiştir.",
+        "Yazıda herhangi bir para tutarı geçmemektedir.",
+        "İstenen belgeler, itiraz yolu ve yapılmazsa ne olacağı yazıda geçmemektedir.",
+        "Yazının kendi tarihi ve sayısı dışındaki tüm belirsizlikler (yazının tarihi gibi) not edilmiştir."
+      ],
+      "belge_turu": "bilgilendirme",
+      "kurum": "T.C. ANKARA BÜYÜKŞEHİR BELEDİYESİ Fen İşleri Dairesi Başkanlığı - Altyapı Koordinasyon Şube Müdürlüğü (AYKOME)",
+      "konu": "Altyapı Yatırımları ve Güzergah Bilgilendirmesi",
+      "istenen_islem": "Hiçbir şey istenmiyor.",
+      "son_tarih": {
+        "deger": "",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "15 Ekim 2026",
+          "aciklama": "zemin etüt ve kazı faaliyetlerine başlanacak tarih"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının düzenlenme tarihi",
+        "İletişim bilgileri"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Ankara Büyükşehir Belediyesi bilgi veriyor. Altyapı ve kazı çalışmaları 15 Ekim 2026 tarihinde başlayacak.",
+      "ne_yapmalisiniz": [
+        "Bu yazı için bir şey yapmanız gerekmiyor."
+      ],
+      "son_tarih_ve_yardim": "Yazıda son tarih yok. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazının düzenlenme tarihi belirtilmemiş.",
+        "İletişim bilgileri yazıda yok."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "Ankara Metropolitan Municipality (Ankara Büyükşehir Belediyesi) provides information. Infrastructure and excavation work will start on 15 October (Ekim) 2026.",
+      "ne_yapmalisiniz": [
+        "You do not need to do anything for this letter."
+      ],
+      "son_tarih_ve_yardim": "There is no deadline in the letter. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The preparation date of the letter is not specified.",
+        "Contact information is not in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "tarih",
+          "deger": "15 Ekim 2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 0,
+    "amounts_expected": 0,
+    "institution_ok": null
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "saved_at": "2026-10-17T22:56:38+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": true,
+  "source": {
+    "name": "test_set/t7_kira_ihtarnamesi",
+    "length_chars": 1218,
+    "first_200_chars_sha256": "f534d39e710c87cbdd4247da97718f391ee349603296de231dc3a83a2bc765b0"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "01.11.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "16.500,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "9.000,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "9.000,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "16.500,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "(mock)"
+      ],
+      "belge_turu": "mock",
+      "kurum": "mock",
+      "konu": "mock",
+      "istenen_islem": "mock",
+      "son_tarih": {
+        "deger": "01.11.2026",
+        "aciklama": "",
+        "kaynak_alinti": ""
+      },
+      "tutarlar": [
+        {
+          "deger": "16.500,00 TL",
+          "aciklama": ""
+        },
+        {
+          "deger": "9.000,00 TL",
+          "aciklama": ""
+        },
+        {
+          "deger": "9.000,00 TL",
+          "aciklama": ""
+        },
+        {
+          "deger": "16.500,00 TL",
+          "aciklama": ""
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "",
+      "iletisim": "",
+      "emin_olunmayanlar": []
+    },
+    "sade": {
+      "bu_yazi_ne": "(mock) Bu yazı bir bildirim.",
+      "ne_yapmalisiniz": [
+        "(mock) Kuruma başvurun."
+      ],
+      "son_tarih_ve_yardim": "Son gün: 01.11.2026. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": []
+    },
+    "ceviri": {
+      "bu_yazi_ne": "(mock) Bu yazı bir bildirim.",
+      "ne_yapmalisiniz": [
+        "(mock) Kuruma başvurun."
+      ],
+      "son_tarih_ve_yardim": "Son gün: 01.11.2026. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": []
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "01.11.2026",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "16.500,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "9.000,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "9.000,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "16.500,00 TL",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": false,
+    "amounts_found": 2,
+    "amounts_expected": 2,
+    "institution_ok": null
+  }
+}

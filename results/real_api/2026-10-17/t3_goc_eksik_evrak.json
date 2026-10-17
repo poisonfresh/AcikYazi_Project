@@ -1,0 +1,139 @@
+{
+  "saved_at": "2026-10-17T23:01:23+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t3_goc_eksik_evrak",
+    "length_chars": 1184,
+    "first_200_chars_sha256": "964521b0e822127e46b672ba1d9eddc1e64253ed10b2349ed8adf0dfe8368f31"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "tebliğden itibaren 10 (on) gün",
+        "status": "relative",
+        "message": "Göreli süre (10 gün) asıl yazıda bulundu; kesin tarih yazının size teslim (tebliğ) edildiği güne göre hesaplanır.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "",
+        "status": "empty",
+        "message": "Yazıda belirtilmemiş.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "05.10.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. İçişleri Bakanlığı Göç İdaresi Başkanlığı Ankara İl Göç İdaresi Müdürlüğü gönderiyor, yazının türü eksik evrak bildirimi.",
+        "Okuyucudan ikamet talep süresini tam kapsayacak şekilde güncel sağlık sigortası poliçesinin aslını kurumun ek evrak teslim gişelerine bizzat ibraz etmesi isteniyor.",
+        "Yazıdaki tarihlerden 05.10.2026 ilgi'de kayıtlı ikamet izni başvurusu tarihidir. Son gün belirli bir takvim tarihi olmayıp tebliğden itibaren en geç 10 (on) gündür.",
+        "Yazıda herhangi bir para tutarı geçmemektedir.",
+        "İstenen belge güncel sağlık sigortası poliçesinin aslıdır. İtiraz yolu yazıda belirtilmemiştir. Yapılmasa ne olacağı ise başvurunun işlemden kaldırılması, V-137 tahdit kodu işlenmesi ve yasal süre sonunda sınır dışı (deport) işlemlerinin başlatılmasıdır.",
+        "Yazıda iletişim bilgisi bulunmamaktadır."
+      ],
+      "belge_turu": "Eksik Evrak Bildirimi",
+      "kurum": "T.C. İçişleri Bakanlığı Göç İdaresi Başkanlığı Ankara İl Göç İdaresi Müdürlüğü",
+      "konu": "6458 Sayılı Kanun Uyarınca Eksik Evrak Bildirimi (V-91)",
+      "istenen_islem": "İkamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçenizin aslını kurumumuz ek evrak teslim gişelerine bizzat ibraz etmeniz gerekmektedir.",
+      "son_tarih": {
+        "deger": "tebliğden itibaren 10 (on) gün",
+        "aciklama": "İşbu tebligatın tebellüğ edildiği tarihten itibaren eksik evrakın ibraz edilmesi gereken son süre.",
+        "kaynak_alinti": "işbu tebligatın tarafınıza tebellüğ edildiği tarihten itibaren en geç 10 (on) gün içerisinde, ikamet talep süresini tam kapsayacak şekilde zeyil edilmiş güncel sağlık sigortası poliçenizin aslını kurumumuz ek evrak teslim gişelerine bizzat ibraz etmeniz gerekmektedir."
+      },
+      "tutarlar": [],
+      "diger_tarihler": [
+        {
+          "deger": "05.10.2026",
+          "aciklama": "Kısa Dönem İkamet İzni (Turistik) Başvurunuzun tarihi"
+        }
+      ],
+      "gerekli_belgeler": [
+        "Güncel sağlık sigortası poliçesinin aslı"
+      ],
+      "itiraz_yolu": "",
+      "yaptirim": "Mezkur mühlet zarfında eksik evrakın tekemmül ettirilmemesi durumunda başvurunuz işlemden kaldırılarak hakkınızda V-137 tahdit kodu işlenecek ve yasal süreniz sonunda sınır dışı (deport) işlemleri başlatılacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "itiraz_yolu",
+        "iletisim",
+        "Kesin takvim tarihi olarak son gün"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Göç İdaresi Başkanlığı Ankara İl Göç İdaresi Müdürlüğü, 05.10.2026 tarihli başvurunuz için eksik evrak olduğunu bildiriyor.",
+      "ne_yapmalisiniz": [
+        "Güncel sağlık sigortası poliçesinin aslını hazırlayın.",
+        "Belgeyi kurumun ek evrak teslim gişelerine bizzat götürün."
+      ],
+      "son_tarih_ve_yardim": "Yazının size resmî olarak teslim edildiği günden (tebliğ tarihi) sonra 10 (on) gün içinde vermelisiniz. Belgeyi vermezseniz başvurunuz iptal edilebilir ve sınır dışı işlemleri başlatılabilir. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "İtiraz yolu yazıda belirtilmemiş.",
+        "İletişim bilgisi yazıda belirtilmemiş.",
+        "Son gün takvim tarihi olarak yazıda belirtilmemiş."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "The Presidency of Migration Management Ankara Provincial Directorate of Migration Management (Göç İdaresi Başkanlığı Ankara İl Göç İdaresi Müdürlüğü) states that there are missing documents for your application dated 05.10.2026.",
+      "ne_yapmalisiniz": [
+        "Prepare the original copy of the current health insurance policy.",
+        "Take the document in person to the institution's additional document delivery counters."
+      ],
+      "son_tarih_ve_yardim": "You must submit it within 10 (ten) days after the day the letter is officially delivered to you (notification date). If you do not submit the document, your application may be cancelled and deportation procedures may be initiated. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The path of appeal is not specified in the letter.",
+        "Contact information is not specified in the letter.",
+        "The deadline is not specified as a calendar date in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "tebliğden itibaren 10 (on) gün",
+          "bulundu": true
+        },
+        {
+          "alan": "tarih",
+          "deger": "05.10.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 0,
+    "amounts_expected": 0,
+    "institution_ok": null
+  }
+}
