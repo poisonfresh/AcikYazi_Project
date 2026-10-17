@@ -123,31 +123,31 @@ def _squash(s: str) -> str:
 def check_date(value: str, original_text: str, field: str = "deadline") -> CheckResult:
     value = (value or "").strip()
     if not value:
-        return CheckResult(field, value, "empty", "Not specified in the letter.")
+        return CheckResult(field, value, "empty", "Yazıda belirtilmemiş.")
     model_dates = find_dates(value)
     if model_dates:
         missing = model_dates - find_dates(original_text)
         if not missing:
-            return CheckResult(field, value, "verified", "Date found in the original letter.")
-        return CheckResult(field, value, "not_found", "This date was not found in the original letter.")
+            return CheckResult(field, value, "verified", "Tarih asıl yazıda bulundu.")
+        return CheckResult(field, value, "not_found", "Bu tarih asıl yazıda bulunamadı.")
     if _squash(value) in _squash(original_text):
-        return CheckResult(field, value, "verified", "The exact wording appears in the original letter.")
-    return CheckResult(field, value, "not_found", "Date format not recognized and the text does not appear in the letter.")
+        return CheckResult(field, value, "verified", "İfade asıl yazıda aynen geçiyor.")
+    return CheckResult(field, value, "not_found", "Tarih biçimi tanınmadı ve ifade yazıda aynen geçmiyor.")
 
 
 def check_amount(value: str, original_text: str, field: str = "amount") -> CheckResult:
     value = (value or "").strip()
     if not value:
-        return CheckResult(field, value, "empty", "Not specified in the letter.")
+        return CheckResult(field, value, "empty", "Yazıda belirtilmemiş.")
     model_amounts = _amounts_in_value(value)
     if model_amounts:
         missing = model_amounts - find_amounts(original_text)
         if not missing:
-            return CheckResult(field, value, "verified", "Amount found in the original letter.")
-        return CheckResult(field, value, "not_found", "This amount was not found in the original letter.")
+            return CheckResult(field, value, "verified", "Tutar asıl yazıda bulundu.")
+        return CheckResult(field, value, "not_found", "Bu tutar asıl yazıda bulunamadı.")
     if _squash(value) in _squash(original_text):
-        return CheckResult(field, value, "verified", "The exact wording appears in the original letter.")
-    return CheckResult(field, value, "not_found", "Amount format not recognized and the text does not appear in the letter.")
+        return CheckResult(field, value, "verified", "İfade asıl yazıda aynen geçiyor.")
+    return CheckResult(field, value, "not_found", "Tutar biçimi tanınmadı ve ifade yazıda aynen geçmiyor.")
 
 
 def _item_values(items) -> list[str]:

@@ -21,35 +21,35 @@ from prompt_engine import run_pipeline  # noqa: E402
 from validation import find_missing_in_translation, validate_extraction  # noqa: E402
 
 KEY_ENV_NAMES = ("GEMINI_API_KEY", "GOOGLE_API_KEY")
-LANGUAGES = {"Turkish": "tr", "English": "en", "العربية (Arabic)": "ar"}
+LANGUAGES = {"Türkçe": "tr", "İngilizce (English)": "en", "Arapça (العربية)": "ar"}
 LEGAL_DISCLAIMER = (
-    "This is not legal advice. AçıkYazı can make mistakes. Before important decisions, contact the "
-    "issuing institution or the legal aid office of your local bar association."
+    "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı "
+    "gönderen kuruma veya barodaki adli yardım bürosuna danışın."
 )
 
 # Display labels for the engine's Turkish keys. The keys themselves are the engine's data contract.
 EXTRACTION_LABELS = {
-    "belge_turu": "Document type",
-    "kurum": "Institution",
-    "konu": "Subject",
-    "istenen_islem": "Required action",
-    "son_tarih": "Deadline",
-    "tutarlar": "Amounts",
-    "diger_tarihler": "Other dates",
-    "gerekli_belgeler": "Required documents",
-    "itiraz_yolu": "How to appeal",
-    "yaptirim": "If you don't act",
-    "iletisim": "Contact",
-    "emin_olunmayanlar": "Uncertain",
+    "belge_turu": "Belge türü",
+    "kurum": "Kurum",
+    "konu": "Konu",
+    "istenen_islem": "İstenen işlem",
+    "son_tarih": "Son tarih",
+    "tutarlar": "Tutarlar",
+    "diger_tarihler": "Diğer tarihler",
+    "gerekli_belgeler": "Gerekli belgeler",
+    "itiraz_yolu": "İtiraz yolu",
+    "yaptirim": "Yapmazsanız ne olur?",
+    "iletisim": "İletişim",
+    "emin_olunmayanlar": "Emin olunmayanlar",
 }
 HIDDEN_EXTRACTION_KEYS = {"analiz_adimlari"}
 PLAIN_LABELS = {
-    "bu_yazi_ne": "What is this letter?",
-    "ne_yapmalisiniz": "What should you do?",
-    "son_tarih_ve_yardim": "Deadline and help",
-    "dikkat": "Watch out",
+    "bu_yazi_ne": "Bu yazı ne?",
+    "ne_yapmalisiniz": "Ne yapmalısınız?",
+    "son_tarih_ve_yardim": "Son tarih ve yardım",
+    "dikkat": "Dikkat",
 }
-ENGINE_CHECK_LABELS = {"son_tarih": "Deadline", "tutar": "Amount", "tarih": "Other date"}
+ENGINE_CHECK_LABELS = {"son_tarih": "Son tarih", "tutar": "Tutar", "tarih": "Diğer tarih"}
 
 # Team palette; theme colors live in .streamlit/config.toml.
 STYLE = """
@@ -104,34 +104,34 @@ def get_api_key() -> str | None:
 def analyze(letter_text: str, language: str) -> dict:
     if not mock_mode() and not get_api_key():
         raise AcikYaziError(
-            "No Gemini API key found. Create a `.env` file in the project folder and add a "
-            "`GEMINI_API_KEY=...` line (see `.env.example` and the README), or set `ACIKYAZI_MOCK=1` "
-            "to try the app with fake responses."
+            "Gemini API anahtarı bulunamadı. Proje klasöründe bir `.env` dosyası oluşturup "
+            "`GEMINI_API_KEY=...` satırını ekleyin (bkz. `.env.example` ve README) ya da uygulamayı sahte "
+            "cevaplarla denemek için `ACIKYAZI_MOCK=1` ayarlayın."
         )
     model = prompt_engine.MODEL
     try:
         return run_pipeline(letter_text, dil=language)
     except genai_errors.ClientError as e:
         if e.code in (401, 403) or "API_KEY" in str(e).upper():
-            raise AcikYaziError("The API key is invalid or unauthorized. Check `GEMINI_API_KEY` in your `.env` file.") from e
+            raise AcikYaziError("API anahtarı geçersiz veya yetkisiz. `.env` içindeki `GEMINI_API_KEY` değerini kontrol edin.") from e
         if e.code == 429:
-            raise AcikYaziError("API quota reached (429), even after retries. Wait a moment and try again.") from e
+            raise AcikYaziError("API kotası doldu (429); yeniden denemeler de başarısız oldu. Biraz bekleyip tekrar deneyin.") from e
         if e.code == 404:
-            raise AcikYaziError(f"Model not found: `{model}`. Check the `ACIKYAZI_MODEL` value.") from e
-        raise AcikYaziError(f"The API rejected the request ({e.code}): {e.message}") from e
+            raise AcikYaziError(f"Model bulunamadı: `{model}`. `ACIKYAZI_MODEL` değerini kontrol edin.") from e
+        raise AcikYaziError(f"API isteği reddetti ({e.code}): {e.message}") from e
     except genai_errors.ServerError as e:
-        raise AcikYaziError(f"The model server returned an error ({e.code}). Try again later.") from e
+        raise AcikYaziError(f"Model sunucusu hata verdi ({e.code}). Biraz sonra tekrar deneyin.") from e
     except genai_errors.APIError as e:
-        raise AcikYaziError(f"API error ({e.code}): {e.message}") from e
+        raise AcikYaziError(f"API hatası ({e.code}): {e.message}") from e
     except (json.JSONDecodeError, ValueError, KeyError, TypeError, AttributeError) as e:
         raise AcikYaziError(
-            f"The model's answer could not be read as the expected JSON. Try again. ({type(e).__name__}: {e})"
+            f"Modelin cevabı beklenen JSON olarak okunamadı. Tekrar deneyin. ({type(e).__name__}: {e})"
         ) from e
     except FileNotFoundError as e:
-        raise AcikYaziError(f"A prompt file is missing: `{e.filename}`.") from e
+        raise AcikYaziError(f"Bir prompt dosyası eksik: `{e.filename}`.") from e
     except Exception as e:
         raise AcikYaziError(
-            f"Could not reach the model service. Check your internet connection. ({type(e).__name__}: {e})"
+            f"Model servisine ulaşılamadı. İnternet bağlantınızı kontrol edin. ({type(e).__name__}: {e})"
         ) from e
 
 
@@ -157,20 +157,20 @@ def badge(kind: str, label: str, note: str = "") -> None:
 
 def check_badges(check, engine_found: bool | None) -> None:
     if check.status == "verified":
-        html = badge_html("verified", "✓ Verified")
+        html = badge_html("verified", "✓ Doğrulandı")
     elif check.status == "not_found":
-        html = badge_html("warning", "⚠ Check this")
+        html = badge_html("warning", "⚠ Kontrol edin")
     else:
-        html = badge_html("empty", "Not specified")
+        html = badge_html("empty", "Belirtilmemiş")
     if engine_found is True:
-        html += badge_html("verified", "Engine: ✓ found")
+        html += badge_html("verified", "Motor: ✓ bulundu")
     elif engine_found is False:
-        html += badge_html("warning", "Engine: ⚠ not found")
+        html += badge_html("warning", "Motor: ⚠ bulunamadı")
     st.markdown(html + f'<span class="badge-note">{escape(check.message)}</span>', unsafe_allow_html=True)
 
 
 def show_value_list(title: str, items: list, checks: list, engine_found: dict) -> None:
-    st.markdown(f"**{title}:**" + ("" if items or checks else " _Not specified in the letter_"))
+    st.markdown(f"**{title}:**" + ("" if items or checks else " _Yazıda belirtilmemiş_"))
     values = [x for x in items if as_text(x)]
     if not values and checks:
         check_badges(checks[0], None)
@@ -211,22 +211,22 @@ def show_results(result: dict, letter_text: str, language_label: str) -> None:
 
     engine_warnings = verification.get("uyarilar") or []
     if engine_warnings:
-        st.error("**Verification warnings from the engine:**\n" + "\n".join(f"- {w}" for w in engine_warnings))
+        st.error("**Motorun doğrulama uyarıları:**\n" + "\n".join(f"- {w}" for w in engine_warnings))
     if any(c.is_warning for c in checks):
         st.error(
-            "Some dates or amounts were not found in the original letter. "
-            "Please check the fields marked in red against the original."
+            "Bazı tarih veya tutarlar asıl yazıda bulunamadı. "
+            "Lütfen kırmızı etiketli alanları yazının aslından kontrol edin."
         )
 
     with st.container(border=True, key="card-extraction"):
-        st.subheader("Extracted from the letter")
+        st.subheader("Yazıdan çıkarılan bilgiler")
         for key, value in extraction.items():
             if key in HIDDEN_EXTRACTION_KEYS:
                 continue
             title = EXTRACTION_LABELS.get(key, key)
             if key == "son_tarih":
                 deadline = value if isinstance(value, dict) else {"deger": as_text(value)}
-                st.markdown(f"**{title}:** {as_text(deadline.get('deger')) or '_Not specified in the letter_'}")
+                st.markdown(f"**{title}:** {as_text(deadline.get('deger')) or '_Yazıda belirtilmemiş_'}")
                 check_badges(checks_by_field["son_tarih"][0], engine_found.get("son_tarih", {}).get(as_text(deadline.get("deger"))))
                 if deadline.get("aciklama"):
                     st.caption(deadline["aciklama"])
@@ -243,40 +243,40 @@ def show_results(result: dict, letter_text: str, language_label: str) -> None:
                     for item in value:
                         st.markdown(f"- {as_text(item)}")
                 elif key != "emin_olunmayanlar":
-                    st.markdown(f"**{title}:** _Not specified in the letter_")
+                    st.markdown(f"**{title}:** _Yazıda belirtilmemiş_")
             else:
-                st.markdown(f"**{title}:** {as_text(value) or '_Not specified in the letter_'}")
+                st.markdown(f"**{title}:** {as_text(value) or '_Yazıda belirtilmemiş_'}")
 
     with st.container(border=True, key="card-plain"):
-        st.subheader("Plain-language explanation (Turkish)")
+        st.subheader("Sade açıklama")
         show_sections(plain)
         new_numbers = verification.get("sade_yeni_rakam") or []
         if new_numbers:
-            badge("warning", "⚠ Check this", "Numbers not in the original letter: " + ", ".join(new_numbers))
+            badge("warning", "⚠ Kontrol edin", "Asıl yazıda olmayan sayılar: " + ", ".join(new_numbers))
 
     if translation is not None and LANGUAGES.get(language_label, "tr") != "tr":
         with st.container(border=True, key="card-translation"):
-            st.subheader(f"Translation: {language_label}")
+            st.subheader(f"Çeviri: {language_label}")
             if LANGUAGES.get(language_label) == "ar":
-                st.caption(":orange-badge[Experimental] The Arabic translation has not yet been reviewed by a native speaker.")
+                st.caption(":orange-badge[Deneysel] Arapça çeviri henüz anadili Arapça biri tarafından kontrol edilmedi.")
             show_sections(translation)
             missing = find_missing_in_translation(plain, translation)
             if missing:
-                badge("warning", "⚠ Check this", "These dates/amounts are missing from the translation: " + ", ".join(missing))
+                badge("warning", "⚠ Kontrol edin", "Çeviride şu tarih/tutarlar bulunamadı: " + ", ".join(missing))
             else:
-                badge("verified", "✓ Numbers preserved")
+                badge("verified", "✓ Rakamlar korundu")
             if verification.get("ceviri_rakam_korundu") is False:
-                badge("warning", "Engine: ⚠ numbers changed", "Some dates or amounts may differ; rely on the Turkish text.")
+                badge("warning", "Motor: ⚠ rakamlar değişmiş", "Bazı tarih veya tutarlar farklı olabilir; Türkçe metni esas alın.")
             elif verification.get("ceviri_rakam_korundu") is True:
-                badge("verified", "Engine: ✓ numbers preserved")
+                badge("verified", "Motor: ✓ rakamlar korundu")
 
-    with st.expander("Engine details: model, prompt versions, reasoning steps and raw JSON"):
+    with st.expander("Motor ayrıntıları: model, prompt sürümleri, düşünme adımları ve ham JSON"):
         st.markdown(f"**Model:** `{result.get('model', '')}`")
-        st.markdown("**Prompt versions:** " + ", ".join(f"`{k}`: `{v}`" for k, v in (result.get("surumler") or {}).items()))
+        st.markdown("**Prompt sürümleri:** " + ", ".join(f"`{k}`: `{v}`" for k, v in (result.get("surumler") or {}).items()))
         if result.get("uyari"):
-            st.markdown(f"**Engine disclaimer:** {result['uyari']}")
+            st.markdown(f"**Motorun uyarı metni:** {result['uyari']}")
         if extraction.get("analiz_adimlari"):
-            st.markdown("**Reasoning steps:**")
+            st.markdown("**Düşünme adımları:**")
             for step in extraction["analiz_adimlari"]:
                 st.markdown(f"- {as_text(step)}")
         st.json(result)
@@ -287,45 +287,45 @@ def main() -> None:
     st.markdown(STYLE, unsafe_allow_html=True)
     st.title("AçıkYazı")
     st.caption(
-        "Paste an official letter; we explain in plain language what it says, what you need to do and the deadline. "
-        "Dates and amounts are automatically cross-checked against the original text."
+        "Resmî yazıyı yapıştırın; ne dediğini, ne yapmanız gerektiğini ve son tarihi sade dille anlatalım. "
+        "Tarih ve tutarlar asıl metinle otomatik olarak karşılaştırılır."
     )
     st.warning(LEGAL_DISCLAIMER, icon="⚖️")
     if mock_mode():
-        st.info("Mock mode is on (`ACIKYAZI_MOCK=1`): the model is not called and the answers are fake.")
+        st.info("Deneme (mock) modu açık (`ACIKYAZI_MOCK=1`): model çağrılmıyor, cevaplar sahte.")
 
     with st.sidebar:
         st.header("Model")
-        st.markdown("**Provider:** Google Gemini")
+        st.markdown("**Sağlayıcı:** Google Gemini")
         st.markdown(f"**Model:** `{prompt_engine.MODEL}`")
         if mock_mode():
-            st.markdown("**Mode:** 🧪 mock (no API calls)")
+            st.markdown("**Mod:** 🧪 deneme (API çağrısı yok)")
         else:
-            st.markdown("**API key:** " + ("✅ set" if get_api_key() else "❌ missing"))
+            st.markdown("**API anahtarı:** " + ("✅ tanımlı" if get_api_key() else "❌ eksik"))
         st.divider()
-        st.header("Prompts")
+        st.header("Promptlar")
         for stage, version in prompt_engine.VARSAYILAN.items():
             st.markdown(f"- {stage}: `{version}`")
         st.divider()
         st.caption(
-            "The app does not store any text. Before pasting, we recommend removing personal data "
-            "such as national ID numbers, addresses and license plates."
+            "Uygulama hiçbir metni saklamaz. Yapıştırmadan önce TC kimlik no, adres, plaka gibi "
+            "kişisel bilgileri silmenizi öneririz."
         )
 
     with st.form("input"):
         letter_text = st.text_area(
-            "Text of the official letter",
+            "Resmî yazının metni",
             height=260,
-            placeholder="e.g. paste the text of a notification, payment notice or institutional letter here…",
+            placeholder="Örn. tebligat, ödeme bildirimi veya kurum yazısının metnini buraya yapıştırın…",
         )
-        language_label = st.radio("Explanation language", list(LANGUAGES), horizontal=True)
-        submitted = st.form_submit_button("Explain the letter", type="primary", width="stretch")
+        language_label = st.radio("Açıklama dili", list(LANGUAGES), horizontal=True)
+        submitted = st.form_submit_button("Yazıyı açıkla", type="primary", width="stretch")
 
     if submitted:
         if not letter_text.strip():
-            st.info("Please paste the text of the letter first.")
+            st.info("Lütfen önce yazının metnini yapıştırın.")
             return
-        with st.spinner("Reading the letter…"):
+        with st.spinner("Yazı inceleniyor…"):
             try:
                 st.session_state["result"] = analyze(letter_text, LANGUAGES[language_label])
                 st.session_state["letter_text"] = letter_text
@@ -339,7 +339,7 @@ def main() -> None:
         show_results(
             st.session_state["result"],
             st.session_state.get("letter_text", ""),
-            st.session_state.get("language_label", "Turkish"),
+            st.session_state.get("language_label", "Türkçe"),
         )
 
 
