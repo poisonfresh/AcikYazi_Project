@@ -54,7 +54,7 @@ Every call also uses the safety rules in `prompts/system.txt` (no fabrication, n
 ├── results/             # Raw experiment outputs (JSON) referenced from LOG.md
 │   ├── app_runs/        # One JSON per "Yazıyı açıkla" run in the app (committed as evidence)
 │   └── real_api/        # run_samples.py output, one folder per date (committed as evidence)
-├── docs/                # Prompt Engineer's guide, report section draft, video script
+├── docs/                # Prompt Engineer's report section draft
 ├── .streamlit/
 │   └── config.toml      # UI theme (team palette)
 ├── requirements.txt
@@ -149,8 +149,6 @@ python prompt_engine.py samples/test_set/t2_ctv_borcu.txt en      # prints the r
 python run_experiments.py --stage all --letters samples/test_set --mock
 ```
 
-Pass the letter path explicitly: the engine's and the experiment tool's built-in defaults still point to `dev_letters/` at the repo root, but the letters now live under `samples/`.
-
 ### Saving results (JSON)
 
 After every **Yazıyı açıkla** run the app saves the full `run_pipeline()` result to `results/app_runs/<YYYY-MM-DD_HHMMSS>_<slug>.json` and shows a **JSON'u indir** (download JSON) button. Saving can be switched off with the **Kayıt** toggle in the sidebar; the download button always works. Each record contains:
@@ -204,7 +202,8 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] Prompt Engineer: the engine's own check no longer flags relative deadlines and `kaynak_alinti` quotes ending in "..." (new `prompt_engine.py`)
 - [x] App saves every run as JSON (`results/app_runs/`) and offers a download
 - [x] Batch run of `python run_samples.py` with the real API (17.10.2026, 12/13 passed, results in `results/real_api/2026-10-17/`)
-- [ ] Prompt Engineer: look at the d2 finding in the results section below (deadline choice, "bir ay" → "1 ay")
+- [x] d2 finding recorded as a limitation in `LOG.md` (decision: prompts stay frozen)
+- [ ] Future work: a field that lists multiple deadlines separately (e.g. discount/objection period and payment period)
 - [ ] `docs/`: report PDF (file name: `TODO`)
 - [ ] Presentation link: `TODO`
 - [ ] Demo video (YouTube, unlisted): `TODO`
@@ -257,7 +256,6 @@ Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (
 - **Model ve promptlar:** `gemini-3.5-flash-lite`; `extract_v2_cot`, `simplify_v3_goreli_sure`, `translate_v3_ay_adi`; açıklama dili İngilizce (`en`), böylece çeviri de test edildi.
 - **Sonuç:** 13 yazı: **12 Geçti, 1 Kaldı (`d2_trafik_cezasi`), 0 Hata.** Bizim kontrolümüz (`validation.py`) hiçbir yazıda uyarı vermedi; motor yalnızca d2'de uyardı.
 - **Klasör:** [`results/real_api/2026-10-17/`](results/real_api/2026-10-17/) (her yazının tam JSON'u, [`ozet.md`](results/real_api/2026-10-17/ozet.md) ve [`ozet.csv`](results/real_api/2026-10-17/ozet.csv)).
-- **Not:** [`results/real_api/2026-10-17_mock/`](results/real_api/2026-10-17_mock/) aynı gün deneme (mock) modunda yapılmış bir deneme çalıştırmasıdır. Cevaplar sahtedir, model çağrılmamıştır; **doğruluk kanıtı değildir**, yalnızca betiğin çalıştığını gösterir.
 
 | Yazı | Son tarih doğru mu | Tutarlar doğru mu | Motor uyarısı | Bizim uyarımız | Genel sonuç |
 |---|---|---|---|---|---|
@@ -275,14 +273,14 @@ Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (
 | t7_kira_ihtarnamesi | Evet | Evet (2/2) | Yok | Yok | Geçti |
 | t8_altyapi_bilgi | Evet | Evet (beklenen tutar yok) | Yok | Yok | Geçti |
 
-#### Bilinen bulgu (prompt mühendisi için): `d2_trafik_cezasi` neden kaldı?
+#### Bilinen sınırlılık: `d2_trafik_cezasi` neden kaldı?
 
-Promptlar ve motor değiştirilmedi; aşağıdaki yalnızca bir tespit.
+Bu bulgu `LOG.md` dosyasına "Sınırlılık" kaydı olarak eklendi. **Karar:** promptlar dondurulduğu için değiştirilmedi. **Gelecek iş:** birden çok süreyi (ör. indirim/itiraz süresi ve ödeme süresi) ayrı ayrı gösteren bir alan.
 
 - **Model tarih hesaplamadı.** Son tarih olarak `"tebliğ tarihinden itibaren bir ay"` çıkardı (`kaynak_alinti`: "Cezanın tebliğ tarihinden itibaren bir ay içinde ödenmesi gerekmektedir."). Bu ifade yazıda birebir geçiyor; bizim kontrolümüz de bunu yeşil "Göreli süre: yazıda bulundu" olarak işaretledi.
-- **Kalmasının nedeni süre seçimi.** Yazıda iki süre var: indirimli ödeme (%25, 1.625,25 TL) ve itiraz için **15 gün**, ödeme yükümlülüğü için **bir ay**. Cevap anahtarı (`samples/dev_letters/answers.json`) son tarihin "15 gün" içermesini bekliyor; model ise "bir ay"ı seçti. Modelin cevabı yazıya göre savunulabilir, ama daha erken ve önemli olan 15 günlük süre son tarih alanında yok. Cevap anahtarının mı, extraction promptunun mu (ör. "birden çok süre varsa en erken olanı seç") değişeceğine prompt mühendisi karar vermeli.
+- **Kalmasının nedeni süre seçimi.** Yazıda iki süre var: indirimli ödeme (%25, 1.625,25 TL) ve itiraz için **15 gün**, ödeme yükümlülüğü için **bir ay**. Cevap anahtarı (`samples/dev_letters/answers.json`) son tarihin "15 gün" içermesini bekliyor; model ise "bir ay"ı seçti. Modelin cevabı yazıya göre savunulabilir, ama daha erken ve önemli olan 15 günlük süre son tarih alanında yok. Cevap anahtarı tek süre bekliyordu.
 - **Sade metinde 15 günlük indirim süresi kayboldu.** Sade açıklama indirimli tutarı (1.625,25 TL) veriyor, ama bu tutar için 15 gün içinde ödemek gerektiğini söylemiyor. İtiraz için 15 gün yalnızca "dikkat" kısmında geçiyor. Okuyucu indirimi kaçırabilir.
-- **Motor uyarısının kaynağı "1" sayısı.** Uyarı: "Sade metinde asıl yazıda olmayan sayılar var: 1". Sade metin, yazıdaki yazıyla "bir ay" ifadesini rakamla "1 ay içinde" diye yazmış. Asıl yazıda tek başına "1" sayısı geçmediği için motorun `dogrula()` kontrolü bunu yeni sayı saydı. Bilgi yanlış değil, ama motorun uyarı vermesi güvenlik katmanı açısından doğru davranış; uyarı kutusu gösterilmeye devam ediyor. Prompt tarafında yazıdaki sayıların yazıldığı biçimde korunması istenebilir.
+- **Motor uyarısının kaynağı "1" sayısı.** Uyarı: "Sade metinde asıl yazıda olmayan sayılar var: 1". Sade metin, yazıdaki yazıyla "bir ay" ifadesini rakamla "1 ay içinde" diye yazmış. Asıl yazıda tek başına "1" sayısı geçmediği için motorun `dogrula()` kontrolü bunu yeni sayı saydı. Bilgi yanlış değil, ama motorun uyarı vermesi güvenlik katmanı açısından doğru davranış; uyarı kutusu gösterilmeye devam ediyor.
 
 ### Test matrisi
 

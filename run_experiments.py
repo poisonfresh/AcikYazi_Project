@@ -5,7 +5,7 @@ Kullanım:
     python run_experiments.py --stage simplify           # zero-shot vs few-shot
     python run_experiments.py --stage translate --lang en  # kuralsız vs kurallı çeviri
     python run_experiments.py --stage all --lang en
-    python run_experiments.py --stage all --letters ../C_test_seti   # C'nin test seti hazır olunca
+    python run_experiments.py --stage all --letters samples/test_set
 
 Her çalıştırma results/ klasörüne ham çıktıları yazar ve LOG.md'nin sonuna özet tablo ekler.
 Aynı prompt ikinci kez çalıştırılırsa önbellekten gelir, kota harcamaz.
@@ -120,7 +120,7 @@ def hata_bildir(ad, surum, e):
     _ardisik_hata[0] += 1
     if _ardisik_hata[0] >= 3:
         raise SystemExit("\nÜst üste 3 çağrı başarısız oldu, deney durduruldu. Yukarıdaki hata mesajını kontrol et.\n"
-                         "Tam ayrıntı için: python prompt_engine.py test_set/t1_trafik_cezasi.txt tr")
+                         "Tam ayrıntı için: python prompt_engine.py samples/test_set/t1_trafik_cezasi.txt tr")
 
 def calistir(stage: str, mektuplar: dict, cevaplar: dict, dil: str, bekle: float, pe):
     sonuc = []
@@ -204,7 +204,7 @@ def main():
     global pe_global
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", choices=["extract", "simplify", "translate", "all"], default="extract")
-    ap.add_argument("--letters", default=str(ROOT / "dev_letters"))
+    ap.add_argument("--letters", default=str(ROOT / "samples" / "dev_letters"))
     ap.add_argument("--answers", default=None, help="varsayılan: <letters>/answers.json")
     ap.add_argument("--only", nargs="*", help="yalnızca bu mektuplar (dosya adı, uzantısız)")
     ap.add_argument("--lang", default="en", choices=["en", "ar"])

@@ -307,6 +307,6 @@ def run_pipeline(metin: str, dil: str = "tr", surumler: dict | None = None) -> d
 
 if __name__ == "__main__":
     import sys
-    yol = sys.argv[1] if len(sys.argv) > 1 else str(ROOT / "dev_letters" / "d1_emlak_vergisi.txt")
+    yol = sys.argv[1] if len(sys.argv) > 1 else str(ROOT / "samples" / "dev_letters" / "d1_emlak_vergisi.txt")
     dil = sys.argv[2] if len(sys.argv) > 2 else "en"
     print(json.dumps(run_pipeline(Path(yol).read_text(encoding="utf-8"), dil), ensure_ascii=False, indent=2))
