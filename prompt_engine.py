@@ -209,6 +209,44 @@ def rakamlar(s) -> set[str]:
     return set(re.findall(r"\d+(?:[.,:/]\d+)*", s))
 
 
+_SAYI = r"\d+(?:[.,:/]\d+)*"
+_AYLAR = ["ocak", "şubat", "mart", "nisan", "mayıs", "haziran", "temmuz", "ağustos", "eylül", "ekim", "kasım", "aralık"]
+
+
+def _deger_yazida_var(deger: str, k: str) -> bool:
+    """Bir tarih/tutar/süre değerinin asıl yazıda geçip geçmediğini kontrol eder.
+
+    1) Değer yazıda harfiyen geçiyorsa: tamam.
+    2) Geçmiyorsa (model göreli süreyi kendi kelimeleriyle yazmışsa, ör. "Tebliğden itibaren 15 gün"):
+       değerdeki her sayı (tarih, tutar, gün sayısı) ve her ay adı yazıda AYNEN geçmeli.
+       Böylece ifade biçimi farklı olsa da doğru kabul edilir, ama modelin hesapladığı ya da
+       uydurduğu bir tarih/tutar (yazıda olmayan bir sayı) yine yakalanır.
+    """
+    d = _norm(deger)
+    if d in k:
+        return True
+    sayilar = re.findall(_SAYI, d)
+    yazidaki_sayilar = set(re.findall(_SAYI, k))
+    if any(s not in yazidaki_sayilar for s in sayilar):
+        return False
+    if any(ay in d and ay not in k for ay in _AYLAR):
+        return False
+    return True
+
+
+def _alinti_yazida_var(alinti: str, k: str, esik: float = 0.8) -> bool:
+    """Kaynak alıntının kelimelerinin en az %80'i yazıda geçiyorsa kabul eder (küçük kopyalama farklarına tolerans)."""
+    a = _norm(alinti)
+    if a in k:
+        return True
+    kelimeler = re.findall(r"\w+", a)
+    if not kelimeler:
+        return True
+    yazi_kelimeleri = set(re.findall(r"\w+", k))
+    oran = sum(w in yazi_kelimeleri for w in kelimeler) / len(kelimeler)
+    return oran >= esik and all(s in set(re.findall(_SAYI, k)) for s in re.findall(_SAYI, a))
+
+
 def dogrula(kaynak: str, cikarim: dict, sade: dict | None = None, ceviri: dict | None = None) -> dict:
     k = _norm(kaynak)
     kontroller, uyarilar = [], []
@@ -216,7 +254,7 @@ def dogrula(kaynak: str, cikarim: dict, sade: dict | None = None, ceviri: dict |
     def kontrol(alan, deger):
         if not deger:
             return
-        bulundu = _norm(deger) in k
+        bulundu = _deger_yazida_var(deger, k)
         kontroller.append({"alan": alan, "deger": deger, "bulundu": bulundu})
         if not bulundu:
             uyarilar.append(f"'{deger}' ({alan}) asıl yazıda bulunamadı. Lütfen yazıdan kontrol edin.")
@@ -228,8 +266,8 @@ def dogrula(kaynak: str, cikarim: dict, sade: dict | None = None, ceviri: dict |
     for t in cikarim.get("diger_tarihler") or []:
         kontrol("tarih", t.get("deger", ""))
     alinti = st.get("kaynak_alinti", "")
-    if alinti and _norm(alinti) not in k:
-        uyarilar.append("Son tarihin dayandığı cümle yazıda birebir bulunamadı.")
+    if alinti and not _alinti_yazida_var(alinti, k):
+        uyarilar.append("Son tarihin dayandığı cümle yazıda bulunamadı. Lütfen yazıdan kontrol edin.")
 
     sonuc = {"kontroller": kontroller, "uyarilar": uyarilar}
 
