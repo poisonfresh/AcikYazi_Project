@@ -18,6 +18,7 @@ load_dotenv()
 
 import prompt_engine  # noqa: E402  (reads .env and ACIKYAZI_MODEL at import time)
 from prompt_engine import run_pipeline  # noqa: E402
+import run_records  # noqa: E402
 from validation import find_missing_in_translation, validate_extraction  # noqa: E402
 
 KEY_ENV_NAMES = ("GEMINI_API_KEY", "GOOGLE_API_KEY")
@@ -288,6 +289,58 @@ def show_results(result: dict, letter_text: str, language_label: str) -> None:
         st.json(result)
 
 
+def make_record(result: dict, letter_text: str, language_label: str) -> dict:
+    language = LANGUAGES.get(language_label, "tr")
+    translation = result.get("ceviri")
+    translation_missing = (
+        find_missing_in_translation(result.get("sade") or {}, translation)
+        if translation is not None and language != "tr"
+        else None
+    )
+    return run_records.build_record(
+        result,
+        letter_text,
+        language=language,
+        checks=validate_extraction(result.get("cikarim") or {}, letter_text),
+        translation_missing=translation_missing,
+        source=run_records.detect_sample_source(letter_text),
+        mock=mock_mode(),
+        origin="app",
+    )
+
+
+def save_run(record: dict) -> str | None:
+    """Saves the record under results/app_runs/; returns the repo-relative path or None on failure."""
+    stem = f"{run_records.timestamp_for_filename()}_{run_records.record_slug(record)}"
+    try:
+        path = run_records.save_record(record, run_records.APP_RUNS_DIR, stem)
+    except (OSError, ValueError) as e:
+        st.warning(f"Sonuç kaydedilemedi: {e}")
+        return None
+    return str(path.relative_to(run_records.ROOT))
+
+
+def show_record_actions(record: dict, saved_path: str | None) -> None:
+    with st.container(border=True, key="card-record"):
+        st.subheader("Sonuç kaydı (JSON)")
+        if saved_path:
+            st.markdown(f"Kaydedildi: `{saved_path}`")
+        else:
+            st.caption("Bu çalıştırma diske kaydedilmedi (kenar çubuğundaki kayıt seçeneği kapalı olabilir).")
+        filename = (
+            os.path.basename(saved_path)
+            if saved_path
+            else f"{run_records.timestamp_for_filename()}_{run_records.record_slug(record)}.json"
+        )
+        st.download_button(
+            "JSON'u indir",
+            data=run_records.to_json(record).encode("utf-8"),
+            file_name=filename,
+            mime="application/json",
+            on_click="ignore",
+        )
+
+
 def main() -> None:
     st.set_page_config(page_title="AçıkYazı", page_icon="📄", layout="centered")
     st.markdown(STYLE, unsafe_allow_html=True)
@@ -313,8 +366,16 @@ def main() -> None:
         for stage, version in prompt_engine.VARSAYILAN.items():
             st.markdown(f"- {stage}: `{version}`")
         st.divider()
+        st.header("Kayıt")
+        save_enabled = st.toggle(
+            "Sonuçları `results/app_runs/` klasörüne kaydet",
+            value=True,
+            help="Her çalıştırmanın sonuç JSON'u kanıt olarak kaydedilir. Yazının tam metni ve API anahtarı kaydedilmez.",
+        )
+        st.divider()
         st.caption(
-            "Uygulama hiçbir metni saklamaz. Yapıştırmadan önce TC kimlik no, adres, plaka gibi "
+            "Yazının tam metni hiçbir yerde saklanmaz; kayıt açıksa yalnızca çıkarılan bilgiler ve sonuçlar "
+            "`results/app_runs/` altına yazılır. Yapıştırmadan önce TC kimlik no, adres, plaka gibi "
             "kişisel bilgileri silmenizi öneririz."
         )
 
@@ -333,11 +394,16 @@ def main() -> None:
             return
         with st.spinner("Yazı inceleniyor…"):
             try:
-                st.session_state["result"] = analyze(letter_text, LANGUAGES[language_label])
+                result = analyze(letter_text, LANGUAGES[language_label])
+                st.session_state["result"] = result
                 st.session_state["letter_text"] = letter_text
                 st.session_state["language_label"] = language_label
+                record = make_record(result, letter_text, language_label)
+                st.session_state["record"] = record
+                st.session_state["saved_path"] = save_run(record) if save_enabled else None
             except AcikYaziError as e:
-                st.session_state.pop("result", None)
+                for key in ("result", "record", "saved_path"):
+                    st.session_state.pop(key, None)
                 st.error(str(e))
                 return
 
@@ -347,6 +413,8 @@ def main() -> None:
             st.session_state.get("letter_text", ""),
             st.session_state.get("language_label", "Türkçe"),
         )
+        if "record" in st.session_state:
+            show_record_actions(st.session_state["record"], st.session_state.get("saved_path"))
 
 
 if __name__ == "__main__":
