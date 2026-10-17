@@ -20,7 +20,22 @@ PROMPT_DOSYALARI = {
     "sadelestirme": "sadelestirme.txt",
     "ceviri": "ceviri.txt",
 }
-VARSAYILAN_MODEL = "gemini-2.5-flash"
+SAGLAYICILAR = {
+    "gemini": {
+        "ad": "Google Gemini",
+        "anahtar_env": ("GEMINI_API_KEY", "GOOGLE_API_KEY"),
+        "model_env": "GEMINI_MODEL",
+        "varsayilan_model": "gemini-2.5-flash",
+    },
+    "anthropic": {
+        "ad": "Anthropic Claude",
+        "anahtar_env": ("ANTHROPIC_API_KEY",),
+        "model_env": "ANTHROPIC_MODEL",
+        "varsayilan_model": "claude-opus-5-5",
+    },
+}
+VARSAYILAN_SAGLAYICI = "gemini"
+ANTHROPIC_MAX_TOKENS = 4096
 DILLER = {"Türkçe": None, "English": "İngilizce", "العربية (Arapça)": "Arapça"}
 HUKUKI_UYARI = (
     "Bu bir hukuki tavsiye değildir; emin olmadığınızda kuruma veya "
@@ -57,34 +72,89 @@ def prompt_doldur(sablon: str, **degerler: str) -> str:
     return sablon
 
 
-def api_anahtari() -> str | None:
-    anahtar = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
-    if not anahtar:
-        try:
-            anahtar = st.secrets.get("GEMINI_API_KEY")
-        except Exception:
-            anahtar = None
-    return anahtar.strip() if anahtar and anahtar.strip() else None
+def env_saglayici() -> str:
+    deger = (os.getenv("LLM_PROVIDER") or VARSAYILAN_SAGLAYICI).strip().lower()
+    return deger if deger in SAGLAYICILAR else VARSAYILAN_SAGLAYICI
 
 
-def model_cagir(prompt: str) -> str:
-    anahtar = api_anahtari()
+def api_anahtari(saglayici: str) -> str | None:
+    for ad in SAGLAYICILAR[saglayici]["anahtar_env"]:
+        anahtar = os.getenv(ad)
+        if not anahtar:
+            try:
+                anahtar = st.secrets.get(ad)
+            except Exception:
+                anahtar = None
+        if anahtar and anahtar.strip():
+            return anahtar.strip()
+    return None
+
+
+def model_adi(saglayici: str) -> str:
+    bilgi = SAGLAYICILAR[saglayici]
+    return (os.getenv(bilgi["model_env"]) or bilgi["varsayilan_model"]).strip()
+
+
+def model_cagir(prompt: str, saglayici: str) -> str:
+    anahtar = api_anahtari(saglayici)
     if not anahtar:
+        env_adi = SAGLAYICILAR[saglayici]["anahtar_env"][0]
         raise AcikYaziHatasi(
-            "API anahtarı bulunamadı. Proje klasöründe `.env` dosyası oluşturup "
-            "`GEMINI_API_KEY=...` satırını ekleyin (bkz. `.env.example` ve README)."
+            f"{SAGLAYICILAR[saglayici]['ad']} için API anahtarı bulunamadı. Proje klasöründe `.env` "
+            f"dosyası oluşturup `{env_adi}=...` satırını ekleyin (bkz. `.env.example` ve README)."
         )
+    model = model_adi(saglayici)
+    if saglayici == "anthropic":
+        metin = _anthropic_cagir(prompt, anahtar, model)
+    else:
+        metin = _gemini_cagir(prompt, anahtar, model)
+    if not metin:
+        raise AcikYaziHatasi("Model boş yanıt döndürdü (içerik filtresine takılmış olabilir).")
+    return metin
 
+
+def _anthropic_cagir(prompt: str, anahtar: str, model: str) -> str:
+    import anthropic
+
+    try:
+        client = anthropic.Anthropic(api_key=anahtar)
+        yanit = client.messages.create(
+            model=model,
+            max_tokens=ANTHROPIC_MAX_TOKENS,
+            messages=[{"role": "user", "content": prompt}],
+        )
+    except (anthropic.AuthenticationError, anthropic.PermissionDeniedError) as e:
+        raise AcikYaziHatasi(
+            "Anthropic API anahtarı geçersiz veya yetkisiz. `.env` içindeki `ANTHROPIC_API_KEY` değerini kontrol edin."
+        ) from e
+    except anthropic.RateLimitError as e:
+        raise AcikYaziHatasi("Anthropic API kotası/hız sınırı doldu (429). Biraz bekleyip tekrar deneyin.") from e
+    except anthropic.NotFoundError as e:
+        raise AcikYaziHatasi(f"Model bulunamadı: `{model}`. `ANTHROPIC_MODEL` değerini kontrol edin.") from e
+    except anthropic.APIConnectionError as e:
+        raise AcikYaziHatasi(
+            f"Anthropic servisine bağlanılamadı. İnternet bağlantınızı kontrol edin. ({type(e).__name__})"
+        ) from e
+    except anthropic.InternalServerError as e:
+        raise AcikYaziHatasi(f"Model sunucusu hata verdi ({e.status_code}). Biraz sonra tekrar deneyin.") from e
+    except anthropic.APIStatusError as e:
+        raise AcikYaziHatasi(f"Anthropic API isteği reddedildi ({e.status_code}): {e.message}") from e
+    except anthropic.APIError as e:
+        raise AcikYaziHatasi(f"Anthropic API hatası: {e.message}") from e
+
+    return "".join(blok.text for blok in yanit.content if getattr(blok, "type", "") == "text").strip()
+
+
+def _gemini_cagir(prompt: str, anahtar: str, model: str) -> str:
     from google import genai
     from google.genai import errors as genai_errors
 
-    model = os.getenv("GEMINI_MODEL", VARSAYILAN_MODEL)
     try:
         client = genai.Client(api_key=anahtar)
         yanit = client.models.generate_content(model=model, contents=prompt)
     except genai_errors.ClientError as e:
         if e.code in (401, 403) or "API_KEY" in str(e).upper():
-            raise AcikYaziHatasi("API anahtarı geçersiz veya yetkisiz. `.env` içindeki anahtarı kontrol edin.") from e
+            raise AcikYaziHatasi("API anahtarı geçersiz veya yetkisiz. `.env` içindeki `GEMINI_API_KEY` değerini kontrol edin.") from e
         if e.code == 429:
             raise AcikYaziHatasi("API kotası doldu (429). Biraz bekleyip tekrar deneyin.") from e
         if e.code == 404:
@@ -99,10 +169,7 @@ def model_cagir(prompt: str) -> str:
             f"Model servisine bağlanılamadı. İnternet bağlantınızı kontrol edin. ({type(e).__name__}: {e})"
         ) from e
 
-    metin = (getattr(yanit, "text", None) or "").strip()
-    if not metin:
-        raise AcikYaziHatasi("Model boş yanıt döndürdü (içerik filtresine takılmış olabilir).")
-    return metin
+    return (getattr(yanit, "text", None) or "").strip()
 
 
 def json_ayikla(yanit: str) -> dict:
@@ -141,7 +208,7 @@ def eksik_prompt_uyarisi(ad: str) -> None:
     )
 
 
-def analiz_et(metin: str, hedef_dil: str | None) -> dict:
+def analiz_et(metin: str, hedef_dil: str | None, saglayici: str) -> dict:
     sonuc: dict = {"hatalar": [], "atlananlar": []}
 
     cikarim_sablonu = prompt_yukle("cikarim")
@@ -149,7 +216,7 @@ def analiz_et(metin: str, hedef_dil: str | None) -> dict:
         sonuc["atlananlar"].append("cikarim")
         return sonuc
 
-    ham = model_cagir(prompt_doldur(cikarim_sablonu, metin=metin))
+    ham = model_cagir(prompt_doldur(cikarim_sablonu, metin=metin), saglayici)
     sonuc["ham_cikarim"] = ham
     sonuc["dusunce"] = dusunceyi_ayikla(ham)
     try:
@@ -164,7 +231,7 @@ def analiz_et(metin: str, hedef_dil: str | None) -> dict:
     if not sade_sablonu:
         sonuc["atlananlar"].append("sadelestirme")
         return sonuc
-    sade = model_cagir(prompt_doldur(sade_sablonu, json=json.dumps(veri, ensure_ascii=False)))
+    sade = model_cagir(prompt_doldur(sade_sablonu, json=json.dumps(veri, ensure_ascii=False)), saglayici)
     sonuc["sade"] = sade
 
     if hedef_dil:
@@ -172,7 +239,7 @@ def analiz_et(metin: str, hedef_dil: str | None) -> dict:
         if not ceviri_sablonu:
             sonuc["atlananlar"].append("ceviri")
             return sonuc
-        ceviri = model_cagir(prompt_doldur(ceviri_sablonu, dil=hedef_dil, sade_metin=sade))
+        ceviri = model_cagir(prompt_doldur(ceviri_sablonu, dil=hedef_dil, sade_metin=sade), saglayici)
         sonuc["ceviri"] = ceviri
         sonuc["ceviri_kayip"] = ceviride_rakam_kontrol(sade, ceviri)
 
@@ -257,9 +324,19 @@ def main() -> None:
     st.warning(HUKUKI_UYARI, icon="⚖️")
 
     with st.sidebar:
+        st.header("Model")
+        secenekler = list(SAGLAYICILAR)
+        saglayici = st.radio(
+            "Sağlayıcı",
+            secenekler,
+            index=secenekler.index(env_saglayici()),
+            format_func=lambda k: SAGLAYICILAR[k]["ad"],
+            help="Varsayılan `.env` içindeki `LLM_PROVIDER` değerinden gelir.",
+        )
+        st.markdown(f"**Model:** `{model_adi(saglayici)}`")
+        st.markdown("**API anahtarı:** " + ("✅ tanımlı" if api_anahtari(saglayici) else "❌ eksik"))
+        st.divider()
         st.header("Durum")
-        st.markdown(f"**Model:** `{os.getenv('GEMINI_MODEL', VARSAYILAN_MODEL)}`")
-        st.markdown("**API anahtarı:** " + ("✅ tanımlı" if api_anahtari() else "❌ eksik"))
         st.markdown("**Promptlar:**")
         for ad, dosya in PROMPT_DOSYALARI.items():
             st.markdown(f"- `{dosya}`: " + ("✅" if prompt_yukle(ad) else "❌ eksik"))
@@ -284,7 +361,7 @@ def main() -> None:
             return
         with st.spinner("Yazı inceleniyor…"):
             try:
-                st.session_state["sonuc"] = analiz_et(metin, DILLER[dil_etiketi])
+                st.session_state["sonuc"] = analiz_et(metin, DILLER[dil_etiketi], saglayici)
                 st.session_state["dil_etiketi"] = dil_etiketi
             except AcikYaziHatasi as e:
                 st.session_state.pop("sonuc", None)

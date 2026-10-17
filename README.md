@@ -19,7 +19,7 @@ SDG'ler için Üretken Yapay Zekâ Hackathonu · Grup 11 · SDG 10.2 ve SDG 16.1
 
 ```
 .
-├── app.py             # Streamlit arayüzü, Gemini API bağlantısı, JSON ayrıştırma, hata yakalama
+├── app.py             # Streamlit arayüzü, Gemini/Claude API bağlantısı, JSON ayrıştırma, hata yakalama
 ├── validation.py      # Doğrulama katmanı: tarih/tutar regex kontrolü
 ├── prompts/           # Promptlar (Prompt Mühendisi rolü ekler)
 ├── samples/           # Uydurma, anonim örnek resmî yazılar (Araştırma/Test rolü ekler)
@@ -64,26 +64,39 @@ pip install -r requirements.txt
 
 ## API anahtarı ayarı
 
-Uygulama Google AI Studio üzerinden **Gemini** modelini kullanır (ücretsiz katman yeterlidir).
+Uygulama iki model sağlayıcısını destekler; en az birinin anahtarı yeterlidir:
 
-1. [Google AI Studio](https://aistudio.google.com/apikey) üzerinden bir API anahtarı alın.
+| Sağlayıcı | `LLM_PROVIDER` | Anahtar değişkeni | Model değişkeni (varsayılan) | Anahtar nereden alınır? |
+| --- | --- | --- | --- | --- |
+| Google Gemini | `gemini` | `GEMINI_API_KEY` | `GEMINI_MODEL` (`gemini-2.5-flash`) | [Google AI Studio](https://aistudio.google.com/apikey) (ücretsiz katman var) |
+| Anthropic Claude | `anthropic` | `ANTHROPIC_API_KEY` | `ANTHROPIC_MODEL` (`claude-opus-5-5`) | [Anthropic Console](https://console.anthropic.com/settings/keys) |
+
+1. Kullanacağınız sağlayıcıdan bir API anahtarı alın.
 2. Örnek dosyayı kopyalayın:
 
    ```bash
    cp .env.example .env
    ```
 
-3. `.env` dosyasını açıp anahtarınızı yazın:
+3. `.env` dosyasını açıp anahtar(lar)ınızı yazın ve varsayılan sağlayıcıyı seçin:
 
    ```
-   GEMINI_API_KEY=anahtariniz
-   # İsteğe bağlı, varsayılan: gemini-2.5-flash
-   # GEMINI_MODEL=gemini-2.5-flash
+   LLM_PROVIDER=anthropic          # veya gemini
+
+   GEMINI_API_KEY=gemini-anahtariniz
+   GEMINI_MODEL=gemini-2.5-flash
+
+   ANTHROPIC_API_KEY=anthropic-anahtariniz
+   ANTHROPIC_MODEL=claude-opus-5-5
    ```
+
+   Kullanmadığınız sağlayıcının anahtarını boş bırakabilirsiniz. Model değişkenleri isteğe bağlıdır; boşsa tablodaki varsayılan kullanılır.
+
+4. Sağlayıcıyı çalışırken de değiştirebilirsiniz: kenar çubuğundaki **Sağlayıcı** seçimi `LLM_PROVIDER` değerini o oturum için geçersiz kılar. Seçili sağlayıcının modeli ve anahtar durumu (✅ / ❌) hemen altında görünür.
 
 **Anahtar asla repoya girmez.** `.env` dosyası `.gitignore` içinde listelidir; repoda yalnızca anahtarsız `.env.example` bulunur. Commit atmadan önce `git status` çıktısında `.env` görünmediğinden emin olun.
 
-Anahtar eksik veya geçersizse, kota dolduysa ya da internet bağlantısı yoksa uygulama çökmez; arayüzde ne yapmanız gerektiğini söyleyen bir hata mesajı gösterir. Kenar çubuğunda anahtarın ve prompt dosyalarının durumu görünür.
+Anahtar eksik veya geçersizse, kota/hız sınırı dolduysa, model adı yanlışsa ya da internet bağlantısı yoksa uygulama her iki sağlayıcıda da çökmez; arayüzde ne yapmanız gerektiğini söyleyen bir hata mesajı gösterir. Kenar çubuğunda anahtarın ve prompt dosyalarının durumu görünür.
 
 ## Örnek çalıştırma
 
