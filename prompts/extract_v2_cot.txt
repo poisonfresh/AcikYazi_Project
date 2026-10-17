@@ -1,0 +1,23 @@
+Görev: Aşağıdaki resmî yazıyı analiz et ve okuyucunun bilmesi gereken bilgileri yapılandırılmış olarak çıkar.
+
+Önce "analiz_adimlari" alanında şu adımları sırayla, kısa cümlelerle düşün:
+1. Yazıyı hangi kurum gönderiyor, yazının türü ne (ödeme bildirimi, ceza tebligatı, randevu, bilgilendirme, davet...)?
+2. Okuyucudan somut olarak ne yapması isteniyor? Hiçbir şey istenmiyorsa bunu yaz.
+3. Yazıdaki TÜM tarihleri tek tek listele ve her birinin ne olduğunu belirle: yazının tarihi mi, olay tarihi mi, randevu mu, son gün mü? Son günü bu listeden gerekçesiyle seç. Son gün belirli bir tarih değil de "tebliğden itibaren 15 gün" gibi bir süreyse, süreyi aynen yaz; tarih HESAPLAMA.
+4. Yazıdaki TÜM para tutarlarını listele ve her birinin ne olduğunu belirle (ana borç, faiz, ceza, indirimli tutar...).
+5. İstenen belgeler, itiraz yolu ve yapılmazsa ne olacağı yazıda geçiyor mu? Geçmiyorsa boş bırak.
+6. Yazıda bulamadığın veya belirsiz olan her şeyi not et.
+
+Sonra bulgularını aşağıdaki JSON alanlarına doldur. Kurallar:
+- Yazıda açıkça geçmeyen bir alanı boş bırak ("" veya []) ve "emin_olunmayanlar" listesine ekle.
+- Tarih ve tutarları yazıdaki biçimiyle AYNEN kopyala (ör. "30.11.2026", "1.250,00 TL").
+- "son_tarih.kaynak_alinti": son tarihin geçtiği cümleyi yazıdan kelimesi kelimesine kopyala. Son tarih yoksa boş bırak.
+- Yalnızca JSON döndür.
+
+Şema:
+{"analiz_adimlari":["..."],"belge_turu":"","kurum":"","konu":"","istenen_islem":"","son_tarih":{"deger":"","aciklama":"","kaynak_alinti":""},"tutarlar":[{"deger":"","aciklama":""}],"diger_tarihler":[{"deger":"","aciklama":""}],"gerekli_belgeler":[],"itiraz_yolu":"","yaptirim":"","iletisim":"","emin_olunmayanlar":[]}
+
+YAZI:
+<<<
+{{METIN}}
+>>>

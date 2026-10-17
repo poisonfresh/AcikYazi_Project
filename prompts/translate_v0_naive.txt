@@ -1,0 +1,3 @@
+Bu JSON'daki metinleri {{DIL}} diline çevir. Aynı JSON yapısında döndür.
+
+{{JSON}}

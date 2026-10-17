@@ -4,6 +4,9 @@
 !.env.example
 .streamlit/secrets.toml
 
+# Model response cache written by prompt_engine.py
+.cache/
+
 # Python
 __pycache__/
 *.py[cod]

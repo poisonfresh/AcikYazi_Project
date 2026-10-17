@@ -1,0 +1,7 @@
+Aşağıdaki JSON, bir resmî yazıdan çıkarılmış bilgilerdir. Bunu resmî dili anlamakta zorlanan biri için sade Türkçeyle açıkla.
+
+Yalnızca şu JSON yapısında cevap ver:
+{"bu_yazi_ne":"","ne_yapmalisiniz":[""],"son_tarih_ve_yardim":"","dikkat":[]}
+
+BİLGİLER:
+{{JSON}}

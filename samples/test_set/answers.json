@@ -1,0 +1,65 @@
+{
+  "_aciklama": "C (Davut) test setinden dönüştürüldü. son_tarih_icerir: parantez içi atılarak aranır.",
+  "t1_trafik_cezasi": {
+    "son_tarih_icerir": "15 gün",
+    "tutarlar": [
+      "3.135,00 TL",
+      "2.351,25 TL"
+    ],
+    "istenen_islem": "Cezayı ödemek veya Sulh Ceza Hakimliğine itiraz",
+    "tuzak": "14.09.2026 ihlal tarihi son tarih değil"
+  },
+  "t2_ctv_borcu": {
+    "son_tarih_icerir": "30 Kasım 2026",
+    "tutarlar": [
+      "935,44 TL"
+    ],
+    "istenen_islem": "Vezneye veya IBAN'a ödeme",
+    "tuzak": "Toplam tutar alt kalemlerde kaybolmamalı"
+  },
+  "t3_goc_eksik_evrak": {
+    "son_tarih_icerir": "10 gün",
+    "tutarlar": [],
+    "istenen_islem": "Güncel sağlık sigortası poliçesini gişeye teslim",
+    "tuzak": "05.10.2026 başvuru tarihi son tarih değil"
+  },
+  "t4_sgk_odeme_emri": {
+    "son_tarih_icerir": "7 gün",
+    "tutarlar": [
+      "9.681,15 TL"
+    ],
+    "istenen_islem": "Ödeme veya itiraz",
+    "tuzak": "Toplam tutar; ağır jargon"
+  },
+  "t5_okul_katki_payi": {
+    "son_tarih_icerir": "06 Kasım 2026",
+    "tutarlar": [
+      "1.250,00 TL"
+    ],
+    "istenen_islem": "Okul Aile Birliği hesabına ödeme",
+    "tuzak": "01.09.2026 karar tarihi son tarih değil"
+  },
+  "t6_vergi_ihbarnamesi": {
+    "son_tarih_icerir": "30 gün",
+    "tutarlar": [
+      "30.800,00 TL"
+    ],
+    "istenen_islem": "Ödeme, uzlaşma veya dava",
+    "tuzak": "Kanun numaraları tarih/tutar sanılmamalı"
+  },
+  "t7_kira_ihtarnamesi": {
+    "son_tarih_icerir": "30 gün",
+    "tutarlar": [
+      "9.000,00 TL",
+      "16.500,00 TL"
+    ],
+    "istenen_islem": "Geçmiş kirayı ödeme, yeni kirayı her ayın 5'ine kadar yatırma",
+    "tuzak": "İki ayrı vade var"
+  },
+  "t8_altyapi_bilgi": {
+    "son_tarih": "",
+    "tutarlar": [],
+    "istenen_islem": "Yok, bilgilendirme",
+    "tuzak": "15 Ekim 2026 ve 45 iş günü son tarih sanılmamalı"
+  }
+}

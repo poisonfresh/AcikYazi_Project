@@ -123,51 +123,83 @@ def _squash(s: str) -> str:
 def check_date(value: str, original_text: str, field: str = "deadline") -> CheckResult:
     value = (value or "").strip()
     if not value:
-        return CheckResult(field, value, "empty", "Not specified in the letter.")
+        return CheckResult(field, value, "empty", "Yazıda belirtilmemiş.")
     model_dates = find_dates(value)
     if model_dates:
         missing = model_dates - find_dates(original_text)
         if not missing:
-            return CheckResult(field, value, "verified", "Date found in the original letter.")
-        return CheckResult(field, value, "not_found", "This date was not found in the original letter.")
+            return CheckResult(field, value, "verified", "Tarih asıl yazıda bulundu.")
+        return CheckResult(field, value, "not_found", "Bu tarih asıl yazıda bulunamadı.")
     if _squash(value) in _squash(original_text):
-        return CheckResult(field, value, "verified", "The exact wording appears in the original letter.")
-    return CheckResult(field, value, "not_found", "Date format not recognized and the text does not appear in the letter.")
+        return CheckResult(field, value, "verified", "İfade asıl yazıda aynen geçiyor.")
+    return CheckResult(field, value, "not_found", "Tarih biçimi tanınmadı ve ifade yazıda aynen geçmiyor.")
 
 
 def check_amount(value: str, original_text: str, field: str = "amount") -> CheckResult:
     value = (value or "").strip()
     if not value:
-        return CheckResult(field, value, "empty", "Not specified in the letter.")
+        return CheckResult(field, value, "empty", "Yazıda belirtilmemiş.")
     model_amounts = _amounts_in_value(value)
     if model_amounts:
         missing = model_amounts - find_amounts(original_text)
         if not missing:
-            return CheckResult(field, value, "verified", "Amount found in the original letter.")
-        return CheckResult(field, value, "not_found", "This amount was not found in the original letter.")
+            return CheckResult(field, value, "verified", "Tutar asıl yazıda bulundu.")
+        return CheckResult(field, value, "not_found", "Bu tutar asıl yazıda bulunamadı.")
     if _squash(value) in _squash(original_text):
-        return CheckResult(field, value, "verified", "The exact wording appears in the original letter.")
-    return CheckResult(field, value, "not_found", "Amount format not recognized and the text does not appear in the letter.")
+        return CheckResult(field, value, "verified", "İfade asıl yazıda aynen geçiyor.")
+    return CheckResult(field, value, "not_found", "Tutar biçimi tanınmadı ve ifade yazıda aynen geçmiyor.")
 
 
-def validate_extraction(data: dict, original_text: str) -> list[CheckResult]:
-    """Compares the deadline and amount fields of the extraction JSON with the original letter."""
-    return [
-        check_date(str(data.get("deadline") or ""), original_text),
-        check_amount(str(data.get("amount") or ""), original_text),
+def _item_values(items) -> list[str]:
+    if not isinstance(items, list):
+        items = [items] if items else []
+    return [str((x.get("deger") if isinstance(x, dict) else x) or "").strip() for x in items]
+
+
+def validate_extraction(extraction: dict, original_text: str) -> list[CheckResult]:
+    """Checks the engine's extraction (`cikarim`) against the original letter.
+
+    Uses the engine's Turkish schema: `son_tarih` is an object with `deger`,
+    `tutarlar` and `diger_tarihler` are lists of `{deger, aciklama}`.
+    """
+    deadline = extraction.get("son_tarih")
+    deadline = deadline.get("deger", "") if isinstance(deadline, dict) else deadline
+    results = [check_date(str(deadline or ""), original_text, field="son_tarih")]
+
+    amounts = [v for v in _item_values(extraction.get("tutarlar")) if v]
+    if amounts:
+        results += [check_amount(v, original_text, field="tutarlar") for v in amounts]
+    else:
+        results.append(check_amount("", original_text, field="tutarlar"))
+
+    results += [
+        check_date(v, original_text, field="diger_tarihler")
+        for v in _item_values(extraction.get("diger_tarihler"))
+        if v
     ]
+    return results
 
 
 _ARABIC_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890123456789")
 
 
-def find_missing_in_translation(source: str, translation: str) -> list[str]:
+def _flatten(value) -> str:
+    if isinstance(value, dict):
+        return "\n".join(_flatten(v) for v in value.values())
+    if isinstance(value, list):
+        return "\n".join(_flatten(v) for v in value)
+    return str(value or "")
+
+
+def find_missing_in_translation(source, translation) -> list[str]:
     """Returns the dates/amounts lost in translation (empty list = no problem).
 
-    Month names may change language in translation, so for dates it is enough
-    that the day and the year survive as numbers.
+    Accepts plain strings or the engine's `sade` / `ceviri` dicts. Month names
+    may change language in translation, so for dates it is enough that the day
+    and the year survive as numbers.
     """
-    translation = (translation or "").translate(_ARABIC_DIGITS).replace("٫", ",").replace("٬", ".")
+    source = _flatten(source)
+    translation = _flatten(translation).translate(_ARABIC_DIGITS).replace("٫", ",").replace("٬", ".")
     translation_dates = find_dates(translation)
     translation_numbers = _amounts_in_value(translation) | {
         Decimal(m.group()) for m in re.finditer(r"\d+", translation)

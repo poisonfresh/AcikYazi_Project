@@ -1,0 +1,8 @@
+Aşağıdaki resmî yazıdan bilgileri çıkar ve yalnızca şu JSON yapısında cevap ver:
+
+{"belge_turu":"","kurum":"","konu":"","istenen_islem":"","son_tarih":{"deger":"","aciklama":"","kaynak_alinti":""},"tutarlar":[{"deger":"","aciklama":""}],"diger_tarihler":[{"deger":"","aciklama":""}],"gerekli_belgeler":[],"itiraz_yolu":"","yaptirim":"","iletisim":"","emin_olunmayanlar":[]}
+
+YAZI:
+<<<
+{{METIN}}
+>>>
