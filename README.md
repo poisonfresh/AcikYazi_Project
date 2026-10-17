@@ -24,6 +24,8 @@ SDG'ler için Üretken Yapay Zekâ Hackathonu · Grup 11 · SDG 10.2 ve SDG 16.1
 ├── prompts/           # Promptlar (Prompt Mühendisi rolü ekler)
 ├── samples/           # Uydurma, anonim örnek resmî yazılar (Araştırma/Test rolü ekler)
 ├── docs/              # Rapor PDF'i ve diğer belgeler
+├── .streamlit/
+│   └── config.toml    # Arayüz teması (takım paleti)
 ├── requirements.txt
 ├── .env.example       # Örnek ortam değişkenleri (gerçek anahtar içermez)
 └── .gitignore         # .env dosyasını repo dışında tutar
@@ -127,6 +129,18 @@ Tarayıcıda `http://localhost:8501` açılır. Ardından:
 - **Tutar:** `1.250,50 TL`, `₺1.250,50`, `350 TL`, `1250 TRY`, `Türk Lirası`, `EUR`, `USD`
 
 Model hangi biçimde yazarsa yazsın değer normalize edilip asıl metindeki tarih/tutarlarla karşılaştırılır. Bulunamazsa kullanıcıya kırmızı uyarı gösterilir.
+
+## Renk paleti
+
+Arayüz, takımın ortak paletini kullanır. Tema `.streamlit/config.toml` dosyasında, rozet ve kart stilleri `app.py` içindeki `STIL` bloğundadır.
+
+| Kullanım | Yazı rengi | Arka plan |
+| --- | --- | --- |
+| Metin ve başlıklar | `#1D2433` | `#FFFFFF` |
+| Kartlar | `#1D2433` | `#F6F8FA` |
+| Uyarı ("⚠ Kontrol edin": tarih/tutar asıl metinde yok) | `#B42318` | `#FDECEA` |
+| Doğrulandı / olumlu | `#067647` | `#E7F6EC` |
+| İkincil metin ve "Belirtilmemiş" rozeti | `#5B6675` | `#FFFFFF` |
 
 ---
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from html import escape
 from pathlib import Path
 
 import streamlit as st
@@ -50,6 +51,30 @@ JSON_ALANLARI = [
     ("gerekli_belgeler", "Gerekli belgeler"),
     ("itiraz_yolu", "İtiraz yolu"),
 ]
+# Takım paleti; tema renkleri .streamlit/config.toml içinde.
+STIL = """
+<style>
+h1, h2, h3 { color: #1D2433; }
+[data-testid="stCaptionContainer"], .acik-aciklama { color: #5B6675; }
+[class*="st-key-kart-"] {
+    background-color: #F6F8FA;
+    border: 1px solid #E3E7EC;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+}
+.rozet {
+    display: inline-block;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: 0.4rem;
+}
+.rozet-uyari { color: #B42318; background-color: #FDECEA; border: 1px solid #B42318; }
+.rozet-dogru { color: #067647; background-color: #E7F6EC; border: 1px solid #067647; }
+.rozet-bos { color: #5B6675; background-color: #FFFFFF; border: 1px solid #5B6675; }
+</style>
+"""
 
 
 class AcikYaziHatasi(Exception):
@@ -246,13 +271,21 @@ def analiz_et(metin: str, hedef_dil: str | None, saglayici: str) -> dict:
     return sonuc
 
 
+def rozet(tur: str, etiket: str, aciklama: str = "") -> None:
+    """tur: "uyari" (kırmızı), "dogru" (yeşil) veya "bos" (gri)."""
+    html = f'<span class="rozet rozet-{tur}">{escape(etiket)}</span>'
+    if aciklama:
+        html += f'<span class="acik-aciklama">{escape(aciklama)}</span>'
+    st.markdown(html, unsafe_allow_html=True)
+
+
 def kontrol_etiketi(k) -> None:
     if k.durum == "dogrulandi":
-        st.markdown(f":green-badge[✓ Doğrulandı] {k.aciklama}")
+        rozet("dogru", "✓ Doğrulandı", k.aciklama)
     elif k.durum == "bulunamadi":
-        st.markdown(f":red-badge[⚠ Kontrol edin] {k.aciklama}")
+        rozet("uyari", "⚠ Kontrol edin", k.aciklama)
     else:
-        st.markdown(f":gray-badge[Belirtilmemiş] {k.aciklama}")
+        rozet("bos", "Belirtilmemiş", k.aciklama)
 
 
 def sonuclari_goster(sonuc: dict, dil_etiketi: str) -> None:
@@ -275,7 +308,7 @@ def sonuclari_goster(sonuc: dict, dil_etiketi: str) -> None:
             "Lütfen kırmızı etiketli alanları yazının aslından kontrol edin."
         )
 
-    with st.container(border=True):
+    with st.container(border=True, key="kart-cikarim"):
         st.subheader("Yazıdan çıkarılan bilgiler")
         for alan, baslik in JSON_ALANLARI:
             deger = liste_metni(veri.get(alan))
@@ -290,23 +323,24 @@ def sonuclari_goster(sonuc: dict, dil_etiketi: str) -> None:
                 st.markdown(f"- {madde}")
 
     if sonuc.get("sade"):
-        with st.container(border=True):
+        with st.container(border=True, key="kart-sade"):
             st.subheader("Sade açıklama")
             st.markdown(sonuc["sade"])
 
     if sonuc.get("ceviri"):
-        with st.container(border=True):
+        with st.container(border=True, key="kart-ceviri"):
             st.subheader(f"Çeviri: {dil_etiketi}")
             if "Arapça" in dil_etiketi:
                 st.caption(":orange-badge[Deneysel] Arapça çeviri henüz anadili Arapça biri tarafından doğrulanmadı.")
             st.markdown(sonuc["ceviri"])
             if sonuc.get("ceviri_kayip"):
-                st.markdown(
-                    ":red-badge[⚠ Kontrol edin] Çeviride şu tarih/tutarlar bulunamadı: "
-                    + ", ".join(sonuc["ceviri_kayip"])
+                rozet(
+                    "uyari",
+                    "⚠ Kontrol edin",
+                    "Çeviride şu tarih/tutarlar bulunamadı: " + ", ".join(sonuc["ceviri_kayip"]),
                 )
             else:
-                st.markdown(":green-badge[✓ Rakamlar korundu]")
+                rozet("dogru", "✓ Rakamlar korundu")
 
     with st.expander("Ham JSON ve modelin düşünce adımları"):
         st.json(veri)
@@ -316,6 +350,7 @@ def sonuclari_goster(sonuc: dict, dil_etiketi: str) -> None:
 
 def main() -> None:
     st.set_page_config(page_title="AçıkYazı", page_icon="📄", layout="centered")
+    st.markdown(STIL, unsafe_allow_html=True)
     st.title("AçıkYazı")
     st.caption(
         "Resmî yazıyı yapıştırın; ne dediğini, ne yapmanız gerektiğini ve son tarihi sade dille anlatalım. "

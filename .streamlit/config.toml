@@ -1,0 +1,18 @@
+# AçıkYazı takım paleti
+[theme]
+base = "light"
+primaryColor = "#1D2433"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F6F8FA"
+textColor = "#1D2433"
+borderColor = "#E3E7EC"
+
+# Streamlit'in yerleşik rozet ve uyarı kutuları (st.error, :red-badge[] vb.) da aynı paleti kullansın
+redColor = "#B42318"
+redTextColor = "#B42318"
+redBackgroundColor = "#FDECEA"
+greenColor = "#067647"
+greenTextColor = "#067647"
+greenBackgroundColor = "#E7F6EC"
+grayColor = "#5B6675"
+grayTextColor = "#5B6675"
