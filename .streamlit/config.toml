@@ -1,0 +1,18 @@
+# AçıkYazı team palette
+[theme]
+base = "light"
+primaryColor = "#1D2433"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F6F8FA"
+textColor = "#1D2433"
+borderColor = "#E3E7EC"
+
+# Makes Streamlit's built-in badges and alerts (st.error, :red-badge[] etc.) use the same palette
+redColor = "#B42318"
+redTextColor = "#B42318"
+redBackgroundColor = "#FDECEA"
+greenColor = "#067647"
+greenTextColor = "#067647"
+greenBackgroundColor = "#E7F6EC"
+grayColor = "#5B6675"
+grayTextColor = "#5B6675"
