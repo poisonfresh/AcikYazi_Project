@@ -155,8 +155,11 @@ Pass the letter path explicitly: the engine's and the experiment tool's built-in
 
 - **Date:** `30.11.2026`, `30/11/2026`, `30-11-26`, `2026-11-30`, `30 Kasım 2026`, `30 November 2026`
 - **Amount:** `1.250,50 TL`, `₺1.250,50`, `350 TL`, `1250 TRY`, `Türk Lirası`, `Turkish Lira`, `EUR`, `USD`
+- **Relative deadline:** `tebliğden itibaren 15 gün`, `30 gün içinde`, `15 (on beş) gün`, `iki hafta`, `1 ay`, `10 iş günü` (digits or Turkish number words; units gün, iş günü, hafta, ay, yıl)
 
-Whatever format the model uses, the value is normalized and compared with the dates/amounts in the original text. Relative deadlines such as "tebliğden itibaren 15 gün" ("within 15 days of delivery") are checked as exact wording. It also checks that the translation keeps the dates and amounts of the plain explanation (translated month names are accepted).
+Whatever format the model uses, the value is normalized and compared with the dates/amounts in the original text. A relative deadline whose number and unit (e.g. 15 gün) appear in the letter gets the green **"✓ Göreli süre: yazıda bulundu"** ("relative period: found in the letter") badge instead of a warning; the exact date then depends on the delivery (tebliğ) date, which the letter does not contain. If the period is not in the letter, it stays red. Note: the engine's own check (`prompt_engine.py`, frozen) still compares the deadline text literally, so for relative deadlines it may show "Motor: ⚠ bulunamadı" and a warning in the separate "Prompt motorunun kendi uyarıları" box; the red summary at the top ("Tarih/tutar kontrolümüz: …") reflects only `validation.py`.
+
+It also checks that the translation keeps the dates and amounts of the plain explanation (translated month names are accepted).
 
 ## Color palette
 
@@ -181,7 +184,9 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 
 - [x] Final prompts in `prompts/`, prompt log in `LOG.md`, raw results in `results/`
 - [x] 8 test letters + 5 development letters with answer keys in `samples/`
-- [ ] End-to-end run of the app with a real Gemini key on the 8 test letters (so far only mock mode was run in the app)
+- [x] End-to-end run of the app with a real Gemini key on all 13 sample letters (17.10.2026, see results below)
+- [ ] Re-run the real-API test after the relative-deadline fix in `validation.py`
+- [ ] Prompt Engineer: the engine's own check flags relative deadlines and `kaynak_alinti` quotes ending in "..." (see results below)
 - [ ] `docs/`: report PDF (file name: `TODO`)
 - [ ] Presentation link: `TODO`
 - [ ] Demo video (YouTube, unlisted): `TODO`
@@ -193,11 +198,24 @@ _This section is intentionally in Turkish (see the language note at the top)._
 
 Prompt düzeyindeki sonuçlar (`LOG.md`, test seti, `gemini-3.5-flash-lite`): `extract_v2_cot` ile son tarih 8 yazının 8'inde doğru bulundu, hiçbir yazıda son tarih uydurulmadı (0/8) ve 8 çıkarımın 8'i motorun doğrulamasından geçti. `translate_v3_ay_adi` ile 8 çevirinin 8'inde rakamlar ve Türkçe kurum adı korundu.
 
-> **TODO:** Test matrisi tamamlanınca uygulama düzeyindeki sonuçları buraya yazın.
+### Gerçek API ile uçtan uca test
+
+- **Kim / ne zaman:** Barış Yılmaz, 17.10.2026
+- **Model:** `gemini-3.5-flash-lite`
+- **Kapsam:** Tüm örnek yazılar (`samples/dev_letters` içindeki 5 yazı ve `samples/test_set` içindeki 8 yazı) uygulama üzerinden çalıştırıldı.
+- **Sonuç:** Göreli son tarihlerdeki yanlış alarmlar dışında tüm sonuçlar doğruydu.
+- **Örnek (t1, trafik cezası):** 3.135,00 TL ve 2.351,25 TL tutarları ile 14.09.2026 tarihi doğrulandı. Son tarih olarak çıkarılan "tebliğden itibaren 15 gün" ise yazıda birebir bu ifadeyle geçmediği için (yazıda: "tebliğ edildiği tarihten itibaren 15 (on beş) gün") kırmızı "Kontrol edin" etiketi aldı.
+- **Düzeltme:** `validation.py` artık göreli süreleri tanıyor. Süre (sayı ve birim) yazıda geçiyorsa yeşil "✓ Göreli süre: yazıda bulundu" etiketi gösteriliyor; geçmiyorsa kırmızı uyarı kalıyor.
+- **Bilinen sorun (prompt mühendisi için):** Prompt motorunun kendi kontrolü (`prompt_engine.py`, dondurulmuş) göreli son tarihlerde ve "..." ile biten `kaynak_alinti` alıntılarında hâlâ uyarı veriyor ("Motor: ⚠ bulunamadı" ve "Son tarihin dayandığı cümle yazıda birebir bulunamadı."). Bu uyarılar ayrı kutuda gösteriliyor.
+- **Durum:** Düzeltmeden sonra gerçek API ile **yeniden çalıştırılması gerekiyor**.
+
+### Test matrisi
+
+> **TODO:** Test matrisi tamamlanınca kalan satırları doldurun.
 
 | Test | Sonuç |
 | --- | --- |
-| Doğruluk (son tarih ve tutar, 8 yazı) | TODO / 8 |
+| Doğruluk (son tarih ve tutar, 8 yazı) | Gerçek API testinde (17.10.2026) göreli sürelerdeki yanlış alarmlar dışında doğru; düzeltme sonrası yeniden çalıştırılacak |
 | Uydurma (son tarihi olmayan / bozuk yazı) | TODO |
 | Okunabilirlik (takım dışından 2 kişi) | TODO |
 | Çeviri (EN / AR, rakamlar korunuyor mu?) | TODO |
@@ -210,7 +228,7 @@ Prompt düzeyindeki sonuçlar (`LOG.md`, test seti, `gemini-3.5-flash-lite`): `e
 
 | Role | Member |
 | --- | --- |
-| Prompt Engineer | TODO |
-| Developer | Barış |
-| Research, Testing and Ethics | TODO |
-| Presentation, Video and Submission | TODO |
+| Prompt Engineer | Muhammed Çağan Göktaş |
+| Developer | Barış Yılmaz |
+| Research, Testing and Ethics | Davut Varlık |
+| Presentation, Video and Submission | Emre Saydere |
