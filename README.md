@@ -31,6 +31,8 @@ Every call also uses the safety rules in `prompts/system.txt` (no fabrication, n
 ├── app.py               # Streamlit UI around run_pipeline(): rendering, error handling, mock-mode banner
 ├── validation.py        # Extra, model-independent regex checks of dates and amounts
 ├── prompt_engine.py     # Frozen pipeline: run_pipeline(), Gemini calls, cache, mock mode, verification
+├── run_records.py       # Builds/saves run records (result JSON + metadata) for the app and run_samples.py
+├── run_samples.py       # Batch test: all sample letters → results/real_api/<date>/ + ozet.md / ozet.csv
 ├── run_experiments.py   # Prompt Engineer's tool: compares prompt versions, writes results/ and LOG.md tables
 ├── LOG.md               # Prompt development log (versions, hypotheses, results)
 ├── prompts/             # Frozen prompts
@@ -50,6 +52,8 @@ Every call also uses the safety rules in `prompts/system.txt` (no fabrication, n
 │   ├── dev_letters/     # 5 fictional development letters (incl. a prompt-injection letter) + answers.json
 │   └── test_set/        # 8 fictional test letters + answers.json
 ├── results/             # Raw experiment outputs (JSON) referenced from LOG.md
+│   ├── app_runs/        # One JSON per "Yazıyı açıkla" run in the app (committed as evidence)
+│   └── real_api/        # run_samples.py output, one folder per date (committed as evidence)
 ├── docs/                # Prompt Engineer's guide, report section draft, video script
 ├── .streamlit/
 │   └── config.toml      # UI theme (team palette)
@@ -147,7 +151,18 @@ python run_experiments.py --stage all --letters samples/test_set --mock
 
 Pass the letter path explicitly: the engine's and the experiment tool's built-in defaults still point to `dev_letters/` at the repo root, but the letters now live under `samples/`.
 
-**Personal data:** The app does not store any text. Before pasting, we recommend removing personal data such as national ID numbers, addresses and license plates.
+### Saving results (JSON)
+
+After every **Yazıyı açıkla** run the app saves the full `run_pipeline()` result to `results/app_runs/<YYYY-MM-DD_HHMMSS>_<slug>.json` and shows a **JSON'u indir** (download JSON) button. Saving can be switched off with the **Kayıt** toggle in the sidebar; the download button always works. Each record contains:
+
+- `saved_at`, `origin` (`app` or `run_samples`), `model`, `prompt_versions`, `language`, `mock`
+- `source`: the sample letter name if the pasted text is one of `samples/` (e.g. `test_set/t1_trafik_cezasi`, also used as the slug), otherwise `null`; plus the text length and the SHA-256 of its first 200 characters
+- `our_validation`: the `validation.py` checks (and missing translation values)
+- `result`: the complete engine output, including the engine's own warnings
+
+Saved runs are meant to be committed as evidence, so they are not in `.gitignore`. Mock runs get a `_mock` suffix. The API key is never written (saving refuses a record that would contain it).
+
+**Personal data:** The full letter text is never stored, but the saved result contains the extracted information (institution, dates, amounts, quotes). Before pasting a real letter, remove personal data such as national ID numbers, addresses and license plates, or switch saving off.
 
 ## Validation layer (`validation.py`)
 
@@ -157,7 +172,7 @@ Pass the letter path explicitly: the engine's and the experiment tool's built-in
 - **Amount:** `1.250,50 TL`, `₺1.250,50`, `350 TL`, `1250 TRY`, `Türk Lirası`, `Turkish Lira`, `EUR`, `USD`
 - **Relative deadline:** `tebliğden itibaren 15 gün`, `30 gün içinde`, `15 (on beş) gün`, `iki hafta`, `1 ay`, `10 iş günü` (digits or Turkish number words; units gün, iş günü, hafta, ay, yıl)
 
-Whatever format the model uses, the value is normalized and compared with the dates/amounts in the original text. A relative deadline whose number and unit (e.g. 15 gün) appear in the letter gets the green **"✓ Göreli süre: yazıda bulundu"** ("relative period: found in the letter") badge instead of a warning; the exact date then depends on the delivery (tebliğ) date, which the letter does not contain. If the period is not in the letter, it stays red. Note: the engine's own check (`prompt_engine.py`, frozen) still compares the deadline text literally, so for relative deadlines it may show "Motor: ⚠ bulunamadı" and a warning in the separate "Prompt motorunun kendi uyarıları" box; the red summary at the top ("Tarih/tutar kontrolümüz: …") reflects only `validation.py`.
+Whatever format the model uses, the value is normalized and compared with the dates/amounts in the original text. A relative deadline whose number and unit (e.g. 15 gün) appear in the letter gets the green **"✓ Göreli süre: yazıda bulundu"** ("relative period: found in the letter") badge instead of a warning; the exact date then depends on the delivery (tebliğ) date, which the letter does not contain. If the period is not in the letter, it stays red. The engine's own check (`dogrula()` in `prompt_engine.py`) is shown separately in the "Prompt motorunun kendi uyarıları" box as an extra safety layer; the red summary at the top ("Tarih/tutar kontrolümüz: …") reflects only `validation.py`. Since the Prompt Engineer's second version of the engine, `dogrula()` no longer raises false alarms for relative deadlines or `kaynak_alinti` quotes ending in "..."; it still warns about invented dates, day counts and amounts.
 
 It also checks that the translation keeps the dates and amounts of the plain explanation (translated month names are accepted).
 
@@ -185,8 +200,10 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] Final prompts in `prompts/`, prompt log in `LOG.md`, raw results in `results/`
 - [x] 8 test letters + 5 development letters with answer keys in `samples/`
 - [x] End-to-end run of the app with a real Gemini key on all 13 sample letters (17.10.2026, see results below)
-- [x] Re-run the real-API test after the relative-deadline fix in `validation.py` (17.10.2026, all sample letters passed)
-- [ ] Prompt Engineer: the engine's own check flags relative deadlines and `kaynak_alinti` quotes ending in "..." (see results below)
+- [x] Manual re-run of the real-API test after the relative-deadline fix in `validation.py` (17.10.2026, see history below)
+- [x] Prompt Engineer: the engine's own check no longer flags relative deadlines and `kaynak_alinti` quotes ending in "..." (new `prompt_engine.py`)
+- [x] App saves every run as JSON (`results/app_runs/`) and offers a download
+- [ ] Run `python run_samples.py` with the real API, commit `results/real_api/<date>/` and paste `ozet.md` into the results section below
 - [ ] `docs/`: report PDF (file name: `TODO`)
 - [ ] Presentation link: `TODO`
 - [ ] Demo video (YouTube, unlisted): `TODO`
@@ -206,9 +223,36 @@ Prompt düzeyindeki sonuçlar (`LOG.md`, test seti, `gemini-3.5-flash-lite`): `e
 - **İlk çalıştırmanın sonucu:** Göreli son tarihlerdeki yanlış alarmlar dışında tüm sonuçlar doğruydu.
 - **Örnek (t1, trafik cezası):** 3.135,00 TL ve 2.351,25 TL tutarları ile 14.09.2026 tarihi doğrulandı. Son tarih olarak çıkarılan "tebliğden itibaren 15 gün" ise yazıda birebir bu ifadeyle geçmediği için (yazıda: "tebliğ edildiği tarihten itibaren 15 (on beş) gün") kırmızı "Kontrol edin" etiketi aldı.
 - **Düzeltme:** `validation.py` artık göreli süreleri tanıyor. Süre (sayı ve birim) yazıda geçiyorsa yeşil "✓ Göreli süre: yazıda bulundu" etiketi gösteriliyor; geçmiyorsa kırmızı uyarı kalıyor.
-- **Bilinen sorun (prompt mühendisi için):** Prompt motorunun kendi kontrolü (`prompt_engine.py`, dondurulmuş) göreli son tarihlerde ve "..." ile biten `kaynak_alinti` alıntılarında hâlâ uyarı veriyor ("Motor: ⚠ bulunamadı" ve "Son tarihin dayandığı cümle yazıda birebir bulunamadı."). Bu uyarılar ayrı kutuda gösteriliyor.
-- **Düzeltme sonrası yeniden çalıştırma:** Barış Yılmaz, 17.10.2026, aynı model ve aynı 13 örnek yazı. Tüm yazılar sorunsuz geçti; bizim kontrolümüzde (`validation.py`) hiç yanlış alarm çıkmadı.
-- **Kayıtlar:** Ham çıktılar ve ekran görüntüleri `docs/` altına eklenebilir (ör. `docs/screenshots/`).
+- **Motorun yanlış alarmı (düzeltildi):** Prompt motorunun kendi kontrolü göreli son tarihlerde ve "..." ile biten `kaynak_alinti` alıntılarında uyarı veriyordu ("Motor: ⚠ bulunamadı" ve "Son tarihin dayandığı cümle yazıda birebir bulunamadı."). Prompt mühendisi bunu `prompt_engine.py` dosyasının yeni sürümünde düzeltti (yalnızca `dogrula()` değişti). Motor, yazıda olmayan (uydurulmuş) tarih, gün sayısı ve tutarlarda hâlâ uyarı veriyor; bu uyarılar güvenlik katmanı olarak ayrı kutuda gösterilmeye devam ediyor.
+- **Düzeltme sonrası elle yeniden çalıştırma (geçmiş kayıt):** Barış Yılmaz, 17.10.2026, aynı model ve aynı 13 örnek yazı, uygulama üzerinden elle kontrol edildi; göreli son tarihlerde bizim kontrolümüz (`validation.py`) artık yanlış alarm vermedi. Bu çalıştırmanın ham çıktıları kaydedilmedi; kanıtlı sonuçlar için aşağıdaki toplu teste bakın.
+- **Kayıtlar:** Toplu testin çıktıları `results/real_api/<tarih>/`, uygulamadan yapılan her çalıştırma `results/app_runs/` altına JSON olarak kaydedilir. Ekran görüntüleri `docs/screenshots/` altına eklenebilir.
+
+### Toplu test (`run_samples.py`)
+
+`run_samples.py`, `samples/dev_letters` (5) ve `samples/test_set` (8) içindeki 13 yazının hepsini `run_pipeline()` ile çalıştırır. Her yazı için:
+
+1. Tam sonucu (uygulamadaki kayıtla aynı biçimde) `results/real_api/<YYYY-MM-DD>/<yazı>.json` dosyasına kaydeder.
+2. `validation.py` kontrollerini çalıştırır.
+3. Sonucu `answers.json` ile karşılaştırır: son tarih (`run_experiments.py` ile aynı kural) ve tutarlar. Cevap anahtarlarında `kurum` alanı olmadığı için kurum karşılaştırılmaz.
+
+Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (Excel'de açılabilir). Sütunlar: yazı, son tarih doğru mu, tutarlar doğru mu, motor uyarısı, bizim uyarımız, genel sonuç (Geçti / Kontrol gerekli / Kaldı / Hata). Kotaya takılmamak için yazılar arasında 6 saniye beklenir; 429 ve sunucu hatalarında birkaç kez yeniden denenir, art arda 3 hatada betik durur.
+
+**Mac'te adım adım:**
+
+1. Terminal'i açın ve proje klasörüne gidin: `cd ~/…/disaster-preparedness-assistant`
+2. Sanal ortamı ilk kez kuruyorsanız: `python3 -m venv .venv`
+3. Sanal ortamı açın: `source .venv/bin/activate`
+4. Paketleri kurun: `pip install -r requirements.txt`
+5. `.env` dosyası yoksa: `cp .env.example .env`, sonra `open -e .env` ile açıp `GEMINI_API_KEY=` satırına anahtarınızı yazın.
+6. Önce API çağırmadan deneyin: `ACIKYAZI_MOCK=1 python run_samples.py` (çıktı `results/real_api/<tarih>_mock/` altına gider; sahte cevaplar olduğu için doğruluk kanıtı değildir, bu klasörü commit etmeyin).
+7. Önbelleği temizleyin ki cevaplar yeniden üretilsin: `rm -rf .cache`
+8. Gerçek API ile çalıştırın: `python run_samples.py` (dil varsayılan olarak İngilizce, böylece çeviri de test edilir; Türkçe için `--lang tr`, Arapça için `--lang ar`. Tek yazı için ör. `--only t1_trafik_cezasi`).
+9. Sonuçları açın: `open results/real_api/$(date +%F)/ozet.md`
+10. Sonuçları commit edin: `git add results/real_api results/app_runs && git commit -m "Add real-API batch results" && git push`
+
+### Toplu test sonuçları
+
+> **TODO:** `python run_samples.py` gerçek API ile çalıştırıldıktan sonra `results/real_api/<tarih>/ozet.md` içindeki tabloyu buraya yapıştırın (tarih, model ve prompt sürümleri tablonun üstünde yazıyor).
 
 ### Test matrisi
 
@@ -216,7 +260,7 @@ Prompt düzeyindeki sonuçlar (`LOG.md`, test seti, `gemini-3.5-flash-lite`): `e
 
 | Test | Sonuç |
 | --- | --- |
-| Doğruluk (son tarih ve tutar, 8 yazı) | Gerçek API testinde (17.10.2026, düzeltme sonrası) tüm yazılar sorunsuz geçti |
+| Doğruluk (son tarih ve tutar, 13 yazı) | `run_samples.py` ile ölçülecek; sonuçlar `results/real_api/<tarih>/ozet.md` dosyasına yazılır (bkz. "Toplu test sonuçları") |
 | Uydurma (son tarihi olmayan / bozuk yazı) | TODO |
 | Okunabilirlik (takım dışından 2 kişi) | TODO |
 | Çeviri (EN / AR, rakamlar korunuyor mu?) | TODO |
