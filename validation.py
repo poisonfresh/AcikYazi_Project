@@ -44,12 +44,59 @@ AMOUNT_REGEX = re.compile(
 
 _BARE_NUMBER = re.compile(rf"(?<![\d.,])(?:{_NUMBER})(?![\d])")
 
+# Relative deadlines: "tebliğden itibaren 15 gün", "15 (on beş) gün", "iki hafta", "1 ay", "10 iş günü"
+_NUMBER_WORDS = {
+    "bir": 1, "iki": 2, "üç": 3, "dört": 4, "beş": 5, "altı": 6, "yedi": 7, "sekiz": 8, "dokuz": 9,
+    "on": 10, "yirmi": 20, "otuz": 30, "kırk": 40, "elli": 50, "altmış": 60, "yetmiş": 70,
+    "seksen": 80, "doksan": 90, "yüz": 100,
+}
+_WORD = "|".join(sorted(_NUMBER_WORDS, key=len, reverse=True))
+_WORD_NUMBER = rf"(?:(?:{_WORD})\s+){{0,2}}(?:{_WORD})"
+_PARENTHESIS = r"(?:\s*\([^)]{1,40}\))?"
+RELATIVE_REGEX = re.compile(
+    rf"(?<!\w)(?:(?P<digits>\d{{1,3}})|(?P<words>{_WORD_NUMBER})){_PARENTHESIS}\s+"
+    r"(?P<unit>iş\s+gün\w*|gün\w*|hafta\w*|ay(?:lık|da|dan|a|ı|ın)?|yıl\w*)(?!\w)"
+)
+
+
+def _turkish_lower(s: str) -> str:
+    return (s or "").replace("İ", "i").replace("I", "ı").lower()
+
+
+def _words_to_number(words: str) -> int | None:
+    total = 0
+    for w in words.split():
+        n = _NUMBER_WORDS.get(w)
+        if n is None:
+            return None
+        total = total * n if n == 100 and total else total + n
+    return total or None
+
+
+def _unit(raw: str) -> str:
+    if raw.startswith("iş"):
+        return "iş günü"
+    for stem in ("gün", "hafta", "yıl"):
+        if raw.startswith(stem):
+            return stem
+    return "ay"
+
+
+def find_relative_periods(text: str) -> set[tuple[int, str]]:
+    """Returns every relative period in the text as (number, unit), e.g. (15, "gün")."""
+    result = set()
+    for m in RELATIVE_REGEX.finditer(_turkish_lower(text)):
+        n = int(m.group("digits")) if m.group("digits") else _words_to_number(m.group("words"))
+        if n:
+            result.add((n, _unit(m.group("unit"))))
+    return result
+
 
 @dataclass
 class CheckResult:
     field: str
     value: str
-    status: str  # "verified" | "not_found" | "empty"
+    status: str  # "verified" | "relative" | "not_found" | "empty"
     message: str
 
     @property
@@ -130,6 +177,16 @@ def check_date(value: str, original_text: str, field: str = "deadline") -> Check
         if not missing:
             return CheckResult(field, value, "verified", "Tarih asıl yazıda bulundu.")
         return CheckResult(field, value, "not_found", "Bu tarih asıl yazıda bulunamadı.")
+    model_periods = find_relative_periods(value)
+    if model_periods:
+        periods = ", ".join(f"{n} {unit}" for n, unit in sorted(model_periods))
+        if not model_periods - find_relative_periods(original_text):
+            return CheckResult(
+                field, value, "relative",
+                f"Göreli süre ({periods}) asıl yazıda bulundu; kesin tarih yazının size teslim (tebliğ) "
+                "edildiği güne göre hesaplanır.",
+            )
+        return CheckResult(field, value, "not_found", f"Bu süre ({periods}) asıl yazıda bulunamadı.")
     if _squash(value) in _squash(original_text):
         return CheckResult(field, value, "verified", "İfade asıl yazıda aynen geçiyor.")
     return CheckResult(field, value, "not_found", "Tarih biçimi tanınmadı ve ifade yazıda aynen geçmiyor.")

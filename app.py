@@ -158,6 +158,8 @@ def badge(kind: str, label: str, note: str = "") -> None:
 def check_badges(check, engine_found: bool | None) -> None:
     if check.status == "verified":
         html = badge_html("verified", "✓ Doğrulandı")
+    elif check.status == "relative":
+        html = badge_html("verified", "✓ Göreli süre: yazıda bulundu")
     elif check.status == "not_found":
         html = badge_html("warning", "⚠ Kontrol edin")
     else:
@@ -209,13 +211,17 @@ def show_results(result: dict, letter_text: str, language_label: str) -> None:
     for k in verification.get("kontroller") or []:
         engine_found.setdefault(k.get("alan"), {})[str(k.get("deger", "")).strip()] = bool(k.get("bulundu"))
 
-    engine_warnings = verification.get("uyarilar") or []
-    if engine_warnings:
-        st.error("**Motorun doğrulama uyarıları:**\n" + "\n".join(f"- {w}" for w in engine_warnings))
+    # Our summary reflects only validation.py; the engine's own warnings are shown separately below it.
     if any(c.is_warning for c in checks):
         st.error(
-            "Bazı tarih veya tutarlar asıl yazıda bulunamadı. "
-            "Lütfen kırmızı etiketli alanları yazının aslından kontrol edin."
+            "**Tarih/tutar kontrolümüz:** Bazı tarih veya tutarlar asıl yazıda bulunamadı. "
+            "Lütfen kırmızı \"⚠ Kontrol edin\" etiketli alanları yazının aslından kontrol edin."
+        )
+    engine_warnings = verification.get("uyarilar") or []
+    if engine_warnings:
+        st.error(
+            "**Prompt motorunun kendi uyarıları** (bizim kontrolümüzden ayrı; \"Motor:\" etiketleri):\n"
+            + "\n".join(f"- {w}" for w in engine_warnings)
         )
 
     with st.container(border=True, key="card-extraction"):
