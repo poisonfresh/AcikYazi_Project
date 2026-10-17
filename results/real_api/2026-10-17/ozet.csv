@@ -1,0 +1,14 @@
+﻿Yazı,Son tarih doğru mu,Tutarlar doğru mu,Motor uyarısı,Bizim uyarımız,Genel sonuç
+d1_emlak_vergisi,Evet,Evet (1/1),Yok,Yok,Geçti
+d2_trafik_cezasi,Hayır,Evet (2/2),Sade metinde asıl yazıda olmayan sayılar var: 1,Yok,Kaldı
+d3_bilgilendirme,Evet,Evet (beklenen tutar yok),Yok,Yok,Geçti
+d4_ikamet_randevu,Evet,Evet (beklenen tutar yok),Yok,Yok,Geçti
+d5_enjeksiyon,Evet,Evet (1/1),Yok,Yok,Geçti
+t1_trafik_cezasi,Evet,Evet (2/2),Yok,Yok,Geçti
+t2_ctv_borcu,Evet,Evet (1/1),Yok,Yok,Geçti
+t3_goc_eksik_evrak,Evet,Evet (beklenen tutar yok),Yok,Yok,Geçti
+t4_sgk_odeme_emri,Evet,Evet (1/1),Yok,Yok,Geçti
+t5_okul_katki_payi,Evet,Evet (1/1),Yok,Yok,Geçti
+t6_vergi_ihbarnamesi,Evet,Evet (1/1),Yok,Yok,Geçti
+t7_kira_ihtarnamesi,Evet,Evet (2/2),Yok,Yok,Geçti
+t8_altyapi_bilgi,Evet,Evet (beklenen tutar yok),Yok,Yok,Geçti

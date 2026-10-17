@@ -1,0 +1,147 @@
+{
+  "saved_at": "2026-10-17T22:59:58+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "dev_letters/d1_emlak_vergisi",
+    "length_chars": 768,
+    "first_200_chars_sha256": "109969b112a297299dbcdce7df1f1e33c2acd684b237819dc306f3bdb759ac11"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "30.11.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "1.486,40 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "12.10.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı Örnekşehir Belediye Başkanlığı Mali Hizmetler Müdürlüğü göndermiştir; yazının türü ödeme bildirimidir.",
+        "Okuyucudan emlak vergisi ikinci taksit tutarını en geç 30.11.2026 tarihine kadar ödemesi istenmektedir.",
+        "Yazıdaki tarihler: 12.10.2026 yazının tarihidir, 30.11.2026 son ödeme tarihidir. Son gün 30.11.2026'dır.",
+        "Yazıdaki para tutarları: 1.486,40 TL emlak vergisi ikinci taksit tutarıdır.",
+        "İstenen belgeler yazıda geçmemektedir. İtiraz yolu yazıda belirtilmemiştir. Yapılmazsa ne olacağı: belirtilen süre içinde ödenmeyen vergi borçlarına gecikme zammı uygulanacaktır.",
+        "Yazıda bulamadığım veya belirsiz olan: Gerekli belgeler, itiraz yolu, iletişim bilgileri."
+      ],
+      "belge_turu": "Ödeme Bildirimi",
+      "kurum": "T.C. Örnekşehir Belediye Başkanlığı Mali Hizmetler Müdürlüğü",
+      "konu": "Emlak Vergisi 2. Taksit Ödeme Bildirimi",
+      "istenen_islem": "Emlak vergisi ikinci taksit tutarının belediye veznelerinden, anlaşmalı bankalardan veya belediyenin internet sitesi üzerinden ödenmesi.",
+      "son_tarih": {
+        "deger": "30.11.2026",
+        "aciklama": "İkinci taksitin ödenmesi gereken son gün",
+        "kaynak_alinti": "1319 sayılı Emlak Vergisi Kanunu hükümleri uyarınca söz konusu taksitin en geç 30.11.2026 tarihine kadar ödenmesi gerekmektedir."
+      },
+      "tutarlar": [
+        {
+          "deger": "1.486,40 TL",
+          "aciklama": "2026 yılı Emlak Vergisi ikinci taksit tutarı"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "12.10.2026",
+          "aciklama": "Yazının tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Belirtilen süre içerisinde ödenmeyen vergi borçlarına 6183 sayılı Kanun gereğince gecikme zammı uygulanacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Gerekli belgeler",
+        "İtiraz yolu",
+        "İletişim bilgileri"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Bu yazı Emlak Vergisi 2. Taksit ödemesi içindir. Tutar 1.486,40 TL.",
+      "ne_yapmalisiniz": [
+        "1.486,40 TL vergiyi ödeyin.",
+        "Ödemeyi belediye veznelerinden, anlaşmalı bankalardan ya da internet sitesinden yapın."
+      ],
+      "son_tarih_ve_yardim": "Son ödeme günü: 30.11.2026. Süresinde ödenmezse gecikme zammı uygulanacaktır. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Gerekli belgeler yazıda belirtilmemiş.",
+        "İtiraz yolu yazıda belirtilmemiş.",
+        "İletişim bilgileri yazıda belirtilmemiş."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "This letter is for the Property Tax 2nd Installment payment. The amount is 1.486,40 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the 1.486,40 TL tax.",
+        "Make the payment at the municipality cash desks, contracted banks, or website."
+      ],
+      "son_tarih_ve_yardim": "Deadline: 30.11.2026. If not paid on time, a late fee will be applied. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "Required documents are not specified in the letter.",
+        "The appeal method is not specified in the letter.",
+        "Contact information is not specified in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "30.11.2026",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "1.486,40 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tarih",
+          "deger": "12.10.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 1,
+    "amounts_expected": 1,
+    "institution_ok": null
+  }
+}

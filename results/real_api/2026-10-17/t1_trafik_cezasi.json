@@ -1,0 +1,160 @@
+{
+  "saved_at": "2026-10-17T23:01:00+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t1_trafik_cezasi",
+    "length_chars": 1183,
+    "first_200_chars_sha256": "e67b26b9ba969ae37d9397fcdef590395a7eb63224d7c817c0da04cb3b8ef7d8"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "15 gün",
+        "status": "relative",
+        "message": "Göreli süre (15 gün) asıl yazıda bulundu; kesin tarih yazının size teslim (tebliğ) edildiği güne göre hesaplanır.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "3.135,00 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "2.351,25 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "diger_tarihler",
+        "value": "14.09.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı Ankara İl Emniyet Müdürlüğü Trafik Denetleme Şube Müdürlüğü göndermiştir. Yazının türü trafik idari para cezası karar tutanağı tebliğidir.",
+        "Okuyucudan somut olarak cezayı ödemesi istenmektedir. Ayrıca karara itiraz etme hakkı bulunmaktadır.",
+        "Yazıdaki tarihler: 14.09.2026 (olay tarihi). Son gün belirli bir tarih değil, tebliğden itibaren 15 gündür.",
+        "Yazıdaki tutarlar: 3.135,00 TL (idari para cezası), 2.351,25 TL (indirimli tutar).",
+        "Gerekli belgeler yazıda belirtilmemiştir. İtiraz yolu, tebliğ tarihinden itibaren en geç 15 gün içerisinde yetkili Sulh Ceza Hakimliğine müracaat etmektir. Yapılmazsa vadesinde ödenmeyen tutarlara aylık %5 oranında gecikme zammı uygulanacaktır.",
+        "Yazıda bulamadığımız veya belirsiz olan her şey: Yazının tebliğ tarihi ve belge numarası (seri sıra numarası MA-123456 hariç dosya bazında) yazıda yer almamaktadır."
+      ],
+      "belge_turu": "Trafik İdari Para Cezası Karar Tutanağı Tebliği",
+      "kurum": "T.C. İÇİŞLERİ BAKANLIĞI EMNİYET GENEL MÜDÜRLÜĞÜ - Ankara İl Emniyet Müdürlüğü Trafik Denetleme Şube Müdürlüğü",
+      "konu": "Trafik İdari Para Cezası Karar Tutanağı Tebliği",
+      "istenen_islem": "Trafik idari para cezasının ödenmesi",
+      "son_tarih": {
+        "deger": "15 gün",
+        "aciklama": "Tebliğ edildiği tarihten itibaren 15 gün zarfında ödenmesi halinde indirim uygulanır ve itiraz edilebilir.",
+        "kaynak_alinti": "İşbu kararın tarafınıza tebliğ edildiği tarihten itibaren 15 (on beş) gün zarfında ödenmesi halinde, 5326 sayılı Kabahatler Kanunu'nun 17. maddesinin 6. fıkrası gereğince dörtte bir (%25) oranında indirim tatbik edilerek 2.351,25 TL olarak tahsil edilecektir."
+      },
+      "tutarlar": [
+        {
+          "deger": "3.135,00 TL",
+          "aciklama": "idari para cezası"
+        },
+        {
+          "deger": "2.351,25 TL",
+          "aciklama": "dörtte bir (%25) oranında indirim tatbik edilmiş tutar"
+        }
+      ],
+      "diger_tarihler": [
+        {
+          "deger": "14.09.2026",
+          "aciklama": "aracın kuralı ihlal ettiği olay tarihi"
+        }
+      ],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "Karara karşı, tebliğ tarihinden itibaren en geç 15 gün içerisinde yetkili Sulh Ceza Hakimliğine müracaatla itiraz hakkınız mahfuzdur.",
+      "yaptirim": "Vadesinde ödenmeyen tutarlara aylık %5 oranında gecikme zammı uygulanacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Yazının tebliğ tarihi",
+        "İletişim bilgileri"
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Bu yazı bir trafik cezasıdır. Ankara İl Emniyet Müdürlüğü tarafından gönderilmiştir. Ceza tutarı 3.135,00 TL'dir.",
+      "ne_yapmalisiniz": [
+        "Cezayı ödeyebilirsiniz.",
+        "Karara itiraz edebilirsiniz."
+      ],
+      "son_tarih_ve_yardim": "Süre, yazının size resmî olarak teslim edildiği günden sonra 15 gündür. 15 gün içinde öderseniz ceza 2.351,25 TL olur. İtiraz etmek isterseniz yetkili Sulh Ceza Hakimliğine başvurabilirsiniz. Zamanında ödemezseniz aylık %5 gecikme zammı uygulanır. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazının tebliğ tarihi belirtilmemiş.",
+        "İletişim bilgileri yazıda yok."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "This letter is a traffic fine. It was sent by the Provincial Directorate of Security of Ankara (Ankara İl Emniyet Müdürlüğü). The fine amount is 3.135,00 TL.",
+      "ne_yapmalisiniz": [
+        "You can pay the fine.",
+        "You can object to the decision."
+      ],
+      "son_tarih_ve_yardim": "The period is 15 days after the day the letter is officially delivered to you. If you pay within 15 days, the fine will be 2.351,25 TL. If you want to object, you can apply to the authorized Criminal Judgeship of Peace (Sulh Ceza Hakimliği). If you do not pay on time, a monthly 5% late fee will be applied. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The delivery date of the letter is not specified.",
+        "Contact information is not in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "15 gün",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "3.135,00 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "2.351,25 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tarih",
+          "deger": "14.09.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 2,
+    "amounts_expected": 2,
+    "institution_ok": null
+  }
+}

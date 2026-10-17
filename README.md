@@ -203,7 +203,8 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] Manual re-run of the real-API test after the relative-deadline fix in `validation.py` (17.10.2026, see history below)
 - [x] Prompt Engineer: the engine's own check no longer flags relative deadlines and `kaynak_alinti` quotes ending in "..." (new `prompt_engine.py`)
 - [x] App saves every run as JSON (`results/app_runs/`) and offers a download
-- [ ] Run `python run_samples.py` with the real API, commit `results/real_api/<date>/` and paste `ozet.md` into the results section below
+- [x] Batch run of `python run_samples.py` with the real API (17.10.2026, 12/13 passed, results in `results/real_api/2026-10-17/`)
+- [ ] Prompt Engineer: look at the d2 finding in the results section below (deadline choice, "bir ay" → "1 ay")
 - [ ] `docs/`: report PDF (file name: `TODO`)
 - [ ] Presentation link: `TODO`
 - [ ] Demo video (YouTube, unlisted): `TODO`
@@ -252,7 +253,36 @@ Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (
 
 ### Toplu test sonuçları
 
-> **TODO:** `python run_samples.py` gerçek API ile çalıştırıldıktan sonra `results/real_api/<tarih>/ozet.md` içindeki tabloyu buraya yapıştırın (tarih, model ve prompt sürümleri tablonun üstünde yazıyor).
+- **Ne zaman:** 17.10.2026, 22:59 (UTC+3)
+- **Model ve promptlar:** `gemini-3.5-flash-lite`; `extract_v2_cot`, `simplify_v3_goreli_sure`, `translate_v3_ay_adi`; açıklama dili İngilizce (`en`), böylece çeviri de test edildi.
+- **Sonuç:** 13 yazı: **12 Geçti, 1 Kaldı (`d2_trafik_cezasi`), 0 Hata.** Bizim kontrolümüz (`validation.py`) hiçbir yazıda uyarı vermedi; motor yalnızca d2'de uyardı.
+- **Klasör:** [`results/real_api/2026-10-17/`](results/real_api/2026-10-17/) (her yazının tam JSON'u, [`ozet.md`](results/real_api/2026-10-17/ozet.md) ve [`ozet.csv`](results/real_api/2026-10-17/ozet.csv)).
+- **Not:** [`results/real_api/2026-10-17_mock/`](results/real_api/2026-10-17_mock/) aynı gün deneme (mock) modunda yapılmış bir deneme çalıştırmasıdır. Cevaplar sahtedir, model çağrılmamıştır; **doğruluk kanıtı değildir**, yalnızca betiğin çalıştığını gösterir.
+
+| Yazı | Son tarih doğru mu | Tutarlar doğru mu | Motor uyarısı | Bizim uyarımız | Genel sonuç |
+|---|---|---|---|---|---|
+| d1_emlak_vergisi | Evet | Evet (1/1) | Yok | Yok | Geçti |
+| d2_trafik_cezasi | Hayır | Evet (2/2) | Sade metinde asıl yazıda olmayan sayılar var: 1 | Yok | Kaldı |
+| d3_bilgilendirme | Evet | Evet (beklenen tutar yok) | Yok | Yok | Geçti |
+| d4_ikamet_randevu | Evet | Evet (beklenen tutar yok) | Yok | Yok | Geçti |
+| d5_enjeksiyon | Evet | Evet (1/1) | Yok | Yok | Geçti |
+| t1_trafik_cezasi | Evet | Evet (2/2) | Yok | Yok | Geçti |
+| t2_ctv_borcu | Evet | Evet (1/1) | Yok | Yok | Geçti |
+| t3_goc_eksik_evrak | Evet | Evet (beklenen tutar yok) | Yok | Yok | Geçti |
+| t4_sgk_odeme_emri | Evet | Evet (1/1) | Yok | Yok | Geçti |
+| t5_okul_katki_payi | Evet | Evet (1/1) | Yok | Yok | Geçti |
+| t6_vergi_ihbarnamesi | Evet | Evet (1/1) | Yok | Yok | Geçti |
+| t7_kira_ihtarnamesi | Evet | Evet (2/2) | Yok | Yok | Geçti |
+| t8_altyapi_bilgi | Evet | Evet (beklenen tutar yok) | Yok | Yok | Geçti |
+
+#### Bilinen bulgu (prompt mühendisi için): `d2_trafik_cezasi` neden kaldı?
+
+Promptlar ve motor değiştirilmedi; aşağıdaki yalnızca bir tespit.
+
+- **Model tarih hesaplamadı.** Son tarih olarak `"tebliğ tarihinden itibaren bir ay"` çıkardı (`kaynak_alinti`: "Cezanın tebliğ tarihinden itibaren bir ay içinde ödenmesi gerekmektedir."). Bu ifade yazıda birebir geçiyor; bizim kontrolümüz de bunu yeşil "Göreli süre: yazıda bulundu" olarak işaretledi.
+- **Kalmasının nedeni süre seçimi.** Yazıda iki süre var: indirimli ödeme (%25, 1.625,25 TL) ve itiraz için **15 gün**, ödeme yükümlülüğü için **bir ay**. Cevap anahtarı (`samples/dev_letters/answers.json`) son tarihin "15 gün" içermesini bekliyor; model ise "bir ay"ı seçti. Modelin cevabı yazıya göre savunulabilir, ama daha erken ve önemli olan 15 günlük süre son tarih alanında yok. Cevap anahtarının mı, extraction promptunun mu (ör. "birden çok süre varsa en erken olanı seç") değişeceğine prompt mühendisi karar vermeli.
+- **Sade metinde 15 günlük indirim süresi kayboldu.** Sade açıklama indirimli tutarı (1.625,25 TL) veriyor, ama bu tutar için 15 gün içinde ödemek gerektiğini söylemiyor. İtiraz için 15 gün yalnızca "dikkat" kısmında geçiyor. Okuyucu indirimi kaçırabilir.
+- **Motor uyarısının kaynağı "1" sayısı.** Uyarı: "Sade metinde asıl yazıda olmayan sayılar var: 1". Sade metin, yazıdaki yazıyla "bir ay" ifadesini rakamla "1 ay içinde" diye yazmış. Asıl yazıda tek başına "1" sayısı geçmediği için motorun `dogrula()` kontrolü bunu yeni sayı saydı. Bilgi yanlış değil, ama motorun uyarı vermesi güvenlik katmanı açısından doğru davranış; uyarı kutusu gösterilmeye devam ediyor. Prompt tarafında yazıdaki sayıların yazıldığı biçimde korunması istenebilir.
 
 ### Test matrisi
 
@@ -260,7 +290,7 @@ Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (
 
 | Test | Sonuç |
 | --- | --- |
-| Doğruluk (son tarih ve tutar, 13 yazı) | `run_samples.py` ile ölçülecek; sonuçlar `results/real_api/<tarih>/ozet.md` dosyasına yazılır (bkz. "Toplu test sonuçları") |
+| Doğruluk (son tarih ve tutar, 13 yazı) | Gerçek API, 17.10.2026: 12/13 geçti; tutarlar 13/13 doğru, son tarih 12/13 doğru (d2 kaldı, bkz. "Toplu test sonuçları") |
 | Uydurma (son tarihi olmayan / bozuk yazı) | TODO |
 | Okunabilirlik (takım dışından 2 kişi) | TODO |
 | Çeviri (EN / AR, rakamlar korunuyor mu?) | TODO |

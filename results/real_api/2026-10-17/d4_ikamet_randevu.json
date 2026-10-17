@@ -1,0 +1,127 @@
+{
+  "saved_at": "2026-10-17T23:00:29+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "dev_letters/d4_ikamet_randevu",
+    "length_chars": 750,
+    "first_200_chars_sha256": "eab8b3d18aad83f9f6465ea4d91c06e9ef646413f65bd066af7ab4384e87d2fd"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "05.11.2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "",
+        "status": "empty",
+        "message": "Yazıda belirtilmemiş.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı Örnekşehir İl Göç İdaresi Müdürlüğü gönderiyor ve bu bir randevu bildirimidir.",
+        "Okuyucudan 05.11.2026 tarihinde saat 10:30'daki randevuya belirtilen belgelerle birlikte gitmesi isteniyor.",
+        "Yazıdaki tek tarih 05.11.2026'dır ve randevu tarihidir.",
+        "Yazıda herhangi bir para tutarı geçmemektedir.",
+        "İstenen belgeler geçerli pasaport, 4 adet biyometrik fotoğraf, geçerli sağlık sigortası poliçesi ve adres kayıt belgesidir. İtiraz yolu yazıda geçmemektedir. Randevuya gelinmezse başvurunun işlemden kaldırılacağı belirtilmiştir.",
+        "Yazıda para tutarı ve itiraz yolu ile ilgili bilgiler bulunmamaktadır."
+      ],
+      "belge_turu": "Randevu Bildirimi",
+      "kurum": "T.C. İÇİŞLERİ BAKANLIĞI Örnekşehir İl Göç İdaresi Müdürlüğü",
+      "konu": "İkamet İzni Uzatma Başvurusu Randevu Bildirimi",
+      "istenen_islem": "Randevu saatinden en az 15 dakika önce müdürlükte hazır bulunmak ve gerekli belgeleri getirmek.",
+      "son_tarih": {
+        "deger": "05.11.2026",
+        "aciklama": "Randevu tarihi",
+        "kaynak_alinti": "İkamet izni uzatma başvurunuza ilişkin randevunuz 05.11.2026 tarihinde saat 10:30 olarak belirlenmiştir."
+      },
+      "tutarlar": [],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [
+        "Geçerli pasaport",
+        "4 adet biyometrik fotoğraf",
+        "Geçerli sağlık sigortası poliçesi",
+        "Adres kayıt belgesi"
+      ],
+      "itiraz_yolu": "",
+      "yaptirim": "Randevuya gelinmemesi halinde başvurunuz işlemden kaldırılacaktır.",
+      "iletisim": "",
+      "emin_olunmayanlar": [
+        "Para tutarı bilgisi bulunmamaktadır.",
+        "İtiraz yolu bilgisi bulunmamaktadır.",
+        "İletişim bilgisi bulunmamaktadır."
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Bu yazı ikamet izni uzatma başvurunuz için randevu bildirimidir.",
+      "ne_yapmalisiniz": [
+        "Randevu saatinden en az 15 dakika önce müdürlükte hazır olun.",
+        "Geçerli pasaportunuzu getirin.",
+        "4 adet biyometrik fotoğraf getirin.",
+        "Geçerli sağlık sigortası poliçenizi getirin.",
+        "Adres kayıt belgenizi getirin."
+      ],
+      "son_tarih_ve_yardim": "Randevu tarihi: 05.11.2026 saat 10:30. Randevuya gelmezseniz başvurunuz işlemden kaldırılacaktır. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Para tutarı, itiraz yolu ve iletişim bilgisi yazıda belirtilmemiş."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "This letter is an appointment notification for your residence permit extension application.",
+      "ne_yapmalisiniz": [
+        "Be ready at the directorate at least 15 minutes before the appointment time.",
+        "Bring your valid passport.",
+        "Bring 4 biometric photographs.",
+        "Bring your valid health insurance policy.",
+        "Bring your address registration document."
+      ],
+      "son_tarih_ve_yardim": "Appointment date: 05.11.2026 at 10:30. If you do not attend the appointment, your application will be cancelled. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The amount of money, the method of appeal, and contact information are not specified in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "05.11.2026",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 0,
+    "amounts_expected": 0,
+    "institution_ok": null
+  }
+}

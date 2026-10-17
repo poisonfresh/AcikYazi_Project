@@ -1,0 +1,160 @@
+{
+  "saved_at": "2026-10-17T23:01:12+03:00",
+  "origin": "run_samples",
+  "model": "gemini-3.5-flash-lite",
+  "prompt_versions": {
+    "extract": "extract_v2_cot",
+    "simplify": "simplify_v3_goreli_sure",
+    "translate": "translate_v3_ay_adi"
+  },
+  "language": "en",
+  "mock": false,
+  "source": {
+    "name": "test_set/t2_ctv_borcu",
+    "length_chars": 1145,
+    "first_200_chars_sha256": "077d165265aa0e2b3bc78d15f2bc5a1f193e260fd980d1432eb822bc0686ae52"
+  },
+  "our_validation": {
+    "checks": [
+      {
+        "field": "son_tarih",
+        "value": "30 Kasım 2026",
+        "status": "verified",
+        "message": "Tarih asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "850,40 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "85,04 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      },
+      {
+        "field": "tutarlar",
+        "value": "935,44 TL",
+        "status": "verified",
+        "message": "Tutar asıl yazıda bulundu.",
+        "is_warning": false
+      }
+    ],
+    "has_warning": false,
+    "translation_missing": []
+  },
+  "result": {
+    "cikarim": {
+      "analiz_adimlari": [
+        "Yazıyı T.C. Çankaya Belediye Başkanlığı Mali Hizmetler Dairesi Başkanlığı - Gelirler Şube Müdürlüğü gönderiyor ve yazı bir vergi ihbarnamesidir.",
+        "Okuyucudan 2026 yılına ait 2. taksit Çevre Temizlik Vergisi ve Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı borcu olan toplam 935,44 TL asli borcun en geç 30 Kasım 2026 tarihi mesai bitimine kadar belediye veznelerine veya belirtilen IBAN numarasına ödenmesi isteniyor.",
+        "Yazıdaki tarihler: 30 Kasım 2026 (borcun son ödeme günü). Son gün, yazıdaki 'en geç 30 Kasım 2026 tarihi mesai bitimine dek' ifadesiyle belirlenmiştir.",
+        "Yazıdaki tutarlar: 850,40 TL (2026 yılı 2. taksit Çevre Temizlik Vergisi borcu), 85,04 TL (Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı), 935,44 TL (cem'an asli borç).",
+        "Gerekli belgeler ve itiraz yolu yazıda geçmemektedir. Yapılmaması durumunda cebri tahsilat yoluna gidileceği belirtilmiştir.",
+        "Yazının başlık veya imza kısmında net bir yazı tarihi (düzenlenme tarihi) yer almamaktadır; sadece verginin ait olduğu yıl ve son ödeme tarihi bulunmaktadır."
+      ],
+      "belge_turu": "Vergi İhbarnamesi",
+      "kurum": "T.C. Çankaya Belediye Başkanlığı Mali Hizmetler Dairesi Başkanlığı - Gelirler Şube Müdürlüğü",
+      "konu": "1319 Sayılı Kanun Kapsamında Vergi İhbarnamesi",
+      "istenen_islem": "Borcun Belediyemiz veznelerine veya TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabına defaten tevdi edilmesi.",
+      "son_tarih": {
+        "deger": "30 Kasım 2026",
+        "aciklama": "Borcun son ödeme günü",
+        "kaynak_alinti": "Söz konusu meblağın, gecikme zamları hariç olmak üzere, en geç 30 Kasım 2026 tarihi mesai bitimine dek Belediyemiz veznelerine veya TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabına defaten tevdi edilmesi zorunludur."
+      },
+      "tutarlar": [
+        {
+          "deger": "850,40 TL",
+          "aciklama": "2026 yılına ait 2. taksit Çevre Temizlik Vergisi (ÇTV) borcu"
+        },
+        {
+          "deger": "85,04 TL",
+          "aciklama": "Taşınmaz Kültür Varlıklarının Korunmasına Ait Katkı Payı"
+        },
+        {
+          "deger": "935,44 TL",
+          "aciklama": "Cem'an asli borç"
+        }
+      ],
+      "diger_tarihler": [],
+      "gerekli_belgeler": [],
+      "itiraz_yolu": "",
+      "yaptirim": "Aksi takdirde 6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun hükümleri uyarınca cebri tahsilat yoluna gidilecektir.",
+      "iletisim": "TR99 0000 0000 0000 0000 0000 00 IBAN numaralı vakıf hesabı ve Belediyemiz vezneleri",
+      "emin_olunmayanlar": [
+        "Yazının düzenlendiği tarih (evrak tarihi) yazıda açıkça belirtilmemiştir."
+      ]
+    },
+    "sade": {
+      "bu_yazi_ne": "Çankaya Belediyesi vergi borcu için bildirim gönderdi. Toplam borcunuz 935,44 TL.",
+      "ne_yapmalisiniz": [
+        "850,40 TL Çevre Temizlik Vergisi borcunu ödeyin.",
+        "85,04 TL katkı payı borcunu ödeyin.",
+        "Ödemeyi belediye veznelerine veya TR99 0000 0000 0000 0000 0000 00 IBAN numarasına yapın."
+      ],
+      "son_tarih_ve_yardim": "Son ödeme günü: 30 Kasım 2026. Süresinde ödenmezse zorla tahsilat yapılır. Emin olmadığınızda yazıyı gönderen kuruma sorun.",
+      "dikkat": [
+        "Yazının düzenlendiği tarih belirtilmemiş.",
+        "İtiraz yolu yazıda yok."
+      ]
+    },
+    "ceviri": {
+      "bu_yazi_ne": "Municipality of Çankaya (Çankaya Belediyesi) sent a notification for a tax debt. Your total debt is 935,44 TL.",
+      "ne_yapmalisiniz": [
+        "Pay the 850,40 TL Environmental Cleaning Tax (Çevre Temizlik Vergisi) debt.",
+        "Pay the 85,04 TL contribution fee (katkı payı) debt.",
+        "Make the payment to the municipal cashiers (belediye vezneleri) or to the IBAN number TR99 0000 0000 0000 0000 0000 00."
+      ],
+      "son_tarih_ve_yardim": "Deadline: 30 November (Kasım) 2026. If not paid on time, collection will be made by force. When you are not sure, ask the institution that sent the letter.",
+      "dikkat": [
+        "The date the letter was issued is not specified.",
+        "The way to object is not in the letter."
+      ]
+    },
+    "dogrulama": {
+      "kontroller": [
+        {
+          "alan": "son_tarih",
+          "deger": "30 Kasım 2026",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "850,40 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "85,04 TL",
+          "bulundu": true
+        },
+        {
+          "alan": "tutar",
+          "deger": "935,44 TL",
+          "bulundu": true
+        }
+      ],
+      "uyarilar": [],
+      "sade_yeni_rakam": [],
+      "ceviri_rakam_korundu": true
+    },
+    "uyari": "Bu bir hukuki tavsiye değildir. AçıkYazı hata yapabilir. Önemli kararlardan önce yazıyı gönderen kuruma veya barodaki adli yardım bürosuna danışın.",
+    "model": "gemini-3.5-flash-lite",
+    "surumler": {
+      "extract": "extract_v2_cot",
+      "simplify": "simplify_v3_goreli_sure",
+      "translate": "translate_v3_ay_adi"
+    }
+  },
+  "answer_check": {
+    "deadline_ok": true,
+    "amounts_found": 1,
+    "amounts_expected": 1,
+    "institution_ok": null
+  }
+}
