@@ -1,0 +1,17 @@
+# Gizli anahtarlar
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Editör / sistem
+.vscode/
+.idea/
+.DS_Store
