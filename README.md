@@ -205,7 +205,7 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] Batch run of `python run_samples.py` with the real API (17.10.2026, 12/13 passed, results in `results/real_api/2026-10-17/`)
 - [x] d2 finding recorded as a limitation in `LOG.md` (decision: prompts stay frozen)
 - [x] Demo screenshots in `docs/screenshots/` (linked in the results section below)
-- [ ] `docs/`: report PDF (file name: `TODO`)
+- [x] `docs/`: report PDF ([docs/AcikYazi_Project_Report.pdf](docs/AcikYazi_Project_Report.pdf))
 - [ ] Presentation link: `TODO`
 - [ ] Demo video (YouTube, unlisted): `TODO`
 - [x] Language decision: prompts, samples, evaluation and UI stay Turkish; README and code stay English
