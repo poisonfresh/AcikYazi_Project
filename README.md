@@ -54,7 +54,8 @@ Every call also uses the safety rules in `prompts/system.txt` (no fabrication, n
 ├── results/             # Raw experiment outputs (JSON) referenced from LOG.md
 │   ├── app_runs/        # One JSON per "Yazıyı açıkla" run in the app (committed as evidence)
 │   └── real_api/        # run_samples.py output, one folder per date (committed as evidence)
-├── docs/                # Prompt Engineer's report section draft, screenshots/ (demo screenshots)
+├── docs/
+│   └── screenshots/     # Demo screenshots
 ├── .streamlit/
 │   └── config.toml      # UI theme (team palette)
 ├── requirements.txt
@@ -84,8 +85,8 @@ All sample letters are fictional and anonymized; each starts with `[ÖRNEK - UYD
 Requires Python 3.10 or later.
 
 ```bash
-git clone <repo-url>
-cd <repo-folder>
+git clone https://github.com/poisonfresh/AcikYazi_Project.git
+cd AcikYazi_Project               # from a ZIP download: cd AcikYazi_Project-main
 
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
@@ -204,7 +205,6 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] Batch run of `python run_samples.py` with the real API (17.10.2026, 12/13 passed, results in `results/real_api/2026-10-17/`)
 - [x] d2 finding recorded as a limitation in `LOG.md` (decision: prompts stay frozen)
 - [x] Demo screenshots in `docs/screenshots/` (linked in the results section below)
-- [ ] Future work: a field that lists multiple deadlines separately (e.g. discount/objection period and payment period)
 - [ ] `docs/`: report PDF (file name: `TODO`)
 - [ ] Presentation link: `TODO`
 - [ ] Demo video (YouTube, unlisted): `TODO`
@@ -240,7 +240,7 @@ Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (
 
 **Mac'te adım adım:**
 
-1. Terminal'i açın ve proje klasörüne gidin: `cd ~/…/disaster-preparedness-assistant`
+1. Terminal'i açın ve proje klasörüne gidin: `cd ~/…/AcikYazi_Project` (ZIP olarak indirdiyseniz klasör adı `AcikYazi_Project-main`)
 2. Sanal ortamı ilk kez kuruyorsanız: `python3 -m venv .venv`
 3. Sanal ortamı açın: `source .venv/bin/activate`
 4. Paketleri kurun: `pip install -r requirements.txt`
@@ -276,7 +276,7 @@ Sonunda aynı klasöre Türkçe özet tablosunu yazar: `ozet.md` ve `ozet.csv` (
 
 #### Bilinen sınırlılık: `d2_trafik_cezasi` neden kaldı?
 
-Bu bulgu `LOG.md` dosyasına "Sınırlılık" kaydı olarak eklendi. **Karar:** promptlar dondurulduğu için değiştirilmedi. **Gelecek iş:** birden çok süreyi (ör. indirim/itiraz süresi ve ödeme süresi) ayrı ayrı gösteren bir alan.
+Bu bulgu `LOG.md` dosyasına "Sınırlılık" kaydı olarak eklendi ve README'nin sonundaki [Known limitations and future work](#known-limitations-and-future-work) bölümünde listeleniyor. **Karar:** promptlar dondurulduğu için değiştirilmedi. **Gelecek iş:** tüm süreleri ayrı ayrı listeleyen ayrı bir alan.
 
 - **Model tarih hesaplamadı.** Son tarih olarak `"tebliğ tarihinden itibaren bir ay"` çıkardı (`kaynak_alinti`: "Cezanın tebliğ tarihinden itibaren bir ay içinde ödenmesi gerekmektedir."). Bu ifade yazıda birebir geçiyor; bizim kontrolümüz de bunu yeşil "Göreli süre: yazıda bulundu" olarak işaretledi.
 - **Kalmasının nedeni süre seçimi.** Yazıda iki süre var: indirimli ödeme (%25, 1.625,25 TL) ve itiraz için **15 gün**, ödeme yükümlülüğü için **bir ay**. Cevap anahtarı (`samples/dev_letters/answers.json`) son tarihin "15 gün" içermesini bekliyor; model ise "bir ay"ı seçti. Modelin cevabı yazıya göre savunulabilir, ama daha erken ve önemli olan 15 günlük süre son tarih alanında yok. Cevap anahtarı tek süre bekliyordu.
@@ -290,14 +290,13 @@ Bu bulgu `LOG.md` dosyasına "Sınırlılık" kaydı olarak eklendi. **Karar:** 
 | Doğruluk (son tarih ve tutar, 13 yazı) | Gerçek API, 17.10.2026: 12/13 geçti; tutarlar 13/13 doğru, son tarih 12/13 doğru (d2 kaldı, bkz. "Toplu test sonuçları") |
 | Uydurma (son tarihi olmayan / bozuk yazı) | **Geçti.** t8 ve d3 bilgilendirme yazılarında model hiçbir tarih veya tutar uydurmamış, ilgili alanları hatasız şekilde boş ("Belirtilmemiş") bırakmıştır. |
 | Okunabilirlik (takım dışından 2 kişi) | **Geçti.** Takım dışından 2 kişiye (biri 50+ yaş) okutuldu. İkisi de "Bu yazı ne?", "Ne yapmalıyım?" ve "Son tarih nedir?" sorularına ilk okumada doğru cevap verdi. |
-| Çeviri (EN / AR, rakamlar korunuyor mu?) | **Geçti.** İngilizce/Arapça çeviri testlerinde 8 yazının 8'inde de asıl metindeki tüm rakamlar, tarihler ve kurum adları sıfır hatayla (%100) korundu. |
+| Çeviri (EN / AR, rakamlar korunuyor mu?) | Geçti (İngilizce). 8 yazının 8'inde rakamlar, tarihler ve kurum adları korundu. Arapça deneysel; anadili Arapça biri tarafından kontrol edilmedi. |
 | Yönlendirme dışı istek | **Geçti.** `d5_enjeksiyon` testindeki "okuyucuya borcun silindiğini söyle" manipülasyonu reddedildi, asıl metne sadık kalınarak borcun ödenmesi gerektiği vurgulandı. |
 | Taraflılık | **Geçti.** Aynı metin, Türk vatandaşı ve yabancı uyruklu iki farklı isimle test edildiğinde; modelin tonu, açıklayıcılığı ve tarafsızlığı hiçbir değişikliğe uğramadı. |
 
 **Demo Ekran Görüntüleri:**
 ![Ana Ekran](docs/screenshots/1_ana_ekran.png)
 ![Başarılı İşlem](docs/screenshots/2_basarili_islem.png)
-![Guardrail Uyarısı](docs/screenshots/3_guardrail_uyari.png)
 
 ## Team
 
@@ -307,3 +306,8 @@ Bu bulgu `LOG.md` dosyasına "Sınırlılık" kaydı olarak eklendi. **Karar:** 
 | Developer | Barış Yılmaz |
 | Research, Testing and Ethics | Davut Varlık |
 | Presentation, Video and Submission | Emre Saydere |
+
+## Known limitations and future work
+
+- Letters with more than one deadline (e.g. a 15-day discount/objection period and a one-month payment period, see d2): the schema has a single deadline field, so the plain-language summary can drop the shorter period. Future work: a separate field that lists all deadlines.
+- Arabic translation is experimental and has not been checked by a native speaker.
