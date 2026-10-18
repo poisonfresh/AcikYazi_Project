@@ -206,7 +206,7 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] d2 finding recorded as a limitation in `LOG.md` (decision: prompts stay frozen)
 - [x] Demo screenshots in `docs/screenshots/` (linked in the results section below)
 - [x] `docs/`: report PDF ([docs/AcikYazi_Project_Report.pdf](docs/AcikYazi_Project_Report.pdf))
-- [ ] Presentation link: `TODO`
+- [x] Presentation link: `(https://www.youtube.com/watch?v=klouNlSEfZM)’
 - [ ] Demo video (YouTube, unlisted): `TODO`
 - [x] Language decision: prompts, samples, evaluation and UI stay Turkish; README and code stay English
 
@@ -280,7 +280,7 @@ Bu bulgu `LOG.md` dosyasına "Sınırlılık" kaydı olarak eklendi ve README'ni
 
 - **Model tarih hesaplamadı.** Son tarih olarak `"tebliğ tarihinden itibaren bir ay"` çıkardı (`kaynak_alinti`: "Cezanın tebliğ tarihinden itibaren bir ay içinde ödenmesi gerekmektedir."). Bu ifade yazıda birebir geçiyor; bizim kontrolümüz de bunu yeşil "Göreli süre: yazıda bulundu" olarak işaretledi.
 - **Kalmasının nedeni süre seçimi.** Yazıda iki süre var: indirimli ödeme (%25, 1.625,25 TL) ve itiraz için **15 gün**, ödeme yükümlülüğü için **bir ay**. Cevap anahtarı (`samples/dev_letters/answers.json`) son tarihin "15 gün" içermesini bekliyor; model ise "bir ay"ı seçti. Modelin cevabı yazıya göre savunulabilir, ama daha erken ve önemli olan 15 günlük süre son tarih alanında yok. Cevap anahtarı tek süre bekliyordu.
-- **Sade metinde 15 günlük indirim süresi kayboldu.** Sade açıklama indirimli tutarı (1.625,25 TL) veriyor, ama bu tutar için 15 gün içinde ödemek gerektiğini söylemiyor. İtiraz için 15 gün yalnızca "dikkat" kısmında geçiyor. Okuyucu indirimi kaçırabilir.
+- **Sade metinde 15 günlük indirim süresi kayboldu.** Sade açıklama indirimli tutarı (1.625,25 TL) veriyor, ama bu tutar için 15 gün içinde ödemek gerektiğini söylemiyor. İtiraz için 15 gün yalnızca "dikkat" kısmında geçiyor. Okuyucu indirimi kaçırabilir. 
 - **Motor uyarısının kaynağı "1" sayısı.** Uyarı: "Sade metinde asıl yazıda olmayan sayılar var: 1". Sade metin, yazıdaki yazıyla "bir ay" ifadesini rakamla "1 ay içinde" diye yazmış. Asıl yazıda tek başına "1" sayısı geçmediği için motorun `dogrula()` kontrolü bunu yeni sayı saydı. Bilgi yanlış değil, ama motorun uyarı vermesi güvenlik katmanı açısından doğru davranış; uyarı kutusu gösterilmeye devam ediyor.
 
 ### Test matrisi
