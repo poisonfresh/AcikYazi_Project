@@ -206,8 +206,8 @@ The UI uses the team's shared palette. The theme is in `.streamlit/config.toml`;
 - [x] d2 finding recorded as a limitation in `LOG.md` (decision: prompts stay frozen)
 - [x] Demo screenshots in `docs/screenshots/` (linked in the results section below)
 - [x] `docs/`: report PDF ([docs/AcikYazi_Project_Report.pdf](docs/AcikYazi_Project_Report.pdf))
-- [x] Presentation link: `(https://www.youtube.com/watch?v=klouNlSEfZM)’
-- [ ] Demo video (YouTube, unlisted): `TODO`
+- [x] Presentation: [docs/AcikYazi_Presentation.pdf](docs/AcikYazi_Presentation.pdf)
+- [x] Demo video (YouTube, unlisted): https://www.youtube.com/watch?v=klouNlSEfZM
 - [x] Language decision: prompts, samples, evaluation and UI stay Turkish; README and code stay English
 
 ## Çalıştırma ve değerlendirme sonuçları
